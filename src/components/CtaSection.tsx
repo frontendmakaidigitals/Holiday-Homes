@@ -26,6 +26,7 @@ const CtaSection = () => {
 							<input
 								className="mt-1 w-full rounded-lg border-0 px-3 py-3 shadow-sm"
 								placeholder="Enter your name"
+								required
 							/>
 						</div>
 						<div className="mt-4 w-full">
@@ -33,6 +34,7 @@ const CtaSection = () => {
 							<input
 								className="mt-1 w-full rounded-lg border-0 px-3 py-3 shadow-sm"
 								placeholder="Enter your email"
+								required
 							/>
 						</div>
 						<div className="mt-4 w-full">
@@ -40,6 +42,7 @@ const CtaSection = () => {
 							<input
 								className="mt-1 w-full rounded-lg border-0 px-3 py-3 shadow-sm"
 								placeholder="Enter your message"
+								required
 							/>
 						</div>
 						<ButtonPrimary loading={isSubmitting} className="mt-10 rounded-lg">

@@ -6,7 +6,6 @@ import { CustomLink } from '@/data/types'
 import React from 'react'
 import FooterNav from './FooterNav'
 
-
 export interface WidgetFooterMenu {
 	id: string
 	title: string
@@ -36,7 +35,6 @@ const widgetMenus: WidgetFooterMenu[] = [
 			{ href: '#', label: 'Security' },
 		],
 	},
-
 ]
 
 const Footer: React.FC = () => {
@@ -69,33 +67,32 @@ const Footer: React.FC = () => {
 				<div className="container grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-4 lg:gap-x-10">
 					<div className="col-span-2 grid grid-cols-4 gap-5 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
 						<div className="col-span-2 md:col-span-1">
-							<Logo className="!w-[150px]  !h-auto" />
+							<Logo className="!h-auto !w-[150px]" />
 						</div>
-						<div className="col-span-2 flex items-center justify-between md:col-span-3 w-full">
-							<SocialsList1 className="flex flex-wrap gap-2 items-center w-full lg:flex-row lg:items-center " />
+						<div className="col-span-2 flex w-full items-center justify-between md:col-span-3">
+							<SocialsList1 className="flex w-full flex-wrap items-center gap-2 lg:flex-row lg:items-center" />
 						</div>
 					</div>
 					{widgetMenus.map(renderWidgetMenuItem)}
-					<div className="w-full
-          ">
+					<div className="w-full">
 						<h2 className="font-semibold text-neutral-700 dark:text-neutral-200">
 							Get in Touch
 						</h2>
 						<ul className="mt-5 space-y-4">
-              <li className='inline-flex space-x-1'>
-              <i className='la la-map-marker text-xl  text-primary-400'></i>
+							<li className="flex items-start space-x-1">
+								<i className="la la-map-marker mt-1 text-xl text-primary-400"></i>
 								<p className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 									Some Random Address, City, Country
 								</p>
 							</li>
-              <li className='inline-flex space-x-1'>
-              <i className='la la-phone text-xl  text-primary-400'></i>
+							<li className="flex items-center space-x-1">
+								<i className="la la-phone text-xl text-primary-400"></i>
 								<p className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 									+12345 67890
 								</p>
 							</li>
-              <li className='inline-flex space-x-1'>
-              <i className='la la-at text-xl  text-primary-400'></i>
+							<li className="flex items-center space-x-1">
+								<i className="la la-at text-xl text-primary-400"></i>
 								<p className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 									info@gmail.com
 								</p>
