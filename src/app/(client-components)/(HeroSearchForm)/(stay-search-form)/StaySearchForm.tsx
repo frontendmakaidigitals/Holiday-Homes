@@ -2,7 +2,8 @@ import React, { FC } from 'react'
 import LocationInput from '../LocationInput'
 import GuestsInput from '../GuestsInput'
 import StayDatesRangeInput from './StayDatesRangeInput'
-
+import Bed from '../Bed'
+import PriceSlider from '../PriceSlider'
 const StaySearchForm: FC<{}> = ({}) => {
 	const renderForm = () => {
 		return (
@@ -11,7 +12,9 @@ const StaySearchForm: FC<{}> = ({}) => {
 				<div className="h-8 self-center border-r border-slate-200 dark:border-slate-700"></div>
 				<StayDatesRangeInput className="flex-1" />
 				<div className="h-8 self-center border-r border-slate-200 dark:border-slate-700"></div>
-				<GuestsInput className="flex-1" />
+				<PriceSlider />
+				<div className="h-8 self-center border-r border-slate-200 dark:border-slate-700"></div>
+				<Bed />
 			</form>
 		)
 	}
