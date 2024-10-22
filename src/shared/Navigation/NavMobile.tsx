@@ -104,7 +104,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 	}
 
 	return (
-		<div className="h-screen w-full transform divide-y-2 divide-neutral-100 overflow-y-auto bg-white py-2 shadow-lg ring-1 transition dark:divide-neutral-800 dark:bg-neutral-900 dark:ring-neutral-700">
+		<div className="h-screen w-full transform divide-y-2 divide-neutral-100 overflow-y-auto bg-slate-50 py-2 shadow-lg ring-1 transition dark:divide-neutral-800 dark:bg-neutral-900 dark:ring-neutral-700">
 			<div className="px-5 py-6">
 				<Logo />
 				<div className="mt-5 flex flex-col text-sm text-neutral-700 dark:text-neutral-300">
@@ -131,7 +131,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<ButtonPrimary>Get Template</ButtonPrimary>
+					<ButtonPrimary>Get Quote</ButtonPrimary>
 				</a>
 
 				<LangDropdown

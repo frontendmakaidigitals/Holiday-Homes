@@ -27,7 +27,7 @@ const SocialsList1: FC<SocialsList1Props> = ({ className = "space-y-2.5" }) => {
   };
 
   return (
-    <div className={`nc-SocialsList1 !justify-start gap-2 w-full ${className}`} data-nc-id="SocialsList1">
+    <div className={`nc-SocialsList1 w-full ${className}`} data-nc-id="SocialsList1">
       {socials.map(renderItem)}
     </div>
   );

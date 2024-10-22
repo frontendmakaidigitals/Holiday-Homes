@@ -69,10 +69,10 @@ const Footer: React.FC = () => {
 				<div className="container grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-4 lg:gap-x-10">
 					<div className="col-span-2 grid grid-cols-4 gap-5 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
 						<div className="col-span-2 md:col-span-1">
-							<Logo className="!w-[200px]  !h-auto" />
+							<Logo className="!w-[150px]  !h-auto" />
 						</div>
 						<div className="col-span-2 flex items-center justify-between md:col-span-3 w-full">
-							<SocialsList1 className="flex items-center w-full lg:flex-row lg:items-center " />
+							<SocialsList1 className="flex flex-wrap gap-2 items-center w-full lg:flex-row lg:items-center " />
 						</div>
 					</div>
 					{widgetMenus.map(renderWidgetMenuItem)}

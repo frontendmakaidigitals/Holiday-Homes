@@ -33,7 +33,7 @@ const MenuBar: FC<MenuBarProps> = ({
 			<Transition appear show={isVisable} as={Fragment}>
 				<Dialog
 					as="div"
-					className="relative z-50 overflow-hidden"
+					className="relative z-[99999999]  overflow-hidden"
 					onClose={handleCloseMenu}
 				>
 					<TransitionChild
