@@ -12,7 +12,7 @@ import PrevBtn from './PrevBtn'
 import NextBtn from './NextBtn'
 import { variants } from '@/utils/animationVariants'
 import { useWindowSize } from 'react-use'
-
+import OfferCard from './OfferCard'
 export interface SectionSliderNewCategoriesProps {
 	className?: string
 	itemClassName?: string
@@ -155,16 +155,7 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
 	})
 
 	const renderCard = (item: TaxonomyType) => {
-		switch (categoryCardType) {
-			case 'card3':
-				return <CardCategory3 taxonomy={item} />
-			case 'card4':
-				return <CardCategory4 taxonomy={item} />
-			case 'card5':
-				return <CardCategory5 taxonomy={item} />
-			default:
-				return <CardCategory3 taxonomy={item} />
-		}
+		return <OfferCard taxonomy={item} />
 	}
 
 	if (!numberOfItems) return null
