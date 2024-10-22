@@ -3,6 +3,7 @@
 import React, { Fragment, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { FC } from 'react'
+import { BanknotesIcon } from '@heroicons/react/24/outline' // Importing the icon
 import ClearDataButton from './ClearDataButton' // Clear button for resetting the price
 import ButtonSubmit from './ButtonSubmit' // Submit button if needed
 import { PathName } from '@/routers/types' // Assuming you use this for routing
@@ -38,6 +39,11 @@ const PriceSlider: FC<PriceSliderProps> = ({
 						<Popover.Button
 							className={`relative z-10 flex flex-1 items-center text-left ${fieldClassName} space-x-3 focus:outline-none`}
 						>
+							{/* Icon next to price */}
+							<div className="text-neutral-300 dark:text-neutral-400">
+								<BanknotesIcon className="h-5 w-5 lg:h-7 lg:w-7" />
+							</div>
+
 							<div className="flex-grow">
 								<span className="block font-semibold xl:text-lg">
 									Price: ${priceValue}
@@ -50,6 +56,8 @@ const PriceSlider: FC<PriceSliderProps> = ({
 								/>
 							)}
 						</Popover.Button>
+
+						{/* BUTTON SUBMIT */}
 					</div>
 
 					{open && (
