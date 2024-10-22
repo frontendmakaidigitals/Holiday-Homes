@@ -204,7 +204,6 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
 										}}
 									>
 										{renderCard(item)}
-										
 									</motion.li>
 								))}
 							</AnimatePresence>

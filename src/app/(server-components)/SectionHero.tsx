@@ -16,16 +16,16 @@ const SectionHero: FC<SectionHero3Props> = ({ className = '' }) => {
 		>
 			<div className="absolute inset-x-0 top-[10%] z-10 mx-auto flex w-full flex-col items-center space-y-4 text-center sm:top-[15%] lg:space-y-5 xl:space-y-8">
 				<span className="font-semibold text-neutral-900 sm:text-lg md:text-xl">
-					Booking tax-free from Chis. platform
+					Your next holiday – just one click away!
 				</span>
 				<h2 className="text-3xl font-bold !leading-[115%] text-black sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-					New generation <br /> of booking
+					Most Premium <br /> Properties in Dubai
 				</h2>
 				<ButtonPrimary
 					sizeClass="px-6 py-3 lg:px-8 lg:py-4 rounded-xl"
 					fontSize="text-sm sm:text-base lg:text-lg font-medium"
 				>
-					Keep calm & travel on
+					For Short Term Rental
 				</ButtonPrimary>
 				<div className="!mx-auto flex w-full max-w-lg flex-[3] md:px-3 lg:hidden">
 					<div className="mt-3 flex w-full justify-center">

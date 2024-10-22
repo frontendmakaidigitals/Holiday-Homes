@@ -16,6 +16,8 @@ import SectionClientSay from '@/components/SectionClientSay'
 import SectionOfferCard from '@/components/SectionOffer'
 import CtaSection from '@/components/CtaSection'
 import AdditionalServices from '@/components/AdditionalServices'
+import { MdArrowOutward } from 'react-icons/md'
+import Heading from '@/shared/Heading'
 const DEMO_CATS: TaxonomyType[] = [
 	{
 		id: '1',
@@ -168,6 +170,7 @@ function PageHome() {
 						subHeading="Get extra 10% off on your first trip"
 						categoryCardType="card3"
 					/>
+					<PromotinalOffers />
 				</div>
 
 				<AdditionalServices />
@@ -180,3 +183,31 @@ function PageHome() {
 }
 
 export default PageHome
+
+const PromotinalOffers = () => {
+	return (
+		<div>
+			<Heading desc="Promotional Offer">Promotional Offer</Heading>
+			<div className="grid h-[400px] w-full grid-cols-1 gap-5 lg:grid-cols-2">
+				<div className="relative flex h-full border border-gray-300 w-full cursor-pointer items-end overflow-hidden rounded-xl p-5 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
+					<img
+						src={'/OfferImage/1.png'}
+						className="absolute left-0 top-0 h-full w-full object-cover"
+					/>
+					<button className="relative z-10 flex items-center gap-2 rounded-lg bg-primary-6000 px-3 py-2 text-slate-50 transition-all duration-300 hover:bg-primary-400 hover:shadow-lg">
+						Know more <MdArrowOutward />
+					</button>
+				</div>
+				<div className="relative flex h-full border border-gray-300 w-full cursor-pointer items-end overflow-hidden rounded-xl p-5 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
+					<img
+						src={'/OfferImage/2.png'}
+						className="absolute left-0 top-0 h-full w-full object-cover"
+					/>
+					<button className="relative z-10 flex items-center gap-2 rounded-lg bg-primary-6000 px-3 py-2 text-slate-50 transition-all duration-300 hover:bg-primary-400 hover:shadow-lg">
+						Know more <MdArrowOutward />
+					</button>
+				</div>
+			</div>
+		</div>
+	)
+}
