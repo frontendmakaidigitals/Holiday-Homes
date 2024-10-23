@@ -22,19 +22,19 @@ const TestitmonialCarousal = () => {
 			name: 'Chusmanch',
 			rating: 5,
 			testimony:
-				'I am really delighted with brown stone holiday Services, the unite i stayed was clean, shiny cozy and all the service available in the building, besides thier staff treatment was very helpful, informative and respectful, I would highly recommend Brown stone holiday home for people looking for nice stay in dubai',
+				'Mr khubaib is providing superb services, what a beautiful apartment and fantastic view from balcony, i appreciate his honest services,... thank you brown stone holiday homes',
 		},
 		{
 			name: 'Анна Айдарова',
 			rating: 5,
 			testimony:
-				'I am really delighted with brown stone holiday Services, the unite i stayed was clean, shiny cozy and all the service available in the building, besides thier staff treatment was very helpful, informative and respectful, I would highly recommend Brown stone holiday home for people looking for nice stay in dubai',
+				'I had a great stay! I’m impressed with the architectures, especially the poolside where I stayed. Waseem treated me really well. I look forward to coming back!',
 		},
 		{
 			name: 'Temwekela Mbewe',
 			rating: 5,
 			testimony:
-				'I am really delighted with brown stone holiday Services, the unite i stayed was clean, shiny cozy and all the service available in the building, besides thier staff treatment was very helpful, informative and respectful, I would highly recommend Brown stone holiday home for people looking for nice stay in dubai',
+				'Thank you ,Shehzad, very much for the speed, quality, and professionalism in the work. This is not the first time we have contacted, and we are always satisfied. I recommend with all my heart!',
 		},
 		{
 			name: 'Kevin Wayne',
