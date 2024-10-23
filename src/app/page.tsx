@@ -17,6 +17,7 @@ import SectionOfferCard from '@/components/SectionOffer'
 import CtaSection from '@/components/CtaSection'
 import AdditionalServices from '@/components/AdditionalServices'
 import { MdArrowOutward } from 'react-icons/md'
+import TestitmonialCarousal from '@/components/TestitmonialCarousal'
 import Heading from '@/shared/Heading'
 const DEMO_CATS: TaxonomyType[] = [
 	{
@@ -171,6 +172,7 @@ function PageHome() {
 						categoryCardType="card3"
 					/>
 					<PromotinalOffers />
+					<TestitmonialCarousal />
 				</div>
 
 				<AdditionalServices />
@@ -189,7 +191,7 @@ const PromotinalOffers = () => {
 		<div>
 			<Heading desc="Promotional Offer">Promotional Offer</Heading>
 			<div className="grid h-[400px] w-full grid-cols-1 gap-5 lg:grid-cols-2">
-				<div className="relative flex h-full border border-gray-300 w-full cursor-pointer items-end overflow-hidden rounded-xl p-5 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
+				<div className="relative flex h-full w-full cursor-pointer items-end overflow-hidden rounded-xl border border-gray-300 p-5 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
 					<img
 						src={'/OfferImage/1.png'}
 						className="absolute left-0 top-0 h-full w-full object-cover"
@@ -198,7 +200,7 @@ const PromotinalOffers = () => {
 						Know more <MdArrowOutward />
 					</button>
 				</div>
-				<div className="relative flex h-full border border-gray-300 w-full cursor-pointer items-end overflow-hidden rounded-xl p-5 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
+				<div className="relative flex h-full w-full cursor-pointer items-end overflow-hidden rounded-xl border border-gray-300 p-5 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
 					<img
 						src={'/OfferImage/2.png'}
 						className="absolute left-0 top-0 h-full w-full object-cover"
