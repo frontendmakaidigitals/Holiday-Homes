@@ -8,7 +8,7 @@ const megaMenuDemo: MegamenuItem[] = [
 		id: ncNanoId(),
 		image:
 			'https://images.pexels.com/photos/1591373/pexels-photo-1591373.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-		title: 'Company',
+		title: 'Business Bay',
 		items: __megamenu.map((i) => ({
 			id: ncNanoId(),
 			href: '/',
@@ -19,7 +19,7 @@ const megaMenuDemo: MegamenuItem[] = [
 		id: ncNanoId(),
 		image:
 			'https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-		title: 'App Name',
+		title: 'Marina',
 		items: __megamenu.map((i) => ({
 			id: ncNanoId(),
 			href: '/',
@@ -30,7 +30,7 @@ const megaMenuDemo: MegamenuItem[] = [
 		id: ncNanoId(),
 		image:
 			'https://images.pexels.com/photos/5059013/pexels-photo-5059013.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-		title: 'City',
+		title: 'Downtown',
 		items: __megamenu.map((i) => ({
 			id: ncNanoId(),
 			href: '/',
@@ -41,7 +41,7 @@ const megaMenuDemo: MegamenuItem[] = [
 		id: ncNanoId(),
 		image:
 			'https://images.pexels.com/photos/5159141/pexels-photo-5159141.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-		title: 'Contruction',
+		title: 'Jumeriah Village Circle',
 		items: __megamenu.map((i) => ({
 			id: ncNanoId(),
 			href: '/',
@@ -52,7 +52,7 @@ const megaMenuDemo: MegamenuItem[] = [
 		id: ncNanoId(),
 		image:
 			'https://images.pexels.com/photos/7473041/pexels-photo-7473041.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-		title: 'Country',
+		title: 'Jumeriah Lake Triangle',
 		items: __megamenu.map((i) => ({
 			id: ncNanoId(),
 			href: '/',
@@ -194,7 +194,6 @@ export const NAVIGATION_DEMO: NavItemType[] = [
 		href: '/blog',
 		name: 'Become a Host',
 	},
-
 ]
 
 export const NAVIGATION_DEMO_2: NavItemType[] = [

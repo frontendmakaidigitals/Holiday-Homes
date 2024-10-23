@@ -21,11 +21,11 @@ const SectionOurFeatures: FC<SectionOurFeaturesProps> = ({
 			} ${className}`}
 			data-nc-id="SectionOurFeatures"
 		>
-			<div className="flex-grow bg-red-50">
+			<div className="flex-grow">
 				<Image src={rightImg} alt="" />
 			</div>
 			<div
-				className={`mt-10 max-w-2xl flex-shrink-0 lg:mt-0 lg:w-2/5 ${
+				className={`max-w-2xl flex-shrink-0 lg:mt-0 lg:w-2/5 ${
 					type === 'type1' ? 'lg:pl-16' : 'lg:pr-16'
 				}`}
 			>

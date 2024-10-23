@@ -94,8 +94,8 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 										{menu.megaMenu?.map((item) => (
 											<div key={item.id}>
 												<div className="px-2">
-													<div className="relative flex h-24 w-36 overflow-hidden rounded-lg">
-														<Image alt="" src={item.image} fill sizes="200px" />
+													<div className="relative flex h-32 w-full overflow-hidden rounded-lg">
+														<Image alt="" src={item.image} fill className='w-full' />
 													</div>
 												</div>
 												<p className="my-2 px-2 py-1 font-medium text-neutral-900 dark:text-neutral-200">
