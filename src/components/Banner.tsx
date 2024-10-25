@@ -2,7 +2,7 @@ import React from 'react'
 
 const Banner = () => {
 	return (
-		<div className="bg-primary-50/80 w-full rounded-lg px-3 py-5 lg:p-7">
+		<div className="w-full rounded-lg bg-primary-50/80 px-3 py-5 lg:p-7">
 			<p className="w-full text-center text-xl font-semibold lg:text-3xl">
 				Ready to Host your first BSHH guest?
 			</p>

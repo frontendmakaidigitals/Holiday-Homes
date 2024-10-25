@@ -15,24 +15,24 @@ export interface WidgetFooterMenu {
 const widgetMenus: WidgetFooterMenu[] = [
 	{
 		id: '5',
-		title: 'Getting started',
+		title: 'Site Links',
 		menus: [
-			{ href: '#', label: 'Installation' },
-			{ href: '#', label: 'Release Notes' },
-			{ href: '#', label: 'Upgrade Guide' },
-			{ href: '#', label: 'Browser Support' },
-			{ href: '#', label: 'Editor Support' },
+			{ href: '#', label: 'Our Properties' },
+			{ href: '#', label: 'Popular Area' },
+			{ href: '#', label: 'About & Services' },
+			{ href: '/Contact', label: 'Contact' },
+			{ href: '/BecomeHost', label: 'Become a Host' },
+			{ href: '#', label: 'Get Quote' },
 		],
 	},
 	{
 		id: '1',
 		title: 'Explore',
 		menus: [
-			{ href: '#', label: 'Design features' },
-			{ href: '#', label: 'Prototyping' },
-			{ href: '#', label: 'Design systems' },
-			{ href: '#', label: 'Pricing' },
-			{ href: '#', label: 'Security' },
+			{ href: '#', label: 'Help Center' },
+			{ href: '#', label: 'FAQ' },
+			{ href: '#', label: 'Privacy Policy' },
+			{ href: '#', label: 'Terms & Condition' },
 		],
 	},
 ]
@@ -67,9 +67,15 @@ const Footer: React.FC = () => {
 				<div className="container grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-4 lg:gap-x-10">
 					<div className="col-span-2 grid grid-cols-4 gap-5 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
 						<div className="col-span-2 md:col-span-1">
-							<Logo className="!h-auto !w-[150px] lg:!w-[200px]" />
+							<Logo className="!h-auto !w-[150px] lg:!w-[100px]" />
+							<p className="font-regular mt-3 text-sm">
+								We is one of the top and recognized holiday homes company in
+								Dubai. Providing premium vacation stays with immense knowledge
+								and strength
+							</p>
 						</div>
-						<div className="col-span-2 flex w-full items-center justify-between md:col-span-3">
+						<div className="col-span-2 flex w-full flex-col items-start justify-between md:col-span-3">
+							<p className="mb-2 font-semibold">Our Presence</p>
 							<SocialsList1 className="flex w-full flex-wrap items-center gap-2 lg:flex-row lg:items-center" />
 						</div>
 					</div>
@@ -82,19 +88,19 @@ const Footer: React.FC = () => {
 							<li className="flex items-start space-x-1">
 								<i className="la la-map-marker mt-1 text-xl text-primary-400"></i>
 								<p className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white">
-									Some Random Address, City, Country
+									Office - 1802 Exchange Tower, Business Bay, Dubai - UAE
 								</p>
 							</li>
 							<li className="flex items-center space-x-1">
 								<i className="la la-phone text-xl text-primary-400"></i>
 								<p className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white">
-									+12345 67890
+									+971 4339 4273
 								</p>
 							</li>
 							<li className="flex items-center space-x-1">
 								<i className="la la-at text-xl text-primary-400"></i>
 								<p className="text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white">
-									info@gmail.com
+									info@bsholidayhomes.com
 								</p>
 							</li>
 						</ul>
