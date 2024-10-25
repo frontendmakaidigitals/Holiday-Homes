@@ -7,7 +7,7 @@ const Banner = () => {
 				Ready to Host your first BSHH guest?
 			</p>
 			<p className="mt-3 w-full text-center text-lg font-medium">
-				Set up your property listing in less than 15 minutes. We're here to
+				Set up your property listing in less than 15 minutes. We`re here to
 				support you every step of the way.
 			</p>
 			<div className="flex w-full items-center justify-center">
