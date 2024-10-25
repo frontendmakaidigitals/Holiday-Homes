@@ -7,7 +7,7 @@ import PriceSlider from '../PriceSlider'
 const StaySearchForm: FC<{}> = ({}) => {
 	const renderForm = () => {
 		return (
-			<form className="relative mt-8 flex w-full rounded-3xl bg-white shadow-xl dark:bg-neutral-800 dark:shadow-2xl">
+			<form className="relative mt-8 flex w-full rounded-3xl bg-gray-50/90 shadow-xl dark:bg-neutral-800 dark:shadow-2xl">
 				<LocationInput className="flex" />
 				<div className="h-8 self-center border-r border-slate-200 dark:border-slate-700"></div>
 				<StayDatesRangeInput className="flex-1" />

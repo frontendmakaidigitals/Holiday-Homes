@@ -11,7 +11,7 @@ const ButtonSubmit: FC<Props> = ({ href = '/listing-stay-map' }) => {
 		<Link
 			href={href}
 			type="button"
-			className="flex h-14 w-full items-center justify-center rounded-3xl bg-primary-6000 text-neutral-50 hover:bg-primary-700 focus:outline-none md:h-16 md:w-16"
+			className="flex h-14 w-full items-center justify-center rounded-3xl bg-primary-6000 text-gray-50 hover:bg-primary-700 focus:outline-none md:h-16 md:w-16"
 		>
 			<span className="mr-3 md:hidden">Search</span>
 			<svg
