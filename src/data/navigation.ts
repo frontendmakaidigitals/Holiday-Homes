@@ -2,61 +2,60 @@ import { MegamenuItem, NavItemType } from '@/shared/Navigation/NavigationItem'
 import ncNanoId from '@/utils/ncNanoId'
 import { Route } from '@/routers/types'
 import __megamenu from './jsons/__megamenu.json'
-
+import businessBayImg from '@/images/MenuImages/businessbay.webp'
+import donwtownImg from '@/images/MenuImages/downtown.webp'
+import JLTImg from '@/images/MenuImages/JLT.webp'
+import JVCImg from '@/images/MenuImages/JVC.jpeg'
+import MarinaImg from '@/images/MenuImages/marina.jpg'
 const megaMenuDemo: MegamenuItem[] = [
 	{
 		id: ncNanoId(),
-		image:
-			'https://images.pexels.com/photos/1591373/pexels-photo-1591373.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+		image: businessBayImg,
 		title: 'Business Bay',
 		items: __megamenu.map((i) => ({
 			id: ncNanoId(),
 			href: '/',
-			name: i.Company,
+			name: i.BusinessBay,
 		})),
 	},
 	{
 		id: ncNanoId(),
-		image:
-			'https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+		image: MarinaImg,
 		title: 'Marina',
 		items: __megamenu.map((i) => ({
 			id: ncNanoId(),
 			href: '/',
-			name: i.AppName,
+			name: i.Marina,
 		})),
 	},
 	{
 		id: ncNanoId(),
-		image:
-			'https://images.pexels.com/photos/5059013/pexels-photo-5059013.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+		image: donwtownImg,
 		title: 'Downtown',
 		items: __megamenu.map((i) => ({
 			id: ncNanoId(),
 			href: '/',
-			name: i.City,
+			name: i.Downtown,
 		})),
 	},
 	{
 		id: ncNanoId(),
-		image:
-			'https://images.pexels.com/photos/5159141/pexels-photo-5159141.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+		image: JVCImg,
 		title: 'Jumeriah Village Circle',
 		items: __megamenu.map((i) => ({
 			id: ncNanoId(),
 			href: '/',
-			name: i.Contruction,
+			name: i.Jumeriah_Village_Circle,
 		})),
 	},
 	{
 		id: ncNanoId(),
-		image:
-			'https://images.pexels.com/photos/7473041/pexels-photo-7473041.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+		image: JLTImg,
 		title: 'Jumeriah Lake Triangle',
 		items: __megamenu.map((i) => ({
 			id: ncNanoId(),
 			href: '/',
-			name: i.Country,
+			name: i.Jumeriah_Lake_Triangle,
 		})),
 	},
 ]
@@ -191,7 +190,7 @@ export const NAVIGATION_DEMO: NavItemType[] = [
 
 	{
 		id: ncNanoId(),
-		href: '/blog',
+		href: '/BecomeHost',
 		name: 'Become a Host',
 	},
 ]

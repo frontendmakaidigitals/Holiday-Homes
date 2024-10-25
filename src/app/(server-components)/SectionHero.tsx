@@ -15,10 +15,10 @@ const SectionHero: FC<SectionHero3Props> = ({ className = '' }) => {
 			data-nc-id="SectionHero3"
 		>
 			<div className="absolute inset-x-0 top-[10%] z-10 mx-auto flex w-full flex-col items-center space-y-4 text-center sm:top-[15%] lg:space-y-5 xl:space-y-8">
-				<span className="font-semibold text-neutral-900 sm:text-lg md:text-xl">
+				<span className="font-semibold text-gray-50 sm:text-lg md:text-xl">
 					Your next holiday – just one click away!
 				</span>
-				<h2 className="text-3xl font-bold !leading-[115%] text-black sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+				<h2 className="text-3xl font-bold !leading-[115%] text-gray-100 shadow-xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
 					Most Premium <br /> Properties in Dubai
 				</h2>
 				<ButtonPrimary
@@ -39,13 +39,14 @@ const SectionHero: FC<SectionHero3Props> = ({ className = '' }) => {
 					</div>
 				</div>
 			</div>
-			<div className="aspect-h-1 aspect-w-1 relative sm:aspect-h-3 sm:aspect-w-4 lg:aspect-h-9 lg:aspect-w-16 xl:aspect-h-8">
+			<div className="aspect-h-1 aspect-w-1 relative overflow-hidden rounded-xl sm:aspect-h-3 sm:aspect-w-4 lg:aspect-h-9 lg:aspect-w-16 xl:aspect-h-8">
 				<Image
-					className="absolute inset-0 rounded-xl object-cover"
+					className="absolute inset-0 object-cover"
 					src={imagePng}
 					alt="hero"
 					priority
 				/>
+				<div className="absolute left-0 top-0 h-full w-full bg-slate-900/20" />
 			</div>
 		</div>
 	)

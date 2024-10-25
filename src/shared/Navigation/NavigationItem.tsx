@@ -3,7 +3,7 @@
 import { PathName } from '@/routers/types'
 import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { FC, Fragment, useEffect, useState } from 'react'
@@ -11,7 +11,7 @@ import React, { FC, Fragment, useEffect, useState } from 'react'
 // <--- NavItemType --->
 export interface MegamenuItem {
 	id: string
-	image: string
+	image: StaticImageData
 	title: string
 	items: NavItemType[]
 }
@@ -95,7 +95,12 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 											<div key={item.id}>
 												<div className="px-2">
 													<div className="relative flex h-32 w-full overflow-hidden rounded-lg">
-														<Image alt="" src={item.image} fill className='w-full' />
+														<Image
+															alt=""
+															src={item.image}
+															fill
+															className="w-full"
+														/>
 													</div>
 												</div>
 												<p className="my-2 px-2 py-1 font-medium text-neutral-900 dark:text-neutral-200">
