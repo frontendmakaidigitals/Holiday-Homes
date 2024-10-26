@@ -20,7 +20,7 @@ const SocialsList1: FC<SocialsList1Props> = ({ className = 'space-y-2.5' }) => {
 		return (
 			<a
 				href={item.href}
-				className="group flex items-center space-x-2 rounded-xl bg-primary-100/30 p-1 text-4xl leading-none text-neutral-700 hover:bg-slate-100 hover:text-black dark:text-neutral-300 dark:hover:text-white"
+				className="group flex items-center space-x-2 rounded-xl bg-primary-100 p-1 text-4xl leading-none text-neutral-700 hover:bg-primary-200 hover:text-black dark:text-neutral-300 dark:hover:text-white"
 				key={index}
 			>
 				<div className="text-primary-900">{item.icon}</div>

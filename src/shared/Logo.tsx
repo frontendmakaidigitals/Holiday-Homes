@@ -5,15 +5,10 @@ import Link from 'next/link'
 
 export interface LogoProps {
 	img?: StaticImageData
-	imgLight?: StaticImageData | string
 	className?: string
 }
 
-const Logo: React.FC<LogoProps> = ({
-	img = logoImg,
-	imgLight = logoImg,
-	className = 'w-20',
-}) => {
+const Logo: React.FC<LogoProps> = ({ img = logoImg, className = 'w-20' }) => {
 	return (
 		<Link
 			href="/"
@@ -22,21 +17,9 @@ const Logo: React.FC<LogoProps> = ({
 			{/* THIS USE FOR MY CLIENT */}
 			{/* PLEASE UNCOMMENT BELOW CODE AND USE IT */}
 			{img ? (
-				<img
-					className={`block ${className} ${imgLight ? 'dark:hidden' : ''}`}
-					src={'/PrimaryLogo.png'}
-					alt="Logo"
-				/>
+				<img className={`block ${className} `} src={img.src} alt="Logo" />
 			) : (
 				'Logo Here'
-			)}
-			{imgLight && (
-				<img
-					className="hidden dark:block"
-					src={'/PrimaryLogo.png'}
-					alt="Logo-Light"
-				 
-				/>
 			)}
 		</Link>
 	)

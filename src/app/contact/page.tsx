@@ -6,23 +6,32 @@ import Label from '@/components/Label'
 import Input from '@/shared/Input'
 import Textarea from '@/shared/Textarea'
 import ButtonPrimary from '@/shared/ButtonPrimary'
-import Logo from '@/shared/Logo'
 import { useState } from 'react'
 import axios from 'axios'
+import { IoChatbubblesOutline } from 'react-icons/io5'
+import { SlLocationPin } from 'react-icons/sl'
+import { LuPhoneCall } from 'react-icons/lu'
+
 export interface PageContactProps {}
 
 const info = [
 	{
-		title: ' ADDRESS',
+		title: ' Visit Us',
 		desc: 'Office - 1802 Exchange Tower, Business Bay, Dubai - UAE',
+		subtitle: 'Come say Hello at our office HQ.',
+		icon: <SlLocationPin />,
 	},
 	{
-		title: ' EMAIL',
+		title: ' Chat to us',
 		desc: ' info@bsholidayhomes.com',
+		subtitle: 'Our friendly team is always here to help.',
+		icon: <IoChatbubblesOutline />,
 	},
 	{
-		title: ' PHONE',
+		title: 'Phone',
 		desc: '+971 4339 4273',
+		subtitle: 'Mon-Fri from 8am to 5pm.',
+		icon: <LuPhoneCall />,
 	},
 ]
 
@@ -51,8 +60,10 @@ const PageContact: FC<PageContactProps> = ({}) => {
 			setResponse(error.message || error)
 		}
 	}
+
 	return (
 		<div className={`nc-PageContact overflow-hidden`}>
+		
 			<div className="mb-24 lg:mb-32">
 				<h2 className="my-16 flex items-center justify-center text-3xl font-semibold leading-[115%] text-primary-900 dark:text-neutral-100 sm:my-20 md:text-5xl md:leading-[115%]">
 					Contact Us
@@ -60,17 +71,20 @@ const PageContact: FC<PageContactProps> = ({}) => {
 				<div className="container mx-auto max-w-7xl">
 					<div className="grid flex-shrink-0 grid-cols-1 gap-12 sm:grid-cols-2">
 						<div className="max-w-sm space-y-8">
-							<div className="">
-								<Logo />
-							</div>
 							{info.map((item, index) => (
-								<div key={index}>
-									<h3 className="text-sm font-semibold uppercase tracking-wider dark:text-neutral-200">
-										{item.title}
-									</h3>
-									<span className="mt-2 block text-neutral-500 dark:text-neutral-400">
-										{item.desc}
-									</span>
+								<div key={index} className="flex items-start gap-2">
+									<div className="rounded-lg border border-gray-300 p-2 text-gray-800">
+										{item.icon}
+									</div>
+									<div>
+										<h3 className="text-lg font-bold capitalize tracking-wider dark:text-neutral-200">
+											{item.title}
+										</h3>
+										<p className="text-gray-700">{item.subtitle}</p>
+										<span className="mt-2 block font-medium text-neutral-500 dark:text-neutral-400">
+											{item.desc}
+										</span>
+									</div>
 								</div>
 							))}
 							<div>

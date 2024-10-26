@@ -89,7 +89,7 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 							>
 								<div className="overflow-hidden rounded-lg text-sm shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-white dark:ring-opacity-10">
 									<div
-										className={`relative grid gap-1 bg-white px-3 py-6 dark:bg-neutral-900 grid-cols-${menu.megaMenu?.length}`}
+										className={`relative grid gap-1 bg-white px-3 py-6 dark:bg-gray-900 grid-cols-${menu.megaMenu?.length}`}
 									>
 										{menu.megaMenu?.map((item) => (
 											<div key={item.id}>
@@ -103,7 +103,7 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 														/>
 													</div>
 												</div>
-												<p className="my-2 px-2 py-1 font-medium text-neutral-900 dark:text-neutral-200">
+												<p className="my-2 px-2 py-1 font-medium text-gray-900 dark:text-gray-200">
 													{item.title}
 												</p>
 												<ul className="grid space-y-1">
@@ -126,7 +126,7 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 			<li key={item.id}>
 				<Link
 					rel="noopener noreferrer"
-					className="inline-flex items-center rounded px-2 py-1 font-normal text-neutral-6000 hover:bg-neutral-100 hover:text-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
+					className="inline-flex items-center rounded px-2 py-1 font-normal text-gray-800  hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200"
 					href={item.href || ''}
 				>
 					{item.name}
@@ -164,7 +164,7 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 								static
 								className="sub-menu absolute left-0 top-full z-10 w-56 transform will-change-transform"
 							>
-								<ul className="relative grid space-y-1 rounded-lg bg-white py-4 text-sm shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-neutral-900 dark:ring-white dark:ring-opacity-10">
+								<ul className="relative grid space-y-1 rounded-lg bg-white py-4 text-sm shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-gray-900 dark:ring-white dark:ring-opacity-10">
 									{menuDropdown.children?.map((i) => {
 										if (i.type) {
 											return renderDropdownMenuNavlinkHasChild(i)
@@ -215,7 +215,7 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 								static
 								className="sub-menu absolute left-full top-0 z-10 w-56 pl-2"
 							>
-								<ul className="relative grid space-y-1 rounded-lg bg-white py-4 text-sm shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-neutral-900 dark:ring-white dark:ring-opacity-10">
+								<ul className="relative grid space-y-1 rounded-lg bg-white py-4 text-sm shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-gray-900 dark:ring-white dark:ring-opacity-10">
 									{item.children?.map((i) => {
 										if (i.type) {
 											return renderDropdownMenuNavlinkHasChild(i)
@@ -241,13 +241,13 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 			<Link
 				target={item.targetBlank ? '_blank' : undefined}
 				rel="noopener noreferrer"
-				className="flex items-center rounded-md px-4 py-2 font-normal text-neutral-6000 hover:bg-neutral-100 hover:text-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
+				className="flex items-center rounded-md px-4 py-2 font-normal text-gray-900 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200"
 				href={item.href || ''}
 			>
 				{item.name}
 				{item.type && (
 					<ChevronDownIcon
-						className="ml-2 h-4 w-4 text-neutral-500"
+						className="ml-2 h-4 w-4 text-gray-500"
 						aria-hidden="true"
 					/>
 				)}
@@ -260,13 +260,13 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 		return (
 			<Link
 				rel="noopener noreferrer"
-				className="inline-flex items-center rounded-full px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-200 xl:px-5 xl:text-base"
+				className="inline-flex items-center rounded-full px-4 py-2 text-sm font-normal text-gray-900 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200 xl:px-5 xl:text-base"
 				href={item.href || '/'}
 			>
 				{item.name}
 				{item.type && (
 					<ChevronDownIcon
-						className="-mr-1 ml-1 h-4 w-4 text-neutral-400"
+						className="-mr-1 ml-1 h-4 w-4 text-gray-400"
 						aria-hidden="true"
 					/>
 				)}
