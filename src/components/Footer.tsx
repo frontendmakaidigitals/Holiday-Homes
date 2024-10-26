@@ -65,7 +65,7 @@ const Footer: React.FC = () => {
 		<>
 			<div className="nc-Footer relative border-t border-neutral-200 bg-primary-900 py-24 dark:border-neutral-700 lg:py-28">
 				<div className="container grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-4 lg:gap-x-10">
-					<div className="col-span-2 grid grid-cols-4 gap-5 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
+					<div className="col-span-2 grid grid-cols-4 place-items-center gap-5 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
 						<div className="col-span-2 md:col-span-1">
 							<Logo
 								img={LogoImg}
@@ -78,7 +78,7 @@ const Footer: React.FC = () => {
 							</p>
 						</div>
 						<div className="col-span-2 flex w-full flex-col items-start justify-between md:col-span-3">
-							<p className="mb-2 font-semibold">Our Presence</p>
+							<p className="mb-2 font-semibold text-gray-100">Our Presence</p>
 							<SocialsList1 className="flex w-full flex-wrap items-center gap-2 lg:flex-row lg:items-center" />
 						</div>
 					</div>
