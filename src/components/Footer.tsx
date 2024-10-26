@@ -44,17 +44,19 @@ const Footer: React.FC = () => {
 				<h2 className="text-lg font-semibold text-gray-100 dark:text-slate-200">
 					{menu.title}
 				</h2>
-				<ul className="mt-5 space-y-4">
+				<ul className="mt-5 list-disc space-y-4">
 					{menu.menus.map((item, index) => (
-						<li key={index}>
-							<a
-								key={index}
-								className="rounded-xl px-2 py-1 text-gray-100 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-								href={item.href}
-							>
-								{item.label}
-							</a>
-						</li>
+						<div key={index} className='px-4'>
+							<li className="text-gray-50">
+								<a
+									key={index}
+									className="rounded-xl px-2 py-1 text-gray-100 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+									href={item.href}
+								>
+									{item.label}
+								</a>
+							</li>
+						</div>
 					))}
 				</ul>
 			</div>
@@ -89,7 +91,7 @@ const Footer: React.FC = () => {
 							<li className="flex items-start space-x-1">
 								<i className="la la-map-marker mt-1 text-xl text-primary-400"></i>
 								<p className="text-slate-100">
-									Office - 1802 Exchange Tower, Business Bay, Dubai - UAE
+									Office - 3307 Churchill Towers, Business Bay, Dubai - UAE
 								</p>
 							</li>
 							<li className="flex items-center space-x-1">
