@@ -1,5 +1,5 @@
 'use client'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import {
 	Select,
 	SelectContent,
@@ -10,7 +10,7 @@ import {
 import Button from '@/shared/Button'
 import Banner from '@/components/Banner'
 import Heading from '@/shared/Heading'
-
+import ButtonPrimary from '@/shared/ButtonPrimary'
 export interface PageContactProps {}
 
 const PageContact: FC<PageContactProps> = ({}) => {
@@ -41,6 +41,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 		},
 	]
 	const [isResultShown, setIsResultShown] = React.useState(false)
+	const [isSubmitting, setIsSubmitting] = useState(false)
 	const AreaDropDown = ['Light', 'Dark']
 	const Bedrooms = ['Light', 'Dark', 'System']
 	const Furnishing = ['Light', 'Dark']
@@ -158,7 +159,63 @@ const PageContact: FC<PageContactProps> = ({}) => {
 						</div>
 					</div>
 				</div>
+				<div className="container mt-20 w-full">
+					<div className="grid w-full grid-cols-1 place-items-center gap-10 py-20 lg:grid-cols-2">
+						<div className="h-[300px] w-full overflow-hidden rounded-lg lg:h-full">
+							<img
+								className="h-full w-full object-cover"
+								src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+							/>
+						</div>
+						<div className="w-full">
+							<p className="text-3xl font-semibold">
+								Sign up today and start making money
+							</p>
 
+							<form className="mt-7 w-full">
+								<div className="w-full">
+									<p className="font-semibold">Name</p>
+									<input
+										className="mt-1 w-full rounded-lg border border-gray-700 px-3 py-3 shadow-sm"
+										placeholder="Enter your name"
+										required
+									/>
+								</div>
+								<div className="mt-4 w-full">
+									<p className="font-semibold">Email</p>
+									<input
+										className="mt-1 w-full rounded-lg border border-gray-700 px-3 py-3 shadow-sm"
+										placeholder="Enter your email"
+										required
+									/>
+								</div>
+								<div className="mt-4 w-full">
+									<p className="font-semibold">Phone</p>
+									<input
+										type="number"
+										className="mt-1 w-full rounded-lg border border-gray-700 px-3 py-3 shadow-sm"
+										placeholder="Enter your Phone number"
+										required
+									/>
+								</div>
+								<div className="mt-4 w-full">
+									<p className="font-semibold">Message</p>
+									<textarea
+										className="mt-1 h-24 w-full resize-none rounded-lg border border-gray-700 px-3 py-3 shadow-sm"
+										placeholder="Enter your message"
+										required
+									/>
+								</div>
+								<ButtonPrimary
+									loading={isSubmitting}
+									className="mt-8 rounded-lg"
+								>
+									Submit
+								</ButtonPrimary>
+							</form>
+						</div>
+					</div>
+				</div>
 				<div className="container mt-20">
 					<Heading
 						className=""
