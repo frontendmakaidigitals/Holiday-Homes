@@ -32,7 +32,7 @@ const HostKeyPoints = () => {
 							key={index}
 							className={`rounded-xl bg-gray-200 bg-gradient-to-br p-6 ${item.gradient}`}
 						>
-							<p className="text-lg font-semibold xxl:text-3xl">{item.title}</p>
+							<p className="text-lg font-semibold xxl:text-4xl">{item.title}</p>
 							<p className="mt-3">
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 								eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut

@@ -6,7 +6,7 @@ const Banner = () => {
 	const [status, setStatus] = useState('')
 	const [isOpen, setIsOpen] = useState(false)
 	return (
-		<div className="w-full rounded-lg bg-primary-50/80 px-3 py-5 lg:p-7">
+		<div className="w-full rounded-lg bg-primary-50/80 px-3 mt-32 py-5 lg:p-7">
 			{isOpen && (
 				<Form setIsOpen={setIsOpen} status={status} setStatus={setStatus} />
 			)}
