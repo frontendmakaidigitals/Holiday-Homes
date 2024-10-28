@@ -11,9 +11,10 @@ const Banner = () => {
 				<Form setIsOpen={setIsOpen} status={status} setStatus={setStatus} />
 			)}
 			<p className="w-full text-center text-xl font-semibold lg:text-3xl">
-				Ready to Host your first BSHH guest?
+				Ready to Host your first <span className="text-primary-700">BSHH</span>{' '}
+				guest?
 			</p>
-			<p className="mt-3 w-full text-center text-lg font-medium">
+			<p className="mt-3 w-full text-center text-[.8rem] font-medium lg:text-lg">
 				Set up your property listing in less than 15 minutes. We`re here to
 				support you every step of the way.
 			</p>

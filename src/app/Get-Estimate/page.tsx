@@ -41,13 +41,15 @@ const PageContact: FC<PageContactProps> = ({}) => {
 		},
 	]
 
+	const [isResultShown, setIsResultShown] = React.useState(false)
+
 	const AreaDropDown = ['Light', 'Dark']
 	const Bedrooms = ['Light', 'Dark', 'System']
 	const Furnishing = ['Light', 'Dark']
 	return (
 		<div className={`nc-PageContact overflow-hidden`}>
 			<div className="mb-24 lg:mb-32">
-				<h2 className="my-16 flex flex-col items-center justify-center text-3xl font-semibold leading-[115%] text-primary-900 dark:text-neutral-100 sm:my-20 md:text-6xl md:leading-[115%]">
+				<h2 className="container my-16 flex flex-col items-center justify-center text-center text-3xl font-semibold leading-[115%] text-primary-900 dark:text-neutral-100 sm:my-20 md:text-6xl md:leading-[115%] lg:text-start">
 					Get Estimate Revenue
 					<span className="text-3xl font-medium text-black">
 						for Airbnb & Holiday Home
@@ -128,16 +130,33 @@ const PageContact: FC<PageContactProps> = ({}) => {
 								</div>
 							</div>
 						</div>
-						<div className="col-span-2 flex h-full items-center justify-center rounded-lg bg-[#9c613765] p-10">
-							<p className="text-center text-3xl font-semibold text-primary-900">
-								Count{' '}
-								<span className="font-semibold text-primary-700">how much</span>{' '}
-								you can <br />
-								<span className="font-semibold text-primary-700">
-									Earn
-								</span>{' '}
-								daily on average
-							</p>
+						<div className="col-span-1 flex h-full items-center justify-center rounded-lg bg-[#9c613765] p-10 lg:col-span-2">
+							{isResultShown ? (
+								<div className="">
+									<p className="text-2xl">
+										A <span className="font-semibold">DASH DASH</span> property
+										in <span className="font-semibold">DASH DASH</span> can earn
+									</p>
+									<p className="mt-2 text-4xl font-bold">Price + curr</p>
+									<p className="mt-1 text-lg">Daily on average*</p>
+									<p className="mt-4 text-sm">
+										*Estimates are based on realistic occupancies and similar
+										listings in your area
+									</p>
+								</div>
+							) : (
+								<p className="text-center text-3xl font-semibold text-primary-900">
+									Count{' '}
+									<span className="font-semibold text-primary-700">
+										how much
+									</span>{' '}
+									you can <br />
+									<span className="font-semibold text-primary-700">
+										Earn
+									</span>{' '}
+									daily on average
+								</p>
+							)}
 						</div>
 					</div>
 				</div>
