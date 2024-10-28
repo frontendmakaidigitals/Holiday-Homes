@@ -30,7 +30,7 @@ export default function SwiperTeams() {
 					320: { slidesPerView: 1.3 },
 					768: { slidesPerView: 3 },
 					1024: { slidesPerView: 4 },
-					1604: { slidesPerView: 4 },
+					1604: { slidesPerView: 5 },
 				}}
 				className="w-full" // Add spacing around the Swiper
 			>
