@@ -40,9 +40,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 				'https://images.pexels.com/photos/8071648/pexels-photo-8071648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
 		},
 	]
-
 	const [isResultShown, setIsResultShown] = React.useState(false)
-
 	const AreaDropDown = ['Light', 'Dark']
 	const Bedrooms = ['Light', 'Dark', 'System']
 	const Furnishing = ['Light', 'Dark']

@@ -19,7 +19,7 @@ const SectionHostHero: FC<SectionHero3Props> = ({ className = '' }) => {
 					Grow your holiday <br /> rental business with{' '}
 					<span className="text-primary-500">BSHH</span>
 				</h3>
-				<span className="w-full font-medium xxl:text-lg text-gray-200 sm:text-lg md:text-sm lg:w-2/3">
+				<span className="w-full text-sm font-medium text-gray-200 sm:text-lg md:text-sm lg:w-2/3 xxl:text-lg">
 					Becoming a BSHH host goes beyond providing a welcoming place to stay
 					for travellers worldwide. It empowers you to run a unique and
 					fulfilling business – on your terms.
