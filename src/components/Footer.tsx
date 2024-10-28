@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
 				</h2>
 				<ul className="mt-5 list-disc space-y-4">
 					{menu.menus.map((item, index) => (
-						<div key={index} className='px-4'>
+						<div key={index} className="px-4">
 							<li className="text-gray-50">
 								<a
 									key={index}
@@ -95,8 +95,26 @@ const Footer: React.FC = () => {
 								</p>
 							</li>
 							<li className="flex items-center space-x-1">
-								<i className="la la-phone text-xl text-primary-400"></i>
-								<p className="text-slate-100">+971 4339 4273</p>
+								<i className="la la-phone relative text-xl text-primary-400">
+									<div className="absolute left-0 top-0 flex size-3 items-center justify-center rounded-full bg-black font-sans text-[.4rem]">
+										1
+									</div>
+								</i>
+								<div className="flex items-center gap-4">
+									<p className="text-sm text-slate-100">Emergency:</p>
+									<p className="text-sm text-slate-100">+971 58 512 9847</p>
+								</div>
+							</li>
+							<li className="flex items-center space-x-1">
+								<i className="la la-phone relative text-xl text-primary-400">
+									<div className="absolute left-0 top-0 flex size-3 items-center justify-center rounded-full bg-black font-sans text-[.4rem]">
+										2
+									</div>
+								</i>
+								<div className="flex items-center gap-4">
+									<p className="text-sm text-slate-100">Customer Support:</p>
+									<p className="text-sm text-slate-100">+971 58 524 4501</p>
+								</div>
 							</li>
 							<li className="flex items-center space-x-1">
 								<i className="la la-at text-xl text-primary-400"></i>

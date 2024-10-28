@@ -187,6 +187,11 @@ export const NAVIGATION_DEMO: NavItemType[] = [
 		href: '/contact',
 		name: 'Contact',
 	},
+	{
+		id: ncNanoId(),
+		href: '/Get-Estimate',
+		name: 'Get Estimate',
+	},
 
 	{
 		id: ncNanoId(),
