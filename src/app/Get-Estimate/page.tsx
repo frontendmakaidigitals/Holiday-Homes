@@ -164,7 +164,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 						<div className="h-[300px] w-full overflow-hidden rounded-lg lg:h-[600px]">
 							<img
 								className="h-full w-full object-cover"
-								src="https://images.unsplash.com/photo-1546412414-c2658fffe7d9?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+								src="https://images.unsplash.com/photo-1546412414-28524ac58329?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dhttps://images.unsplash.com/photo-1546412414-c2658fffe7d9?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 							/>
 						</div>
 						<div className="w-full">
