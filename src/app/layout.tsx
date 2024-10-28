@@ -30,16 +30,18 @@ export default function RootLayout({
 			<ThemeProvider>
 				<body className="bg-white text-base text-neutral-900 dark:bg-neutral-900 dark:text-neutral-200">
 					<div className="relative z-[999999]">
-						<div className="fixed bottom-10 right-10 z-[999999] flex size-14 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[#25D366]">
+						<a
+							className="fixed bottom-10 right-10 z-[999999] flex size-14 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-green-600 bg-[#25D366] transition-all duration-300 hover:bg-green-400 hover:shadow-lg"
+							href="https://wa.me/15551234567"
+						>
 							<img
 								width={30}
 								src={
 									'https://cdn-icons-png.freepik.com/256/2585/2585165.png?semt=ais_hybrid'
 								}
 							/>
-						</div>
+						</a>
 						<HeaderFooter>{children}</HeaderFooter>{' '}
-						{/* Use HeaderFooter here */}
 					</div>
 
 					<ClientCommons />

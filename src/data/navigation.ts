@@ -189,12 +189,6 @@ export const NAVIGATION_DEMO: NavItemType[] = [
 	},
 	{
 		id: ncNanoId(),
-		href: '/Get-Estimate',
-		name: 'Get Estimate',
-	},
-
-	{
-		id: ncNanoId(),
 		href: '/BecomeHost',
 		name: 'Become a Host',
 	},

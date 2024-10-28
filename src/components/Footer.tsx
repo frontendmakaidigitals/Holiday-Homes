@@ -85,7 +85,7 @@ const Footer: React.FC = () => {
 						</div>
 					</div>
 					{widgetMenus.map(renderWidgetMenuItem)}
-					<div className="w-full">
+					<div className="col-span-2 w-full lg:col-span-1">
 						<h2 className="font-semibold text-slate-100">Get in Touch</h2>
 						<ul className="mt-5 space-y-4">
 							<li className="flex items-start space-x-1">
@@ -100,9 +100,14 @@ const Footer: React.FC = () => {
 										1
 									</div>
 								</i>
-								<div className="flex items-center gap-4">
+								<div className="flex items-center gap-1">
 									<p className="text-sm text-slate-100">Emergency:</p>
-									<p className="text-sm text-slate-100">+971 58 512 9847</p>
+									<a
+										href="tel:+971585129847"
+										className="text-sm text-slate-100"
+									>
+										+971 58 512 9847
+									</a>
 								</div>
 							</li>
 							<li className="flex items-center space-x-1">
@@ -111,9 +116,14 @@ const Footer: React.FC = () => {
 										2
 									</div>
 								</i>
-								<div className="flex items-center gap-4">
+								<div className="flex items-center gap-1">
 									<p className="text-sm text-slate-100">Customer Support:</p>
-									<p className="text-sm text-slate-100">+971 58 524 4501</p>
+									<a
+										href="tel:+971585244501"
+										className="text-sm text-slate-100"
+									>
+										+971 58 524 4501
+									</a>
 								</div>
 							</li>
 							<li className="flex items-center space-x-1">

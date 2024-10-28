@@ -11,10 +11,22 @@ export interface SocialsListProps {
 }
 
 const socialsDemo: SocialType[] = [
-	{ name: 'Facebook', icon: <FaFacebookSquare />, href: '#' },
-	{ name: 'Twitter', icon: <AiFillTikTok />, href: '#' },
+	{
+		name: 'Facebook',
+		icon: <FaFacebookSquare />,
+		href: 'https://www.facebook.com/profile.php?id=61562308124575&mibextid=LQQJ4d',
+	},
+	{
+		name: 'TikTok',
+		icon: <AiFillTikTok />,
+		href: 'https://www.tiktok.com/@bsholidayhomes?_t=8qunKUcOLgm&_r=1',
+	},
 	{ name: 'Youtube', icon: <FaYoutube />, href: '#' },
-	{ name: 'Instagram', icon: <RiInstagramFill />, href: '#' },
+	{
+		name: 'Instagram',
+		icon: <RiInstagramFill />,
+		href: 'https://www.instagram.com/bsholidayhomes?igsh=Mzl6Nzl5ZjV0NHZr&utm_source=qr',
+	},
 ]
 
 const SocialsList: FC<SocialsListProps> = ({

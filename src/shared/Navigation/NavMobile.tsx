@@ -131,7 +131,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<ButtonPrimary>Get Quote</ButtonPrimary>
+					<ButtonPrimary>Get Estimate</ButtonPrimary>
 				</a>
 			</div>
 		</div>

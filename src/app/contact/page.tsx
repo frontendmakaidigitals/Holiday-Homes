@@ -23,14 +23,29 @@ const info = [
 	},
 	{
 		title: ' Chat to us',
-		desc: ' info@bsholidayhomes.com',
+		desc: <a href="mailto:info@bsholidayhomes.com">info@bsholidayhomes.com</a>,
 		subtitle: 'Our friendly team is always here to help.',
 		icon: <IoChatbubblesOutline />,
 	},
 	{
 		title: 'Phone',
-		desc: '+971 4339 4273',
-		subtitle: 'Mon-Fri from 8am to 5pm.',
+		desc: (
+			<div className="w-full">
+				<p className="font-medium">
+					Emergency:{' '}
+					<span className="text-gray-800">
+						<a href="tel:+971585129847">+971 58 512 9847</a>
+					</span>
+				</p>
+				<p className="block font-medium">
+					Customer support:{' '}
+					<span className="text-gray-800">
+						<a href="tel:+971585244501">+971 58 524 4501</a>
+					</span>
+				</p>
+			</div>
+		),
+		subtitle: '24x7 support available.',
 		icon: <LuPhoneCall />,
 	},
 ]
@@ -63,7 +78,6 @@ const PageContact: FC<PageContactProps> = ({}) => {
 
 	return (
 		<div className={`nc-PageContact overflow-hidden`}>
-		
 			<div className="mb-24 lg:mb-32">
 				<h2 className="my-16 flex items-center justify-center text-3xl font-semibold leading-[115%] text-primary-900 dark:text-neutral-100 sm:my-20 md:text-5xl md:leading-[115%]">
 					Contact Us
@@ -81,9 +95,9 @@ const PageContact: FC<PageContactProps> = ({}) => {
 											{item.title}
 										</h3>
 										<p className="text-gray-700">{item.subtitle}</p>
-										<span className="mt-2 block font-medium text-neutral-500 dark:text-neutral-400">
+										<div className="mt-2 block font-medium text-neutral-500 dark:text-neutral-400">
 											{item.desc}
-										</span>
+										</div>
 									</div>
 								</div>
 							))}
