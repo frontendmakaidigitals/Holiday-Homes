@@ -107,10 +107,11 @@ const NavMobile: React.FC<NavMobileProps> = ({
 		<div className="h-screen w-full transform divide-y-2 divide-neutral-100 overflow-y-auto bg-slate-50 py-2 shadow-lg ring-1 transition dark:divide-neutral-800 dark:bg-neutral-900 dark:ring-neutral-700">
 			<div className="px-5 py-6">
 				<Logo />
+
 				<div className="mt-5 flex flex-col text-sm text-neutral-700 dark:text-neutral-300">
 					<span>
-						Discover the most outstanding articles on all topics of life. Write
-						your stories and share them
+						We is one of the top and recognized holiday homes company in Dubai.
+						Providing premium vacation stays with immense knowledge and strength
 					</span>
 
 					<div className="mt-4 flex items-center justify-between">
