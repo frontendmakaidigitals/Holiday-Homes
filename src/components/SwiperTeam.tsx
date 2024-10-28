@@ -24,14 +24,13 @@ export default function SwiperTeams() {
 			</div>
 
 			<Swiper
-				slidesPerView={4} // Show 2 slides at a time
 				spaceBetween={20} // Space between slides
 				ref={SwiperRef}
 				breakpoints={{
-					// Adjust for different screen sizes
-					640: { slidesPerView: 1.5, spaceBetween: 10 }, // Mobile
-					768: { slidesPerView: 3, spaceBetween: 20 }, // Tablet
-					1024: { slidesPerView: 4, spaceBetween: 30 }, // Desktop
+					320: { slidesPerView: 1.3 },
+					768: { slidesPerView: 3 },
+					1024: { slidesPerView: 4 },
+					1604: { slidesPerView: 4 },
 				}}
 				className="w-full" // Add spacing around the Swiper
 			>
