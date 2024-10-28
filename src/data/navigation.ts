@@ -76,7 +76,7 @@ export const NAVIGATION_DEMO: NavItemType[] = [
 	},
 	{
 		id: ncNanoId(),
-		href: '/listing-stay',
+		href: '/About-us',
 		name: 'About & Services',
 	},
 	{

@@ -19,7 +19,7 @@ const widgetMenus: WidgetFooterMenu[] = [
 		menus: [
 			{ href: '#', label: 'Our Properties' },
 			{ href: '#', label: 'Popular Area' },
-			{ href: '#', label: 'About & Services' },
+			{ href: '/About-us', label: 'About & Services' },
 			{ href: '/Contact', label: 'Contact' },
 			{ href: '/BecomeHost', label: 'Become a Host' },
 			{ href: '#', label: 'Get Quote' },
