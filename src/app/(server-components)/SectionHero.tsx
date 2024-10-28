@@ -19,7 +19,7 @@ const SectionHero: FC<SectionHero3Props> = ({ className = '' }) => {
 					Your next holiday – just one click away!
 				</span>
 				<h2 className="text-3xl font-bold !leading-[115%] text-gray-100 shadow-xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-					<span className="text-primary-300">300+</span> Most Premium Properties{' '}
+					<span className="text-primary-400">300+</span> Most Premium Properties{' '}
 					<br />
 					in Dubai
 				</h2>

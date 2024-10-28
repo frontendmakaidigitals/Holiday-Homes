@@ -24,7 +24,7 @@ const MainNav1: FC<MainNav1Props> = ({ className = '' }) => {
 				<div className="hidden flex-1 flex-shrink-0 justify-end text-neutral-700 dark:text-neutral-100 md:flex lg:flex-none">
 					<div className="hidden space-x-0.5 xl:flex">
 						<div className="px-1" />
-						<ButtonPrimary className="self-center" href="/login">
+						<ButtonPrimary className="self-center" href="/Get-Estimate">
 							Get Estimate
 						</ButtonPrimary>
 					</div>

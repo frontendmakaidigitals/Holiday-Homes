@@ -123,7 +123,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 									</div>
 
 									<Button className="mt-7 bg-primary-700 text-white">
-										Get Estimate
+										<a href="Get-Estimate">Get Estimate</a>
 									</Button>
 								</div>
 							</div>
