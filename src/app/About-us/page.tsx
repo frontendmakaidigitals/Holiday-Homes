@@ -47,7 +47,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 			<div className="container my-20 w-full">
 				<Heading desc="">Our Goal</Heading>
 				<div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-					<p className="text-lg order-2 lg:order-1 font-light tracking-wider lg:text-xl">
+					<p className="order-2 text-lg font-light tracking-wider lg:order-1 lg:text-xl">
 						Our mission is to become the premier provider of strategic guidance
 						and innovative solutions for investors and property owners in the
 						UAE. We strive to empower our clients to seize the dynamic and
@@ -63,7 +63,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 					</p>
 
 					<img
-						className="h-[300px] w-full rounded-lg lg:h-[450px]"
+						className="order-1 h-[300px] w-full rounded-lg lg:order-1 lg:h-[450px]"
 						src={
 							'https://images.unsplash.com/photo-1628440501245-393606514a9e?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 						}
