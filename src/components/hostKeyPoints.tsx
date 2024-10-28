@@ -22,7 +22,9 @@ const HostKeyPoints = () => {
 	return (
 		<>
 			<div className="w-full">
-				<Heading desc="Description">Breif Title</Heading>
+				<Heading desc="We gurantee that your property is listed to maximize revenue. We profit only when you profit. It's that straightforward.">
+					Why List with us?
+				</Heading>
 
 				<div className="grid w-full grid-cols-1 gap-4 lg:grid-cols-2">
 					{keyPoints.map((item, index) => (
@@ -30,7 +32,7 @@ const HostKeyPoints = () => {
 							key={index}
 							className={`rounded-xl bg-gray-200 bg-gradient-to-br p-6 ${item.gradient}`}
 						>
-							<p className="xxl:text-3xl text-lg font-semibold">{item.title}</p>
+							<p className="text-lg font-semibold xxl:text-3xl">{item.title}</p>
 							<p className="mt-3">
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 								eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
