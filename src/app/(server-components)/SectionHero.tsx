@@ -15,10 +15,10 @@ const SectionHero: FC<SectionHero3Props> = ({ className = '' }) => {
 			data-nc-id="SectionHero3"
 		>
 			<div className="absolute inset-x-0 top-[10%] z-10 mx-auto flex w-full flex-col items-center space-y-4 text-center sm:top-[15%] lg:space-y-5 xl:space-y-8">
-				<span className="font-semibold text-gray-50 sm:text-lg md:text-xl">
+				<span className="text-sm font-semibold text-gray-50 sm:text-lg md:text-xl">
 					Your next holiday – just one click away!
 				</span>
-				<h2 className="text-3xl font-bold !leading-[115%] text-gray-100 shadow-xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+				<h2 className="w-full px-2 text-xl font-bold !leading-[115%] text-gray-100 shadow-xl md:text-5xl lg:px-0 lg:text-6xl xl:text-7xl">
 					<span className="text-primary-400">300+</span> Most Premium Properties{' '}
 					<br />
 					in Dubai
