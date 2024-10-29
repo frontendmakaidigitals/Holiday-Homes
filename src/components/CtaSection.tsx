@@ -24,32 +24,34 @@ const CtaSection = () => {
 						<div className="w-full">
 							<p className="font-semibold">Name</p>
 							<input
-								className="mt-1 w-full rounded-lg border-0 px-3 py-3 shadow-sm"
+								className="mt-1 w-full rounded-lg border-0 bg-gray-50/60 px-3 py-3 shadow-sm"
 								placeholder="Enter your name"
 								required
 							/>
 						</div>
-						<div className="mt-4 w-full">
-							<p className="font-semibold">Email</p>
-							<input
-								className="mt-1 w-full rounded-lg border-0 px-3 py-3 shadow-sm"
-								placeholder="Enter your email"
-								required
-							/>
-						</div>
-						<div className="mt-4 w-full">
-							<p className="font-semibold">Phone</p>
-							<input
-								type="number"
-								className="mt-1 w-full rounded-lg border-0 px-3 py-3 shadow-sm"
-								placeholder="Enter your Phone number"
-								required
-							/>
+						<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+							<div className="mt-4 w-full">
+								<p className="font-semibold">Email</p>
+								<input
+									className="mt-1 w-full rounded-lg border-0 bg-gray-50/60 px-3 py-3 shadow-sm"
+									placeholder="Enter your email"
+									required
+								/>
+							</div>
+							<div className="mt-4 w-full">
+								<p className="font-semibold">Phone</p>
+								<input
+									type="number"
+									className="mt-1 w-full rounded-lg border-0 bg-gray-50/60 px-3 py-3 shadow-sm"
+									placeholder="Enter your Phone number"
+									required
+								/>
+							</div>
 						</div>
 						<div className="mt-4 w-full">
 							<p className="font-semibold">Message</p>
 							<textarea
-								className="mt-1 h-24 w-full resize-none rounded-lg border-0 px-3 py-3 shadow-sm"
+								className="mt-1 h-24 w-full resize-none rounded-lg border-0 bg-gray-50/60 px-3 py-3 shadow-sm"
 								placeholder="Enter your message"
 								required
 							/>

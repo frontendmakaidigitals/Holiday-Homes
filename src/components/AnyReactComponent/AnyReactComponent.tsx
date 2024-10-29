@@ -14,8 +14,8 @@ export interface AnyReactComponentProps {
 	experiences?: ExperiencesDataType
 	car?: CarDataType
 	isSelected?: boolean
-	lat: number
-	lng: number
+	lat: number | undefined
+	lng: number | undefined
 }
 
 const AnyReactComponent: FC<AnyReactComponentProps> = ({
@@ -34,7 +34,7 @@ const AnyReactComponent: FC<AnyReactComponentProps> = ({
 			onMouseLeave={() => setIsOpen(false)}
 		>
 			<span
-				className={`flex min-w-max items-center justify-center rounded-lg px-2 py-1 text-sm font-semibold shadow-lg transition-colors ${
+				className={`flex min-w-max items-center justify-center rounded-lg px-2 py-1 text-sm font-semibold transition-colors ${
 					isSelected
 						? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900'
 						: 'bg-white hover:bg-neutral-900 hover:text-white dark:bg-neutral-900 dark:hover:bg-white dark:hover:text-neutral-900'

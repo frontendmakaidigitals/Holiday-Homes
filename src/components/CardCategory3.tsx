@@ -44,9 +44,6 @@ const CardCategory3: FC<CardCategory3Props> = ({
 					{convertNumbThousand(count || 0)} properties
 				</span>
 			</div>
-			<p className="absolute left-3 top-2 rounded-full bg-red-500 text-white px-3  text-[.7rem]">
-				10% Off
-			</p>
 		</Link>
 	)
 }

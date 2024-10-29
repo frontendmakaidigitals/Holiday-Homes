@@ -19,6 +19,7 @@ import SectionDateRange from "../SectionDateRange";
 import RentalCarDatesRangeInput from "./RentalCarDatesRangeInput";
 import { Route } from "next";
 
+
 export interface ListingCarDetailPageProps {}
 
 const ListingCarDetailPage: FC<ListingCarDetailPageProps> = ({}) => {

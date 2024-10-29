@@ -16,7 +16,7 @@ import JLTImg from '@/images/MenuImages/JLT.webp'
 import JVCImg from '@/images/MenuImages/JVC.jpeg'
 import MarinaImg from '@/images/MenuImages/marina.jpg'
 import Heading from '@/shared/Heading'
-const DEMO_CATS: TaxonomyType[] = [
+const Tabs: TaxonomyType[] = [
 	{
 		id: '1',
 		href: '/listing-stay-map',
@@ -65,24 +65,22 @@ function PageHome() {
 			{/* GLASSMOPHIN */}
 			<BgGlassmorphism />
 
-			<div className="mb-24 px-1 sm:px-4">
+			<div className="mb-24 px-4">
 				{/* SECTION HERO */}
 				<SectionHero className="pt-3 lg:pb-16" />
+			</div>
+			<div className="container relative mb-24 mt-10 space-y-24 lg:mb-28 lg:space-y-28">
+				<SectionSliderNewCategories categories={Tabs} />
+				<SectionOurFeatures />
+				<SectionGridFeaturePlaces cardType="card2" />
 
-				{/* SECTION 1 */}
-				<div className="container relative mb-24 mt-10 space-y-24 lg:mb-28 lg:space-y-28">
-					<SectionSliderNewCategories categories={DEMO_CATS} />
-					<SectionOurFeatures />
-					<SectionGridFeaturePlaces cardType="card2" />
+				<PromotinalOffers />
+				<TestitmonialCarousal />
+			</div>
 
-					<PromotinalOffers />
-					<TestitmonialCarousal />
-				</div>
-
-				<AdditionalServices />
-				<div className="w-full bg-gradient-to-r from-orange-200 to-pink-200 !px-0">
-					<CtaSection />
-				</div>
+			<AdditionalServices />
+			<div className="w-full bg-gradient-to-r from-orange-200/60 to-pink-200/70 !px-0">
+				<CtaSection />
 			</div>
 		</main>
 	)

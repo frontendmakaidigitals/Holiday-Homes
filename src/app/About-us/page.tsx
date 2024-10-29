@@ -5,6 +5,7 @@ export interface PageContactProps {}
 import Heading from '@/shared/Heading'
 import FAQ from '@/components/Faq'
 import Banner from '@/components/Banner'
+
 const PageContact: FC<PageContactProps> = ({}) => {
 	const questions: { question: string; answer: string }[] = [
 		{

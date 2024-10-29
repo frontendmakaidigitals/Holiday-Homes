@@ -12,7 +12,11 @@ import PrevBtn from './PrevBtn'
 import NextBtn from './NextBtn'
 import { variants } from '@/utils/animationVariants'
 import { useWindowSize } from 'react-use'
-
+import businessBayImg from '@/images/MenuImages/businessbay.webp'
+import donwtownImg from '@/images/MenuImages/downtown.webp'
+import JLTImg from '@/images/MenuImages/JLT.webp'
+import JVCImg from '@/images/MenuImages/JVC.jpeg'
+import MarinaImg from '@/images/MenuImages/marina.jpg'
 export interface SectionSliderNewCategoriesProps {
 	className?: string
 	itemClassName?: string
@@ -24,78 +28,46 @@ export interface SectionSliderNewCategoriesProps {
 	sliderStyle?: 'style1' | 'style2'
 }
 
-const DEMO_CATS: TaxonomyType[] = [
+const Tabs: TaxonomyType[] = [
 	{
 		id: '1',
 		href: '/listing-stay-map',
-		name: 'Nature House',
+		name: 'Business Bay',
 		taxonomy: 'category',
-		count: 17288,
-		thumbnail:
-			'https://images.pexels.com/photos/2581922/pexels-photo-2581922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
+		count: 188288,
+		thumbnail: businessBayImg,
 	},
 	{
 		id: '2',
 		href: '/listing-stay-map',
-		name: 'Wooden house',
+		name: 'Marina',
 		taxonomy: 'category',
-		count: 2118,
-		thumbnail:
-			'https://images.pexels.com/photos/2351649/pexels-photo-2351649.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+		count: 188288,
+		thumbnail: MarinaImg,
 	},
 	{
 		id: '3',
 		href: '/listing-stay-map',
-		name: 'Houseboat',
+		name: 'Downtown',
 		taxonomy: 'category',
-		count: 36612,
-		thumbnail:
-			'https://images.pexels.com/photos/962464/pexels-photo-962464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+		count: 188288,
+		thumbnail: donwtownImg,
 	},
 	{
 		id: '4',
 		href: '/listing-stay-map',
-		name: 'Farm House',
+		name: 'Jumeriah Village Circle',
 		taxonomy: 'category',
-		count: 18188,
-		thumbnail:
-			'https://images.pexels.com/photos/248837/pexels-photo-248837.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+		count: 188288,
+		thumbnail: JVCImg,
 	},
 	{
 		id: '5',
 		href: '/listing-stay-map',
-		name: 'Dome House',
-		taxonomy: 'category',
-		count: 22288,
-		thumbnail:
-			'https://images.pexels.com/photos/3613236/pexels-photo-3613236.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-	},
-	{
-		id: '6',
-		href: '/listing-stay-map',
-		name: 'Dome House',
+		name: 'Jumeriah Lake Triangle',
 		taxonomy: 'category',
 		count: 188288,
-		thumbnail:
-			'https://images.pexels.com/photos/14534337/pexels-photo-14534337.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
-	},
-	{
-		id: '7',
-		href: '/listing-stay-map',
-		name: 'Wooden house',
-		taxonomy: 'category',
-		count: 2118,
-		thumbnail:
-			'https://images.pexels.com/photos/2351649/pexels-photo-2351649.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-	},
-	{
-		id: '8',
-		href: '/listing-stay-map',
-		name: 'Wooden Dome',
-		taxonomy: 'category',
-		count: 515,
-		thumbnail:
-			'https://images.pexels.com/photos/9039238/pexels-photo-9039238.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',
+		thumbnail: JLTImg,
 	},
 ]
 
@@ -104,7 +76,7 @@ const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
 	subHeading = 'Popular places to recommends for you',
 	className = '',
 	itemClassName = '',
-	categories = DEMO_CATS,
+	categories = Tabs,
 	itemPerRow = 5,
 	categoryCardType = 'card3',
 	sliderStyle = 'style1',
