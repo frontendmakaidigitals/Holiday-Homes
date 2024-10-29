@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import imagePng from '@/images/heroBg.webp'
+import imagePng from '@/images/heroBg.jpg'
 import Image from 'next/image'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import HeroSearchForm2MobileFactory from '../(client-components)/(HeroSearchForm2Mobile)/HeroSearchForm2MobileFactory'
@@ -18,7 +18,7 @@ const SectionHero: FC<SectionHero3Props> = ({ className = '' }) => {
 				<span className="text-sm font-semibold text-gray-50 sm:text-lg md:text-xl">
 					Your next holiday – just one click away!
 				</span>
-				<h2 className="w-full px-2 text-xl font-bold !leading-[115%] text-gray-100 shadow-xl md:text-5xl lg:px-0 lg:text-6xl xl:text-7xl">
+				<h2 className="w-full px-2 text-xl font-bold !leading-[115%] text-gray-100 md:text-5xl lg:px-0 lg:text-6xl xl:text-7xl">
 					300+ Most Premium Properties <br />
 					in Dubai
 				</h2>
