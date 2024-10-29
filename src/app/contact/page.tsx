@@ -11,6 +11,7 @@ import axios from 'axios'
 import { IoChatbubblesOutline } from 'react-icons/io5'
 import { SlLocationPin } from 'react-icons/sl'
 import { LuPhoneCall } from 'react-icons/lu'
+import Heading from '@/shared/Heading'
 
 export interface PageContactProps {}
 
@@ -79,7 +80,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 	return (
 		<div className={`nc-PageContact overflow-hidden`}>
 			<div className="mb-24 lg:mb-32">
-				<h2 className="my-16 flex items-center justify-center text-3xl font-semibold leading-[115%] text-primary-900 dark:text-neutral-100 sm:my-20 md:text-5xl md:leading-[115%]">
+				<h2 className="my-16 flex items-center justify-center text-3xl font-semibold leading-[115%] text-gray-900 dark:text-neutral-100 sm:my-20 md:text-5xl md:leading-[115%]">
 					Contact Us
 				</h2>
 				<div className="container mx-auto max-w-7xl">
@@ -166,6 +167,18 @@ const PageContact: FC<PageContactProps> = ({}) => {
 							</form>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div className="container mb-24 lg:mb-32">
+				<Heading isCenter={true} desc={''}>
+					Reach Us
+				</Heading>
+				<div className="h-[400px] w-full lg:h-[600px] rounded-xl overflow-hidden shadow-[0px_0px_10px_1px_#d9d9d9]">
+					<iframe
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d620.1099118177573!2d55.26314221012659!3d25.180958569943602!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f69ce658fbc5b%3A0x62ca80127bf7e0f6!2sChurchill%20Towers!5e0!3m2!1sen!2sin!4v1730202443622!5m2!1sen!2sin"
+						loading="lazy"
+						className="h-full w-full"
+					></iframe>
 				</div>
 			</div>
 		</div>
