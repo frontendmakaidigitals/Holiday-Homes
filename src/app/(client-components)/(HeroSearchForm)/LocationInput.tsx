@@ -78,7 +78,7 @@ const LocationInput: FC<LocationInputProps> = ({
 						<span
 							onClick={() => handleSelectLocation(item)}
 							key={item}
-							className="flex cursor-pointer items-center space-x-3 px-4 py-4 hover:bg-neutral-100 dark:hover:bg-neutral-700 sm:space-x-4 sm:px-8"
+							className="flex cursor-pointer items-center space-x-3 px-4 py-4 hover:bg-gray-100 dark:hover:bg-neutral-700 sm:space-x-4 sm:px-8"
 						>
 							<span className="block text-neutral-400">
 								<ClockIcon className="h-4 w-4 sm:h-6 sm:w-6" />
@@ -127,19 +127,19 @@ const LocationInput: FC<LocationInputProps> = ({
 					showPopover ? 'nc-hero-field-focused' : ''
 				}`}
 			>
-				<div className="text-neutral-300 dark:text-neutral-400">
+				<div className="text-gray-900 dark:text-gray-400">
 					<MapPinIcon className="h-5 w-5 lg:h-7 lg:w-7" />
 				</div>
 				<div className="flex-grow">
 					<input
-						className={`block w-full truncate border-none bg-transparent p-0 font-semibold placeholder-neutral-800 focus:placeholder-neutral-300 focus:outline-none focus:ring-0 dark:placeholder-neutral-200 xl:text-lg`}
+						className={`block w-full truncate border-none !bg-transparent p-0 font-semibold  focus:outline-none focus:ring-0 dark:placeholder-neutral-200 xl:text-lg`}
 						placeholder={placeHolder}
 						value={value}
-						autoFocus={showPopover}
+						 
 						onChange={(e) => {
 							setValue(e.currentTarget.value)
 						}}
-						ref={inputRef}
+					 
 					/>
 					<span className="mt-0.5 block text-sm font-light text-neutral-400">
 						<span className="line-clamp-1">{!!value ? placeHolder : desc}</span>

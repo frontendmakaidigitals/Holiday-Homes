@@ -23,7 +23,7 @@ const SectionHostHero: FC<SectionHero3Props> = ({ className = '' }) => {
 					for travellers worldwide. It empowers you to run a unique and
 					fulfilling business – on your terms.
 				</span>
-				<button className="rounded-xl bg-primary-6000 px-5 py-3 text-white hover:bg-primary-500">
+				<button className="rounded-xl bg-primary-6000 px-5 py-3 font-semibold text-white hover:bg-primary-500">
 					Get Started
 				</button>
 			</div>

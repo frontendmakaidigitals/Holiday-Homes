@@ -14,8 +14,8 @@ export interface AnyReactComponentProps {
 	experiences?: ExperiencesDataType
 	car?: CarDataType
 	isSelected?: boolean
-	lat: number | undefined
-	lng: number | undefined
+	lat?: number
+	lng?: number
 }
 
 const AnyReactComponent: FC<AnyReactComponentProps> = ({
@@ -27,20 +27,24 @@ const AnyReactComponent: FC<AnyReactComponentProps> = ({
 }) => {
 	const [isOpen, setIsOpen] = useState(false)
 
+	const handleMouseEnter = () => setIsOpen(true)
+	const handleMouseLeave = () => setIsOpen(false)
+
 	return (
 		<div
 			className={`nc-AnyReactComponent relative ${className}`}
-			onMouseEnter={() => setIsOpen(true)}
-			onMouseLeave={() => setIsOpen(false)}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
+			aria-expanded={isOpen}
 		>
 			<span
 				className={`flex min-w-max items-center justify-center rounded-lg px-2 py-1 text-sm font-semibold transition-colors ${
 					isSelected
-						? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900'
-						: 'bg-white hover:bg-neutral-900 hover:text-white dark:bg-neutral-900 dark:hover:bg-white dark:hover:text-neutral-900'
+						? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
+						: 'bg-white hover:bg-gray-900 hover:text-white dark:bg-neutral-900 dark:hover:bg-white dark:hover:text-gray-900'
 				}`}
 			>
-				{listing?.price || experiences?.price || car?.price}
+				{listing?.price}
 			</span>
 			<Transition
 				show={isOpen}

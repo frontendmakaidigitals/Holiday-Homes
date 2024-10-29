@@ -1,14 +1,17 @@
+'use client'
+
 import {
 	MapContainer as LeafletMapContainer,
 	TileLayer,
 	Marker,
-	Popup,
 } from 'react-leaflet'
+import ReactDOM from 'react-dom'
 import AnyReactComponent from '@/components/AnyReactComponent/AnyReactComponent'
-import { FC, useState } from 'react'
+import { FC, useState, useEffect, useLayoutEffect } from 'react'
 import Checkbox from '@/shared/Checkbox'
 import { CarDataType, ExperiencesDataType, StayDataType } from '@/data/types'
 import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
 
 interface MapContainerProps {
 	currentHoverID: string | number
@@ -23,10 +26,52 @@ const MapContainer: FC<MapContainerProps> = ({
 }) => {
 	const [activeItem, setActiveItem] = useState<number | string | null>(null)
 
+	useEffect(() => {
+		if (!DEMO_DATA) {
+			console.warn('DEMO_DATA is empty')
+			return
+		}
+
+		setTimeout(() => {
+			DEMO_DATA.forEach((item) => {
+				const markerId = `marker-${item.id}`
+				const element = document.getElementById(markerId)
+				if (element) {
+					// Debug: Log the item data being passed
+					console.log('Rendering marker for item:', item)
+
+					ReactDOM.render(
+						<AnyReactComponent
+							isSelected={currentHoverID === item.id}
+							lat={item.map.lat}
+							lng={item.map.lng}
+							car={listingType === 'car' ? (item as CarDataType) : undefined}
+							experiences={
+								listingType === 'experiences'
+									? (item as ExperiencesDataType)
+									: undefined
+							}
+							listing={
+								listingType === 'stay' ? (item as StayDataType) : undefined
+							}
+						/>,
+						element,
+					)
+				} else {
+					console.warn(`Element with ID ${markerId} not found`)
+				}
+			})
+		}, 0)
+	}, [DEMO_DATA, currentHoverID, listingType])
+
 	return (
 		<LeafletMapContainer
 			style={{ width: '100%', height: '100%' }}
-			center={[DEMO_DATA[0].map.lat, DEMO_DATA[0].map.lng]}
+			center={
+				DEMO_DATA.length > 0
+					? [DEMO_DATA[0].map.lat, DEMO_DATA[0].map.lng]
+					: [0, 0]
+			}
 			zoom={12}
 			scrollWheelZoom={false}
 		>
@@ -42,35 +87,26 @@ const MapContainer: FC<MapContainerProps> = ({
 				/>
 			</div>
 			{DEMO_DATA.map((item) => {
-				const isSelected = currentHoverID === item.id
+				const markerId = `marker-${item.id}`
+
+				// Create a custom divIcon with a placeholder for AnyReactComponent
+				const customIcon = L.divIcon({
+					className: 'custom-marker',
+					html: `<div id="${markerId}"></div>`, // Use the markerId
+					iconSize: [40, 40],
+				})
 
 				return (
 					<Marker
 						key={item.id}
 						position={[item.map.lat, item.map.lng]}
+						icon={customIcon}
 						eventHandlers={{
 							click: () => {
 								setActiveItem(item.id)
 							},
 						}}
-					>
-						<Popup>
-							<AnyReactComponent
-								isSelected={isSelected}
-								lat={item.map.lat}
-								lng={item.map.lng}
-								car={listingType === 'car' ? (item as CarDataType) : undefined}
-								experiences={
-									listingType === 'experiences'
-										? (item as ExperiencesDataType)
-										: undefined
-								}
-								listing={
-									listingType === 'stay' ? (item as StayDataType) : undefined
-								}
-							/>
-						</Popup>
-					</Marker>
+					/>
 				)
 			})}
 		</LeafletMapContainer>
