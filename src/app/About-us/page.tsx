@@ -9,30 +9,31 @@ import Banner from '@/components/Banner'
 const PageContact: FC<PageContactProps> = ({}) => {
 	const questions: { question: string; answer: string }[] = [
 		{
-			question: 'What types of properties does 2ndhome manage in Dubai?',
+			question:
+				'What types of properties does Brownstone Holiday Homes manage in Dubai?',
 			answer:
-				'BSHH specializes in managing various types of properties in Dubai, including vacation homes, short-term rental properties, and properties suitable for long-term rentals or investments.',
+				'Brownstone Holiday Homes specializes in managing a diverse range of properties in Dubai, including vacation homes, short-term rental properties, and long-term residential rentals.',
 		},
 		{
-			question: 'How can we help you maximize your return on investment?',
+			question:
+				'How can we assist you in maximizing your return on investment?',
 			answer:
-				'2ndhome offers full turnkey solutions tailored to each property owner`s needs. We employ effective marketing strategies, handle booking management, optimize rental income through market analysis, and provide comprehensive property maintenance services, all aimed at maximizing the ROI on every property we manage.',
-		},
-		{
-			question: 'Can BSHH assist in purchasing properties in Dubai?',
-			answer:
-				'Yes, BSHH provides assistance in purchasing properties in Dubai. Our experienced team can guide you through the process, from property selection to closing the deal, ensuring that you make informed decisions that align with your investment goals.',
+				'Brownstone Holiday Homes provides complete turnkey solutions customized to meet the unique needs of each property owner. We implement effective marketing strategies, manage bookings, optimize rental income through thorough market analysis, and offer comprehensive property maintenance services, all designed to enhance the ROI for every property we oversee.',
 		},
 		{
 			question: 'What sets us apart from other property management services?',
 			answer:
-				'2ndhome stands out due to our extensive expertise in the Dubai real estate market, tailored solutions that cater to individual property owner requirements, professional team of property management experts, focus on achieving maximum ROI for property owners, and our commitment to transparent communication throughout the entire property management process.',
+				'Brownstone Holiday Homes stands out due to our extensive expertise in the Dubai real estate market, tailored solutions that cater to individual property owner requirements, professional team of property management experts, focus on achieving maximum ROI for property owners, and our commitment to transparent communication throughout the entire property management process.',
 		},
 		{
-			question:
-				'How can I get started with BSHH`s property management services?',
+			question: 'How can I get started with property management services?',
 			answer:
-				'To get started with 2ndhome`s property management services, simply reach out to their friendly team. You can contact them through our contact page or via WhatsApp, and we will be happy to assist you with any inquiries or concerns you may have.',
+				'To get started with Brownstone Holiday Homes property management services, simply reach out to our friendly team. You can contact us through our contact page or via WhatsApp, and we will be happy to assist you with any inquiries or concerns you may have.',
+		},
+		{
+			question: 'Do holiday homes appriciate in value?',
+			answer:
+				'Absolutely! The property appreciates in value according to market trends, and the best part is that you continue to earn income during that time. We’ve noticed that many buyers specifically seek out holiday homes and are willing to pay a premium for properties that are already operating as vacation rentals, allowing them to start generating income immediately after the sale.',
 		},
 	]
 	return (
@@ -49,16 +50,16 @@ const PageContact: FC<PageContactProps> = ({}) => {
 				<Heading desc="">Our Goal</Heading>
 				<div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
 					<p className="order-2 text-lg font-light tracking-wider lg:order-1 lg:text-xl">
-						Our mission is to become the premier provider of strategic guidance
-						and innovative solutions for investors and property owners in the
-						UAE. We strive to empower our clients to seize the dynamic and
-						lucrative real estate opportunities in this thriving region. Backed
-						by over 20 years of combined expertise in both tourism and real
-						estate, our highly skilled team is dedicated to delivering
-						personalized advice and tailored solutions that align with your
-						unique investment goals.{' '}
-						<span className="mt-3 block">
-							With a deep understanding of the market, we are committed to
+						Our mission is to be the leading provider of strategic insights and
+						innovative solutions for investors and property owners in the UAE.
+						We aim to empower our clients to capitalize on the vibrant and
+						profitable real estate opportunities in this flourishing region.
+						With over 10 years of combined experience in tourism and real
+						estate, our expert team is devoted to offering personalized guidance
+						and customized solutions that align with your specific investment
+						objectives.{' '}
+						<span className="mt-4 block">
+							With a profound understanding of the market, we are dedicated to
 							ensuring the success of every client we serve.
 						</span>
 					</p>
@@ -86,24 +87,24 @@ export default PageContact
 
 const keyPoints = [
 	{
-		title: 'Customer-Centric Approach',
+		title: 'Customer-Focused Strategy',
 		gradient: 'from-violet-400/60 to-purple-300/30',
-		desc: 'We prioritize exceptional customer service, ensuring utmost satisfaction through cleanliness, comfort, and personalized experiences.',
+		desc: 'We emphasize outstanding customer service, guaranteeing maximum satisfaction by providing cleanliness, comfort, and tailored experiences.',
 	},
 	{
-		title: 'Transparency, Integrity and Trust',
+		title: 'Openness, Honesty, and Trust',
 		gradient: 'from-rose-400/80 to-rose-300/50',
-		desc: 'We believe in open communication, fostering trust and transparency with our clients.',
+		desc: 'We are committed to clear communication, cultivating trust and transparency with our clients.',
 	},
 	{
-		title: 'Expert Caretaking',
+		title: 'Professional Caretaking',
 		gradient: ' from-orange-500/60 to-orange-300/30',
-		desc: 'Our meticulous care-taking teams are dedicated to maintaining the highest standards across all managed properties.',
+		desc: 'Our attentive caretaking teams are committed to upholding the highest standards in all managed properties.',
 	},
 	{
-		title: 'Round-the-Clock Support',
+		title: '24/7 Support',
 		gradient: 'from-gray-300/80 to-gray-100/40',
-		desc: 'With our 24/7 central staff, we guarantee prompt assistance and peace of mind for our clients, making us their reliable BSHH.',
+		desc: 'With our central staff available around the clock, we ensure quick assistance and peace of mind for our clients, establishing ourselves as their dependable BSHH.',
 	},
 ]
 

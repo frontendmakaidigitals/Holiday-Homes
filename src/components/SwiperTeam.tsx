@@ -5,21 +5,62 @@ import SwiperNavButtons from './SwiperNavButtons'
 import Heading from '@/shared/Heading'
 
 const Teams = [
-	{ name: 'John Doe', designation: 'Manager', avatar: '' },
-	{ name: 'Jane Smith', designation: 'Designer', avatar: '' },
-	{ name: 'Sam Wilson', designation: 'Developer', avatar: '' },
-	{ name: 'Alice Brown', designation: 'Marketing', avatar: '' },
-	{ name: 'Bob Green', designation: 'Sales', avatar: '' },
-	{ name: 'Ella Grey', designation: 'HR', avatar: '' },
+	{
+		name: 'Maqbool Ahmad Khan',
+		designation: 'Co-Founder',
+		avatar: '/FounderImages/Maqbool.png',
+	},
+	{
+		name: 'Shoaib Abdallah',
+		designation: 'Co-Founder',
+		avatar: '/FounderImages/Shoaib.jpeg',
+	},
+	{
+		name: 'Junaid Ahmad Siddiqui',
+		designation: 'Co-Founder',
+		avatar: '/FounderImages/junaid.jpeg',
+	},
 ]
 
 export default function SwiperTeams() {
+	return (
+		<div className="w-full py-24">
+			<Heading desc={''}>Meet our Founders</Heading>
+
+			<div className="grid w-full grid-cols-1 gap-10 md:grid-cols-3">
+				{Teams.map((item, index) => (
+					<div key={index} className="w-full rounded-lg bg-gray-50 shadow-lg">
+						{' '}
+						{/* Adjusted slide content */}
+						<div className="overflow-hidden rounded-lg">
+							<div className="h-[500px] w-full bg-gray-100">
+								<img
+									src={item.avatar}
+									alt={item.name}
+									className="h-full w-full object-cover object-top"
+								/>
+							</div>
+						</div>
+						<div className="px-4 py-7">
+							<p className="text-xl font-semibold">{item.name}</p>
+							<p className="font-medium text-gray-600">
+								{item.designation}, BSHH
+							</p>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	)
+}
+
+const SwiperTeamup = () => {
 	const SwiperRef = useRef(null)
 
 	return (
 		<div className="w-full py-10">
 			<div className="flex w-full items-center justify-between">
-				<Heading desc={''}>Meet Our Team</Heading>
+				<Heading desc={''}>Meet our Founders</Heading>
 				<SwiperNavButtons SwiperRef={SwiperRef} />
 			</div>
 
