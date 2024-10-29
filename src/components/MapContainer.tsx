@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
 import {
 	MapContainer as LeafletMapContainer,
 	TileLayer,
 	Marker,
-} from 'react-leaflet'
-import ReactDOM from 'react-dom'
-import AnyReactComponent from '@/components/AnyReactComponent/AnyReactComponent'
-import { FC, useState, useEffect, useLayoutEffect } from 'react'
-import Checkbox from '@/shared/Checkbox'
-import { CarDataType, ExperiencesDataType, StayDataType } from '@/data/types'
-import 'leaflet/dist/leaflet.css'
-import L from 'leaflet'
+} from 'react-leaflet';
+import { createRoot } from 'react-dom/client'; // Import createRoot
+import AnyReactComponent from '@/components/AnyReactComponent/AnyReactComponent';
+import { FC, useState, useEffect } from 'react';
+import Checkbox from '@/shared/Checkbox';
+import { CarDataType, ExperiencesDataType, StayDataType } from '@/data/types';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
 interface MapContainerProps {
-	currentHoverID: string | number
-	DEMO_DATA: CarDataType[] | ExperiencesDataType[] | StayDataType[]
-	listingType: 'car' | 'experiences' | 'stay'
+	currentHoverID: string | number;
+	DEMO_DATA: CarDataType[] | ExperiencesDataType[] | StayDataType[];
+	listingType: 'car' | 'experiences' | 'stay';
 }
 
 const MapContainer: FC<MapContainerProps> = ({
@@ -24,23 +24,27 @@ const MapContainer: FC<MapContainerProps> = ({
 	DEMO_DATA,
 	listingType,
 }) => {
-	const [activeItem, setActiveItem] = useState<number | string | null>(null)
+	const [activeItem, setActiveItem] = useState<number | string | null>(null);
 
 	useEffect(() => {
-		if (!DEMO_DATA) {
-			console.warn('DEMO_DATA is empty')
-			return
+		if (!DEMO_DATA || DEMO_DATA.length === 0) {
+			console.warn('DEMO_DATA is empty');
+			return;
 		}
 
+		// Use a timeout to ensure the DOM is ready
 		setTimeout(() => {
 			DEMO_DATA.forEach((item) => {
-				const markerId = `marker-${item.id}`
-				const element = document.getElementById(markerId)
+				const markerId = `marker-${item.id}`;
+				const element = document.getElementById(markerId);
 				if (element) {
-					// Debug: Log the item data being passed
-					console.log('Rendering marker for item:', item)
+					// Create a root for the AnyReactComponent
+					const root = createRoot(element); // Use createRoot instead of ReactDOM.render
 
-					ReactDOM.render(
+					// Debug: Log the item data being passed
+					console.log('Rendering marker for item:', item);
+
+					root.render(
 						<AnyReactComponent
 							isSelected={currentHoverID === item.id}
 							lat={item.map.lat}
@@ -54,15 +58,14 @@ const MapContainer: FC<MapContainerProps> = ({
 							listing={
 								listingType === 'stay' ? (item as StayDataType) : undefined
 							}
-						/>,
-						element,
-					)
+						/>
+					);
 				} else {
-					console.warn(`Element with ID ${markerId} not found`)
+					console.warn(`Element with ID ${markerId} not found`);
 				}
-			})
-		}, 0)
-	}, [DEMO_DATA, currentHoverID, listingType])
+			});
+		}, 0);
+	}, [DEMO_DATA, currentHoverID, listingType]);
 
 	return (
 		<LeafletMapContainer
@@ -87,14 +90,14 @@ const MapContainer: FC<MapContainerProps> = ({
 				/>
 			</div>
 			{DEMO_DATA.map((item) => {
-				const markerId = `marker-${item.id}`
+				const markerId = `marker-${item.id}`;
 
 				// Create a custom divIcon with a placeholder for AnyReactComponent
 				const customIcon = L.divIcon({
 					className: 'custom-marker',
 					html: `<div id="${markerId}"></div>`, // Use the markerId
 					iconSize: [40, 40],
-				})
+				});
 
 				return (
 					<Marker
@@ -103,14 +106,14 @@ const MapContainer: FC<MapContainerProps> = ({
 						icon={customIcon}
 						eventHandlers={{
 							click: () => {
-								setActiveItem(item.id)
+								setActiveItem(item.id);
 							},
 						}}
 					/>
-				)
+				);
 			})}
 		</LeafletMapContainer>
-	)
-}
+	);
+};
 
-export default MapContainer
+export default MapContainer;
