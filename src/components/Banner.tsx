@@ -20,7 +20,6 @@ const Banner = () => {
 			</p>
 			<div className="flex w-full items-center justify-center">
 				<button
-					onClick={() => setIsOpen(true)}
 					className="mt-5 rounded-md bg-primary-400 px-4 py-2 font-semibold text-white hover:bg-primary-300"
 				>
 					<a href="/Get-Estimate">Get Estimate</a>
