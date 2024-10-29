@@ -47,7 +47,7 @@ const SectionHero: FC<SectionHero3Props> = ({ className = '' }) => {
 					alt="hero"
 					priority
 				/>
-				<div className="absolute left-0 top-0 h-full w-full bg-slate-900/20" />
+				<div className="absolute left-0 top-0 h-full w-full bg-slate-900/30" />
 			</div>
 		</div>
 	)
