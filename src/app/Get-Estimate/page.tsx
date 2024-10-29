@@ -42,9 +42,48 @@ const PageContact: FC<PageContactProps> = ({}) => {
 	]
 	const [isResultShown, setIsResultShown] = React.useState(false)
 	const [isSubmitting, setIsSubmitting] = useState(false)
+	const [estimateData, setEstimateData] = useState<
+		{
+			name: string
+			value: string
+			error: boolean
+		}[]
+	>([
+		{
+			name: 'area',
+			value: '',
+			error: false,
+		},
+		{
+			name: 'bedroom',
+			value: '',
+			error: false,
+		},
+		{
+			name: 'furnish',
+			value: '',
+			error: false,
+		},
+	])
 	const AreaDropDown = ['Light', 'Dark']
-	const Bedrooms = ['Light', 'Dark', 'System']
-	const Furnishing = ['Light', 'Dark']
+	const BedroomDropDown = ['Light', 'Dark', 'System']
+	const FurnishDropDown = ['Light', 'Dark']
+	const HandleEstimate = () => {
+		const hasEmptyFields = estimateData.some((field) => !field.value)
+
+		if (hasEmptyFields) {
+			setEstimateData((prevData) =>
+				prevData.map((field) => ({
+					...field,
+					error: !field.value,
+				})),
+			)
+			return // Stop function execution
+		}
+
+		setIsResultShown(true)
+	}
+	console.log(estimateData)
 	return (
 		<div className={`nc-PageContact overflow-hidden`}>
 			<div className="mb-24 lg:mb-32">
@@ -63,9 +102,22 @@ const PageContact: FC<PageContactProps> = ({}) => {
 							</p>
 							<div className="mt-8 flex w-full justify-center">
 								<div className="w-full">
-									<div className="">
-										<Select>
-											<SelectTrigger className="!h-auto w-full max-w-[450px] border-0 bg-white py-2 text-xl font-medium">
+									<div className="relative">
+										<Select
+											onValueChange={(value) =>
+												setEstimateData((val) =>
+													val.map((item) =>
+														item.name === 'area'
+															? { ...item, value, error: false } // Update value and reset error to false
+															: item,
+													),
+												)
+											}
+										>
+											<SelectTrigger
+												value={estimateData.map((item) => item.value)[0]}
+												className={`${estimateData.find((item) => item.name === 'area')?.error ? 'border-red-500' : 'border-gray-300'} !h-auto w-full max-w-[450px] border bg-white py-2 text-xl font-medium`}
+											>
 												<SelectValue
 													className="placeholder:text-gray-600"
 													placeholder="Area"
@@ -81,18 +133,37 @@ const PageContact: FC<PageContactProps> = ({}) => {
 												})}
 											</SelectContent>
 										</Select>
+										{estimateData.find((item) => item.name === 'area')
+											?.error ? (
+											<p className="absolute left-0 top-full text-red-500">
+												This field is required
+											</p>
+										) : null}
 									</div>
 
-									<div className="mt-7">
-										<Select>
-											<SelectTrigger className="!h-auto w-full max-w-[450px] border-0 bg-white py-2 text-xl font-medium">
+									<div className="relative mt-7">
+										<Select
+											onValueChange={(value) =>
+												setEstimateData((val) =>
+													val.map((item) =>
+														item.name === 'bedroom'
+															? { ...item, value, error: false } // Update value and reset error to false
+															: item,
+													),
+												)
+											}
+										>
+											<SelectTrigger
+												value={estimateData.map((item) => item.value)[1]}
+												className={`${estimateData.find((item) => item.name === 'bedroom')?.error ? 'border-red-500' : 'border-gray-300'} !h-auto w-full max-w-[450px] border bg-white py-2 text-xl font-medium`}
+											>
 												<SelectValue
 													className="placeholder:text-gray-600"
 													placeholder="Bedroom"
 												/>
 											</SelectTrigger>
 											<SelectContent>
-												{AreaDropDown.map((item, index) => {
+												{BedroomDropDown.map((item, index) => {
 													return (
 														<SelectItem key={index} value={item}>
 															{item}
@@ -101,18 +172,37 @@ const PageContact: FC<PageContactProps> = ({}) => {
 												})}
 											</SelectContent>
 										</Select>
+										{estimateData.find((item) => item.name === 'bedroom')
+											?.error ? (
+											<p className="absolute left-0 top-full text-red-500">
+												This field is required
+											</p>
+										) : null}
 									</div>
 
-									<div className="mt-7">
-										<Select>
-											<SelectTrigger className="!h-auto w-full max-w-[450px] border-0 bg-white py-2 text-xl font-medium">
+									<div className="relative mt-7">
+										<Select
+											onValueChange={(value) =>
+												setEstimateData((val) =>
+													val.map((item) =>
+														item.name === 'furnish'
+															? { ...item, value, error: false } // Update value and reset error to false
+															: item,
+													),
+												)
+											}
+										>
+											<SelectTrigger
+												value={estimateData.map((item) => item.value)[2]}
+												className={`${estimateData.find((item) => item.name === 'furnish')?.error ? 'border-red-500' : 'border-gray-300'} !h-auto w-full max-w-[450px] border bg-white py-2 text-xl font-medium`}
+											>
 												<SelectValue
 													className="placeholder:text-gray-500"
 													placeholder="Furnishing"
 												/>
 											</SelectTrigger>
 											<SelectContent>
-												{AreaDropDown.map((item, index) => {
+												{FurnishDropDown.map((item, index) => {
 													return (
 														<SelectItem key={index} value={item}>
 															{item}
@@ -121,18 +211,24 @@ const PageContact: FC<PageContactProps> = ({}) => {
 												})}
 											</SelectContent>
 										</Select>
+										{estimateData.find((item) => item.name === 'furnish')
+											?.error ? (
+											<p className="absolute left-0 top-full text-red-500">
+												This field is required
+											</p>
+										) : null}
 									</div>
 
 									<Button
-										className="mt-7 bg-primary-700 text-white"
-										href="/Get-Estimate"
+										className="mt-10 bg-primary-700 text-white"
+										onClick={HandleEstimate}
 									>
 										Get Estimate
 									</Button>
 								</div>
 							</div>
 						</div>
-						<div className="col-span-1 flex h-full items-center justify-center rounded-lg bg-[#9c613765] p-10 lg:col-span-2">
+						<div className="col-span-1 flex h-full items-center justify-center rounded-lg bg-[#d4cdc7] p-10 lg:col-span-2">
 							{isResultShown ? (
 								<div className="">
 									<p className="text-2xl">
@@ -236,7 +332,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 										className="h-full w-full object-cover"
 									/>
 								</div>
-								<div className="mt-2">
+								<div className="mt-3">
 									<p className="text-2xl font-semibold">{item.title}</p>
 									<p className="font-regular mt-1">{item.desc}</p>
 								</div>
