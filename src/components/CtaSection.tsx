@@ -1,8 +1,62 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, ChangeEvent, FormEvent } from 'react'
 import ButtonPrimary from '@/shared/ButtonPrimary'
+import axios from 'axios'
+
 const CtaSection = () => {
 	const [isSubmitting, setIsSubmitting] = useState(false)
+	const [status, setStatus] = useState('')
+	const [formData, setFormData] = useState({
+		name: '',
+		email: '',
+		phone: '',
+		message: '',
+	})
+	const handleChange = (
+		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+	) => {
+		const { name, value } = e.target
+		setFormData((prevData) => ({
+			...prevData,
+			[name]: value,
+		}))
+	}
+
+	const submitBlog = async (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault() // Prevent page refresh
+		const updatedData = {
+			...formData,
+			source: 'CTA',
+		}
+
+		try {
+			setIsSubmitting(true)
+			await axios.get(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}` + `/sanctum/csrf-cookie`,
+				{
+					withCredentials: true,
+				},
+			)
+
+			await axios.post(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}` + `/api/query`,
+				updatedData,
+				{
+					withCredentials: true,
+					headers: { 'Content-Type': 'application/json' },
+				},
+			)
+
+			setStatus('success')
+			setFormData({ name: '', email: '', phone: '', message: '' }) // Clear form
+		} catch (error) {
+			console.error(error)
+			setStatus('failed')
+		} finally {
+			setIsSubmitting(false)
+		}
+	}
+
 	return (
 		<div className="container mt-20 w-full">
 			<div className="grid w-full grid-cols-1 place-items-center gap-10 py-20 lg:grid-cols-2">
@@ -20,11 +74,14 @@ const CtaSection = () => {
 						Get our brochure delivered to your inbox to get more information on
 						the short term rental market so you can get started.
 					</p>
-					<form className="w-full">
+					<form onSubmit={submitBlog} className="w-full">
 						<div className="w-full">
 							<p className="font-semibold">Name</p>
 							<input
-								className="mt-1 w-full rounded-lg border-0 bg-gray-50/60 px-3 py-3 shadow-sm"
+								name="name"
+								value={formData.name}
+								onChange={handleChange}
+								className="mt-1 w-full rounded-lg border-0 bg-stone-200 px-3 py-3 shadow-sm"
 								placeholder="Enter your name"
 								required
 							/>
@@ -33,7 +90,11 @@ const CtaSection = () => {
 							<div className="mt-4 w-full">
 								<p className="font-semibold">Email</p>
 								<input
-									className="mt-1 w-full rounded-lg border-0 bg-gray-50/60 px-3 py-3 shadow-sm"
+									name="email"
+									type="email"
+									value={formData.email}
+									onChange={handleChange}
+									className="mt-1 w-full rounded-lg border-0 bg-stone-200 px-3 py-3 shadow-sm"
 									placeholder="Enter your email"
 									required
 								/>
@@ -41,9 +102,12 @@ const CtaSection = () => {
 							<div className="mt-4 w-full">
 								<p className="font-semibold">Phone</p>
 								<input
+									name="phone"
 									type="number"
-									className="mt-1 w-full rounded-lg border-0 bg-gray-50/60 px-3 py-3 shadow-sm"
-									placeholder="Enter your Phone number"
+									value={formData.phone}
+									onChange={handleChange}
+									className="mt-1 w-full rounded-lg border-0 bg-stone-200 px-3 py-3 shadow-sm"
+									placeholder="Enter your phone number"
 									required
 								/>
 							</div>
@@ -51,13 +115,25 @@ const CtaSection = () => {
 						<div className="mt-4 w-full">
 							<p className="font-semibold">Message</p>
 							<textarea
-								className="mt-1 h-24 w-full resize-none rounded-lg border-0 bg-gray-50/60 px-3 py-3 shadow-sm"
+								name="message"
+								value={formData.message}
+								onChange={handleChange}
+								className="mt-1 h-24 w-full resize-none rounded-lg border-0 bg-stone-200 px-3 py-3 shadow-sm"
 								placeholder="Enter your message"
 								required
 							/>
 						</div>
-						<ButtonPrimary loading={isSubmitting} className="mt-8 rounded-lg">
-							Submit
+						<ButtonPrimary
+							loading={isSubmitting}
+							className={`mt-8 rounded-lg ${status === 'success' ? 'bg-green-500' : status === 'failed' ? 'bg-red-500' : 'bg-blue-500'}`}
+						>
+							{isSubmitting
+								? 'Submitting...'
+								: status === 'success'
+									? 'Submitted!'
+									: status === 'failed'
+										? 'Try Again'
+										: 'Submit'}
 						</ButtonPrimary>
 					</form>
 				</div>

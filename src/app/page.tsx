@@ -79,7 +79,7 @@ function PageHome() {
 			</div>
 
 			<AdditionalServices />
-			<div className="w-full bg-gradient-to-r from-orange-200/60 to-pink-200/70 !px-0">
+			<div className="w-full bg-gradient-to-tl from-stone-100 via-transparent to-primary-300 !px-0">
 				<CtaSection />
 			</div>
 		</main>

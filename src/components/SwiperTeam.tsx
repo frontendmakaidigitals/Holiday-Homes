@@ -33,7 +33,7 @@ export default function SwiperTeams() {
 						{' '}
 						{/* Adjusted slide content */}
 						<div className="overflow-hidden rounded-lg">
-							<div className="h-[500px] w-full bg-gray-100">
+							<div className="w-full bg-gray-100 xl:h-[340px] xxl:h-[450px]">
 								<img
 									src={item.avatar}
 									alt={item.name}
