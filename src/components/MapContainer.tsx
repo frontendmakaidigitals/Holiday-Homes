@@ -1,6 +1,11 @@
 'use client'
 import { createRoot } from 'react-dom/client'
 import dynamic from 'next/dynamic'
+import {
+	MapContainer as LeafletMapContainer,
+	TileLayer,
+	Marker,
+} from 'react-leaflet'
 import { FC, useState, useEffect } from 'react'
 import Checkbox from '@/shared/Checkbox'
 import { CarDataType, ExperiencesDataType, StayDataType } from '@/data/types'
@@ -12,19 +17,7 @@ interface MapContainerProps {
 	DEMO_DATA: CarDataType[] | ExperiencesDataType[] | StayDataType[]
 	listingType: 'car' | 'experiences' | 'stay'
 }
-const LeafletMapContainer = dynamic(
-	() => import('react-leaflet').then((mod) => mod.MapContainer),
-	{ ssr: false },
-)
-const TileLayer = dynamic(
-	() => import('react-leaflet').then((mod) => mod.TileLayer),
-	{ ssr: false },
-)
-const Marker = dynamic(
-	() => import('react-leaflet').then((mod) => mod.Marker),
-	{ ssr: false },
-)
-
+ 
 // Dynamic import for AnyReactComponent
 
 const MapContainer: FC<MapContainerProps> = ({
@@ -35,20 +28,23 @@ const MapContainer: FC<MapContainerProps> = ({
 	const [activeItem, setActiveItem] = useState<number | string | null>(null)
 
 	useEffect(() => {
-		 
-
 		if (!DEMO_DATA || DEMO_DATA.length === 0) {
 			console.warn('DEMO_DATA is empty')
 			return
 		}
 
 		// Use a timeout to ensure the DOM is ready
-		const timeoutId = setTimeout(() => {
+		setTimeout(() => {
 			DEMO_DATA.forEach((item) => {
 				const markerId = `marker-${item.id}`
 				const element = document.getElementById(markerId)
 				if (element) {
-					const root = createRoot(element)
+					// Create a root for the AnyReactComponent
+					const root = createRoot(element) // Use createRoot instead of ReactDOM.render
+
+					// Debug: Log the item data being passed
+					console.log('Rendering marker for item:', item)
+
 					root.render(
 						<AnyReactComponent
 							isSelected={currentHoverID === item.id}
@@ -70,9 +66,8 @@ const MapContainer: FC<MapContainerProps> = ({
 				}
 			})
 		}, 0)
-
-		return () => clearTimeout(timeoutId) // Cleanup
 	}, [DEMO_DATA, currentHoverID, listingType])
+
 
 	 
 
