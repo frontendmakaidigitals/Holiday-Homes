@@ -8,6 +8,9 @@ import { Metadata } from 'next'
 import ThemeProvider from './theme-provider'
 import HeaderFooter from '@/components/HeaderFooter' // Import the new client component
 import WhatsappContact from '@/components/WhatsappContact'
+import { Suspense } from 'react'
+import Loading from './loading' // Import the Loading component
+
 const poppins = Poppins({
 	subsets: ['latin'],
 	display: 'swap',
@@ -32,9 +35,10 @@ export default function RootLayout({
 				<body className="bg-white text-base text-neutral-900 dark:bg-neutral-900 dark:text-neutral-200">
 					<div className="relative z-[999999]">
 						<WhatsappContact />
-						<HeaderFooter>{children}</HeaderFooter>{' '}
+						<Suspense fallback={<Loading />}>
+							<HeaderFooter>{children}</HeaderFooter>
+						</Suspense>
 					</div>
-
 					<ClientCommons />
 				</body>
 			</ThemeProvider>
