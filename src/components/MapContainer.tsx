@@ -6,7 +6,7 @@ import Checkbox from '@/shared/Checkbox'
 import { CarDataType, ExperiencesDataType, StayDataType } from '@/data/types'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-
+import AnyReactComponent from './AnyReactComponent/AnyReactComponent'
 interface MapContainerProps {
 	currentHoverID: string | number
 	DEMO_DATA: CarDataType[] | ExperiencesDataType[] | StayDataType[]
@@ -26,10 +26,7 @@ const Marker = dynamic(
 )
 
 // Dynamic import for AnyReactComponent
-const AnyReactComponent = dynamic(
-	() => import('@/components/AnyReactComponent/AnyReactComponent'),
-	{ ssr: false },
-)
+
 const MapContainer: FC<MapContainerProps> = ({
 	currentHoverID = -1,
 	DEMO_DATA,
@@ -38,7 +35,7 @@ const MapContainer: FC<MapContainerProps> = ({
 	const [activeItem, setActiveItem] = useState<number | string | null>(null)
 
 	useEffect(() => {
-		if (typeof window === 'undefined') return // Ensure we're in the browser
+		 
 
 		if (!DEMO_DATA || DEMO_DATA.length === 0) {
 			console.warn('DEMO_DATA is empty')
@@ -77,9 +74,7 @@ const MapContainer: FC<MapContainerProps> = ({
 		return () => clearTimeout(timeoutId) // Cleanup
 	}, [DEMO_DATA, currentHoverID, listingType])
 
-	if (typeof window === 'undefined') {
-		return null // Prevent rendering on the server
-	}
+	 
 
 	return (
 		<LeafletMapContainer
