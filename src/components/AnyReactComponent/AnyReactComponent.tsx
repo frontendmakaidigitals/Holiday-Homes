@@ -1,12 +1,10 @@
 'use client'
-
 import { Transition } from '@headlessui/react'
 import CarCard from '@/components/CarCard'
 import ExperiencesCard from '@/components/ExperiencesCard'
 import StayCard from '@/components/StayCard'
 import { CarDataType, ExperiencesDataType, StayDataType } from '@/data/types'
-import React, { FC, Fragment } from 'react'
-import { useState } from 'react'
+import React, { FC, Fragment, useState } from 'react'
 
 export interface AnyReactComponentProps {
 	className?: string
