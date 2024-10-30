@@ -15,9 +15,10 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-	title: 'Chisfis - Booking online React Next Template',
+	title: 'BSHH - Booking online & rental online',
 	description: 'Booking online & rental online React Next Template',
-	keywords: 'Chisfis, Booking online, React Next Template',
+	keywords:
+		'BSHH, Holiday Booking, Rental Booking, Brown Stone, Dubai, Dubai hotels',
 }
 
 export default function RootLayout({
