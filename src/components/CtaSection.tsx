@@ -31,12 +31,6 @@ const CtaSection = () => {
 
 		try {
 			setIsSubmitting(true)
-			await axios.get(
-				`${process.env.NEXT_PUBLIC_SERVER_URL}` + `/sanctum/csrf-cookie`,
-				{
-					withCredentials: true,
-				},
-			)
 
 			await axios.post(
 				`${process.env.NEXT_PUBLIC_SERVER_URL}` + `/api/query`,
