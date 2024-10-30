@@ -8,12 +8,13 @@ import Pagination from '@/shared/Pagination'
 import TabFilters from './TabFilters'
 import Heading2 from '@/shared/Heading2'
 import CarCardH from '@/components/CarCardH'
-import AnyReactComponent from '@/components/AnyReactComponent/AnyReactComponent'
-import MapContainer from '@/components/MapContainer'
-
+import dynamic from 'next/dynamic'
 const DEMO_CARS = DEMO_CAR_LISTINGS.filter((_, i) => i < 12)
-
 export interface SectionGridHasMapProps {}
+
+const MapContainer = dynamic(() => import('@/components/MapContainer'), {
+	ssr: false,
+})
 
 const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 	const [currentHoverID, setCurrentHoverID] = useState<string | number>(-1)

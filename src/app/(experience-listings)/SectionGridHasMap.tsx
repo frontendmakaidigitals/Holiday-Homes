@@ -9,12 +9,14 @@ import Pagination from '@/shared/Pagination'
 import TabFilters from './TabFilters'
 import Heading2 from '@/shared/Heading2'
 import ExperiencesCardH from '@/components/ExperiencesCardH'
-import MapContainer from '@/components/MapContainer'
+import dynamic from 'next/dynamic'
 
 const DEMO_EXPERIENCES = DEMO_EXPERIENCES_LISTINGS.filter((_, i) => i < 12)
 
 export interface SectionGridHasMapProps {}
-
+const MapContainer = dynamic(() => import('@/components/MapContainer'), {
+	ssr: false,
+})
 const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 	const [currentHoverID, setCurrentHoverID] = useState<string | number>(-1)
 	const [showFullMapFixed, setShowFullMapFixed] = useState(false)
