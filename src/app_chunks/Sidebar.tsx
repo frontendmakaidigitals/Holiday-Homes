@@ -41,7 +41,7 @@ const Sidebar = ({
 	return (
 		<div
 			ref={sideRef}
-			className="fixed left-0 top-0 z-[999] h-screen w-[280px] overflow-hidden bg-[#070504] py-5"
+			className="fixed left-0 top-0 z-[999] h-screen w-[280px]  bg-[#070504] py-5"
 		>
 			<motion.div
 				animate={{ scale: [0.5, 1], opacity: [0.5, 1] }}
@@ -49,11 +49,11 @@ const Sidebar = ({
 				className="-z-1 absolute -left-10 -top-10 size-48 rounded-full bg-gradient-to-r from-[#dcf2ff9c] to-[#bd816b8f] blur-2xl"
 			/>
 
-			<div className="flex w-full items-center justify-center xl:mt-5 xxl:mt-7 xxxl:mt-10">
-				<img src={`/Logo.png`} className="w-[150px] xxl:w-44" />
+			<div className="flex w-full items-center justify-center xl:mt-2 xxl:mt-5 xxxl:mt-10">
+				<img src={`/Logo.png`} className="w-[150px] xl:w-32 xxl:w-36" />
 			</div>
 
-			<div className="mt-10 flex flex-col items-center justify-center gap-2 rounded-xl px-5 transition-all duration-200">
+			<div className="mt-5 flex flex-col items-center justify-center gap-2 rounded-xl px-5 transition-all duration-200 xxxl:mt-10">
 				<div className="size-20 cursor-pointer overflow-hidden rounded-full border-4 border-white bg-gray-100 xl:size-14 xxl:size-20">
 					{img ? (
 						<img

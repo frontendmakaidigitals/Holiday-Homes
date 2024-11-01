@@ -19,7 +19,7 @@ export default function RootLayout({
 	}, [])
 
 	return (
-		<div className="flex w-full justify-end">
+		<div className="relative flex w-full justify-end">
 			<Sidebar sideRef={sideRef} path={path} />
 			<div
 				style={{
@@ -30,6 +30,7 @@ export default function RootLayout({
 				<div className="w-full">
 					<Navbar />
 				</div>
+				 
 				{children}
 			</div>
 		</div>

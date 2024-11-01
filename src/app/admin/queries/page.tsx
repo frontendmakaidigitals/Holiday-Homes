@@ -206,7 +206,7 @@ const Queries = ({
 							<TableCell className="py-3">
 								<div className="flex items-center gap-2">
 									<div className="group relative cursor-pointer">
-										<p className="absolute bottom-full left-1/2 z-[9999] hidden w-auto -translate-x-1/2 text-nowrap rounded-full bg-slate-500 px-4 py-1 text-gray-100 shadow-lg group-hover:block">
+									<p className="absolute bottom-full left-1/2 z-9 hidden w-auto -translate-x-1/2 text-nowrap rounded-full bg-slate-500 px-4 py-1 text-gray-100 shadow-lg group-hover:block">
 											Mark as read
 										</p>
 										{isQuerySubmitting && submitId === query.id ? (
@@ -240,7 +240,7 @@ const Queries = ({
 										)}
 									</div>
 									<div className="group relative cursor-pointer">
-										<p className="absolute bottom-full left-1/2 z-[9999] hidden w-auto -translate-x-1/2 text-nowrap rounded-full bg-red-500 px-4 py-1 text-gray-100 shadow-lg group-hover:block">
+										<p className="absolute bottom-full left-1/2 z-9 hidden w-auto -translate-x-1/2 text-nowrap rounded-full bg-red-500 px-4 py-1 text-gray-100 shadow-lg group-hover:block">
 											Delete query
 										</p>
 										<MdDeleteForever className="relative text-xl text-red-500" />

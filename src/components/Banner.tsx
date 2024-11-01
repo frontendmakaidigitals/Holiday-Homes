@@ -6,7 +6,7 @@ const Banner = () => {
 	const [status, setStatus] = useState('')
 	const [isOpen, setIsOpen] = useState(false)
 	return (
-		<div className="w-full rounded-lg bg-primary-50/80 px-3 mt-32 py-5 lg:p-7">
+		<div className="mt-32 w-full rounded-lg bg-[url('/banner.png')] bg-cover bg-center px-3 py-5 lg:p-7">
 			{isOpen && (
 				<Form setIsOpen={setIsOpen} status={status} setStatus={setStatus} />
 			)}
@@ -19,9 +19,7 @@ const Banner = () => {
 				support you every step of the way.
 			</p>
 			<div className="flex w-full items-center justify-center">
-				<button
-					className="mt-5 rounded-md bg-primary-400 px-4 py-2 font-semibold text-white hover:bg-primary-300"
-				>
+				<button className="mt-5 rounded-md bg-primary-400 px-4 py-2 font-semibold text-white hover:bg-primary-300">
 					<a href="/Get-Estimate">Get Estimate</a>
 				</button>
 			</div>

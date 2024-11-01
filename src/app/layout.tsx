@@ -33,7 +33,7 @@ export default function RootLayout({
 		<html lang="en" className={poppins.className}>
 			<ThemeProvider>
 				<body className="bg-white text-base text-neutral-900 dark:bg-neutral-900 dark:text-neutral-200">
-					<div className="relative z-[999999]">
+					<div className="relative z-9">
 						<WhatsappContact />
 						<Suspense fallback={<Loading />}>
 							<HeaderFooter>{children}</HeaderFooter>
