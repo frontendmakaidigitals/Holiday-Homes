@@ -20,28 +20,32 @@ const Sidebar = ({
 		name: string
 		icon: JSX.Element
 		link: { pathname: string }
+		isDropDown: boolean
 	}[] = [
 		{
 			name: 'Dashboard',
 			icon: <MdSpaceDashboard />,
-			link: { pathname: '/admin/dashboard' }, // Use UrlObject
+			link: { pathname: '/admin/dashboard' },
+			isDropDown: false, // Use UrlObject
 		},
 		{
 			name: 'Listings',
 			icon: <FiList />,
 			link: { pathname: '/admin/listings' }, // Use UrlObject
+			isDropDown: true,
 		},
 		{
 			name: 'Queries',
 			icon: <TbBrandGoogleBigQuery />,
-			link: { pathname: '/admin/queries' }, // Use UrlObject
+			link: { pathname: '/admin/queries' },
+			isDropDown: false, // Use UrlObject
 		},
 	]
 
 	return (
 		<div
 			ref={sideRef}
-			className="fixed left-0 top-0 z-[999] h-screen w-[280px]  bg-[#070504] py-5"
+			className="fixed left-0 top-0 z-[999] h-screen w-[280px] bg-[#070504] py-5"
 		>
 			<motion.div
 				animate={{ scale: [0.5, 1], opacity: [0.5, 1] }}

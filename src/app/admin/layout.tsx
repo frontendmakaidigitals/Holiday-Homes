@@ -30,7 +30,7 @@ export default function RootLayout({
 				<div className="w-full">
 					<Navbar />
 				</div>
-				 
+
 				{children}
 			</div>
 		</div>

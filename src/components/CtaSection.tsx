@@ -31,7 +31,9 @@ const CtaSection = () => {
 
 		try {
 			setIsSubmitting(true)
-
+			axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
+				withCredentials: true,
+			})
 			await axios.post(
 				`${process.env.NEXT_PUBLIC_SERVER_URL}` + `/api/query`,
 				updatedData,
@@ -119,12 +121,13 @@ const CtaSection = () => {
 						</div>
 						<ButtonPrimary
 							loading={isSubmitting}
-							className={`mt-8 rounded-lg ${status === 'success' ? 'bg-green-500' : status === 'failed' ? 'bg-red-500' : 'bg-blue-500'}`}
+							disabled={status === 'success'}
+							className={`mt-8 rounded-lg ${status === 'success' ? '!bg-green-500' : status === 'failed' ? 'bg-red-500' : 'bg-blue-500'}`}
 						>
 							{isSubmitting
 								? 'Submitting...'
 								: status === 'success'
-									? 'Submitted!'
+									? 'Submitted Sucessfully!'
 									: status === 'failed'
 										? 'Try Again'
 										: 'Submit'}

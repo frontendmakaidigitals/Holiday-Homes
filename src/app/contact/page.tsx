@@ -58,22 +58,35 @@ interface ApiResponse {
 }
 
 const PageContact: FC<PageContactProps> = ({}) => {
-	const [isLoading, setIsLoading] = useState(false)
-	const [response, setResponse] = useState<ApiResponse | null>(null)
+	const [isLoading, setIsLoading] = useState<boolean>(false)
+	const [response, setResponse] = useState<string>('')
 	const [formState, setFormState] = useState({
 		name: '',
 		email: '',
 		message: '',
+		phone: '',
+		source: 'Contact',
 	})
-	const SubmitHandler = () => {
+	const SubmitHandler = (e: React.FormEvent) => {
+		e.preventDefault()
 		try {
 			setIsLoading(true)
 			axios
-				.post('/api/contact', formState)
-				.then((res) => setResponse(res.data.message))
-				.finally(() => setIsLoading(false))
+				.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
+					withCredentials: true,
+				})
+				.then(() => {
+					return axios.post(
+						`${process.env.NEXT_PUBLIC_SERVER_URL}/api/query`,
+						formState,
+					)
+				})
+				.then((res) => setResponse('success'))
+				.finally(() => {
+					setIsLoading(false)
+				})
 		} catch (error: any) {
-			setResponse(error.message || error)
+			setResponse('failed')
 		}
 	}
 
@@ -110,7 +123,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 							</div>
 						</div>
 						<div>
-							<form className="grid grid-cols-1 gap-6" action="#" method="post">
+							<form onSubmit={SubmitHandler} className="grid grid-cols-1 gap-6">
 								<label className="block">
 									<Label>
 										Full name<span className="text-red-500">*</span>
@@ -127,22 +140,40 @@ const PageContact: FC<PageContactProps> = ({}) => {
 										className="mt-1"
 									/>
 								</label>
-								<label className="block">
-									<Label>
-										Email address <span className="text-red-500">*</span>
-									</Label>
+								<div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+									<label className="block">
+										<Label>
+											Email address <span className="text-red-500">*</span>
+										</Label>
 
-									<Input
-										value={formState.email}
-										type="email"
-										required
-										onChange={(e) =>
-											setFormState({ ...formState, email: e.target.value })
-										}
-										placeholder="example@example.com"
-										className="mt-1"
-									/>
-								</label>
+										<Input
+											value={formState.email}
+											type="email"
+											required
+											onChange={(e) =>
+												setFormState({ ...formState, email: e.target.value })
+											}
+											placeholder="example@example.com"
+											className="mt-1"
+										/>
+									</label>
+									<label className="block">
+										<Label>
+											Phone No. <span className="text-red-500">*</span>
+										</Label>
+
+										<Input
+											value={formState.phone}
+											type="number"
+											required
+											onChange={(e) =>
+												setFormState({ ...formState, phone: e.target.value })
+											}
+											placeholder="12345 67890"
+											className="mt-1"
+										/>
+									</label>
+								</div>
 								<label className="block">
 									<Label>Message</Label>
 
@@ -158,10 +189,17 @@ const PageContact: FC<PageContactProps> = ({}) => {
 								<div>
 									<ButtonPrimary
 										loading={isLoading}
-										disabled={response && response.success ? true : false}
+										disabled={response === 'success'}
 										type="submit"
+										className={`mt-8 rounded-lg ${response === 'success' ? '!bg-green-500' : response === 'failed' ? 'bg-red-500' : 'bg-blue-500'}`}
 									>
-										Send Message
+										{isLoading
+											? 'Submitting...'
+											: response === 'success'
+												? 'Submitted Sucessfully!'
+												: response === 'failed'
+													? 'Try Again'
+													: 'Submit'}
 									</ButtonPrimary>
 								</div>
 							</form>
@@ -173,7 +211,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 				<Heading isCenter={true} desc={''}>
 					Reach Us
 				</Heading>
-				<div className="h-[400px] w-full lg:h-[600px] rounded-xl overflow-hidden shadow-[0px_0px_10px_1px_#d9d9d9]">
+				<div className="h-[400px] w-full overflow-hidden rounded-xl shadow-[0px_0px_10px_1px_#d9d9d9] lg:h-[600px]">
 					<iframe
 						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d620.1099118177573!2d55.26314221012659!3d25.180958569943602!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f69ce658fbc5b%3A0x62ca80127bf7e0f6!2sChurchill%20Towers!5e0!3m2!1sen!2sin!4v1730202443622!5m2!1sen!2sin"
 						loading="lazy"

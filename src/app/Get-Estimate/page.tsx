@@ -1,5 +1,5 @@
 'use client'
-import React, { FC, useState } from 'react'
+import React, { FC, useState, ChangeEvent, FormEvent } from 'react'
 import {
 	Select,
 	SelectContent,
@@ -13,6 +13,7 @@ import Banner from '@/components/Banner'
 import Heading from '@/shared/Heading'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import { IndexKind } from 'typescript'
+import axios from 'axios'
 export interface PageContactProps {}
 
 export interface PropertyStandard {
@@ -350,6 +351,55 @@ const PageContact: FC<PageContactProps> = ({}) => {
 		return area ? (area[bedroomKey] ?? null) : null
 	}
 
+	const [isSubmitting, setIsSubmitting] = useState(false)
+	const [status, setStatus] = useState('')
+	const [formData, setFormData] = useState({
+		name: '',
+		email: '',
+		phone: '',
+		message: '',
+	})
+	const handleChange = (
+		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+	) => {
+		const { name, value } = e.target
+		setFormData((prevData) => ({
+			...prevData,
+			[name]: value,
+		}))
+	}
+
+	const submitForm = async (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault() // Prevent page refresh
+		const updatedData = {
+			...formData,
+			source: 'Estimate Form',
+		}
+
+		try {
+			setIsSubmitting(true)
+			axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
+				withCredentials: true,
+			})
+			await axios.post(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}` + `/api/query`,
+				updatedData,
+				{
+					withCredentials: true,
+					headers: { 'Content-Type': 'application/json' },
+				},
+			)
+
+			setStatus('success')
+			setFormData({ name: '', email: '', phone: '', message: '' }) // Clear form
+		} catch (error) {
+			console.error(error)
+			setStatus('failed')
+		} finally {
+			setIsSubmitting(false)
+		}
+	}
+
 	return (
 		<div className={`nc-PageContact overflow-hidden`}>
 			<div className="mb-24 bg-[url('https://img.freepik.com/free-vector/gradient-blur-pink-blue-abstract-background_53876-117324.jpg?semt=ais_hybrid')] bg-cover bg-center bg-no-repeat py-10 lg:mb-32">
@@ -553,13 +603,16 @@ const PageContact: FC<PageContactProps> = ({}) => {
 								Sign up today and start making money
 							</p>
 
-							<form className="mt-7 w-full">
+							<form onSubmit={submitForm} className="mt-7 w-full">
 								<div className="w-full">
 									<p className="text-sm font-medium">Name</p>
 									<input
 										className="mt-1 w-full rounded-lg border border-gray-200 bg-primary-200 px-3 py-3 shadow-sm placeholder:text-gray-700"
 										placeholder="Enter your name"
 										required
+										value={formData.name}
+										onChange={handleChange}
+										name="name"
 									/>
 								</div>
 								<div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
@@ -569,6 +622,9 @@ const PageContact: FC<PageContactProps> = ({}) => {
 											className="mt-1 w-full rounded-lg border border-gray-200 bg-primary-200 px-3 py-3 shadow-sm placeholder:text-gray-700"
 											placeholder="Enter your email"
 											required
+											value={formData.email}
+											onChange={handleChange}
+											name="email"
 										/>
 									</div>
 									<div className="mt-4 w-full">
@@ -578,6 +634,9 @@ const PageContact: FC<PageContactProps> = ({}) => {
 											className="mt-1 w-full rounded-lg border border-gray-200 bg-primary-200 px-3 py-3 shadow-sm placeholder:text-gray-700"
 											placeholder="Enter your Phone number"
 											required
+											value={formData.phone}
+											onChange={handleChange}
+											name="phone"
 										/>
 									</div>
 								</div>
@@ -587,10 +646,23 @@ const PageContact: FC<PageContactProps> = ({}) => {
 										className="mt-1 h-24 w-full resize-none rounded-lg border border-gray-200 bg-primary-200 px-3 py-3 shadow-sm placeholder:text-gray-700"
 										placeholder="Enter your message"
 										required
+										value={formData.message}
+										onChange={handleChange}
+										name="message"
 									/>
 								</div>
-								<ButtonPrimary className="mt-8 rounded-lg">
-									Submit
+								<ButtonPrimary
+									loading={isSubmitting}
+									disabled={status === 'success'}
+									className={`mt-8 rounded-lg ${status === 'success' ? '!bg-green-500' : status === 'failed' ? 'bg-red-500' : 'bg-blue-500'}`}
+								>
+									{isSubmitting
+										? 'Submitting...'
+										: status === 'success'
+											? 'Submitted Sucessfully!'
+											: status === 'failed'
+												? 'Try Again'
+												: 'Submit'}
 								</ButtonPrimary>
 							</form>
 						</div>
