@@ -97,10 +97,16 @@ const PageContact: FC<PageContactProps> = ({}) => {
 		'Festival City',
 		'Greens',
 		'MBR City',
+		'MADINAT JUMEIRAH',
+		'MEYDAN',
+		'PALM JUMEIRAH',
+		'RAS AL KHOR',
+		'SILICON OASIS',
+		'TECOM',
 	]
 
 	const BedroomDropDown = ['studio', 'One Bed', 'Two Bed', 'Three Bed']
-	const FurnishDropDown = ['Furnished', 'Semi-Furnished', 'Unfurnished']
+	const FurnishDropDown = ['Standard', 'Premium']
 
 	const prices = [
 		{
@@ -224,13 +230,6 @@ const PageContact: FC<PageContactProps> = ({}) => {
 			threeBed: 1250,
 		},
 		{
-			areaName: 'Discovery Gardens',
-			studio: null,
-			oneBed: null,
-			twoBed: null,
-			threeBed: null,
-		},
-		{
 			areaName: 'Dubai South',
 			studio: 325,
 			oneBed: 375,
@@ -293,13 +292,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 			twoBed: 675,
 			threeBed: 899,
 		},
-		{
-			areaName: 'Springs (Villas)',
-			studio: null,
-			oneBed: null,
-			twoBed: null,
-			threeBed: null,
-		},
+
 		{
 			areaName: 'Tecom',
 			studio: 450,
@@ -351,7 +344,9 @@ const PageContact: FC<PageContactProps> = ({}) => {
 		}
 
 		const bedroomKey = bedroomMap[selectedBedroom as keyof typeof bedroomMap]
-		const area = prices.find((area) => area.areaName === selectedArea)
+		const area = prices.find(
+			(area) => area.areaName.toLowerCase() === selectedArea?.toLowerCase(),
+		)
 		return area ? (area[bedroomKey] ?? null) : null
 	}
 
@@ -510,11 +505,11 @@ const PageContact: FC<PageContactProps> = ({}) => {
 								<div className="">
 									<p className="text-3xl text-primary-900">
 										A{' '}
-										<span className="text-sm font-medium text-primary-500">
+										<span className="font-medium text-primary-500">
 											{finalPrice.bedroom}
 										</span>{' '}
 										property in{' '}
-										<span className="text-sm font-medium text-primary-500">
+										<span className="font-medium text-primary-500">
 											{finalPrice.area}
 										</span>{' '}
 										can earn
@@ -628,7 +623,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 					))}
 				</div>
 			</div>
-			 
+
 			<div className="container my-20">
 				<Banner />
 			</div>
