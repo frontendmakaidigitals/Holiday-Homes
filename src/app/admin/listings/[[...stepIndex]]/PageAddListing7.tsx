@@ -5,12 +5,10 @@ import NcInputNumber from '@/components/NcInputNumber'
 import React, { FC, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import ButtonPrimary from '@/shared/ButtonPrimary'
-import ButtonSecondary from '@/shared/ButtonSecondary'
 import { useRouter } from 'next/navigation'
-import { Route } from '@/routers/types'
-import { useToast } from '@/hooks/use-toast'
-import useStore from '../FormStore'
 
+import useStore from '../FormStore'
+import axios from 'axios'
 export interface PageAddListing7Props {
 	params?: { stepIndex: number }
 }
@@ -22,13 +20,39 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 		new Date('2023/02/09').getTime(),
 		new Date('2023/02/15').getTime(),
 	])
-
+	const { ListingData } = useStore()
 	const index = Number(params.stepIndex)
 	const nextBtnText = index > 9 ? 'Publish listing' : 'Continue'
 	const router = useRouter()
-
+	const [isLoading, setIsLoading] = useState(false)
+	const [status, setStatus] = useState('')
 	const NextBTN = () => {
-		router.push(`/admin/listings/${index + 1}`)
+		setIsLoading(true)
+		axios
+			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
+				withCredentials: true,
+			})
+			.then(() => {
+				return axios.post(
+					`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing`,
+					ListingData,
+					{
+						withCredentials: true,
+					},
+				)
+			})
+			.then((res) => {
+				setStatus('success')
+				console.log('Data upload Successfull')
+			})
+			.catch((error) => {
+				console.error(error)
+				setStatus('failed')
+			})
+			.finally(() => {
+				setIsLoading(false)
+				router.push(`/admin/listings/${index + 1}`)
+			})
 	}
 
 	const BackBTN = () => {
@@ -92,7 +116,7 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 					)}
 				/>
 
-				<div className="flex justify-end mt-8 space-x-5">
+				<div className="mt-8 flex justify-end space-x-5">
 					<button
 						onClick={BackBTN}
 						className="rounded-full border border-gray-600 bg-transparent px-5 disabled:!cursor-not-allowed disabled:!bg-slate-300 disabled:!text-slate-500"

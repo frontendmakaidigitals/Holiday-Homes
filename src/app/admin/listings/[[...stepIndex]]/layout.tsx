@@ -19,7 +19,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children, params }) => {
 	const router = useRouter()
 	useEffect(() => {
 		if (index > 1) {
-			if (!ListingData.rentalPlace) router.push(`/admin/listings/1`)
+			if (!ListingData.placeName) router.push(`/admin/listings/1`)
 		}
 		if (index > 2) {
 			if (!ListingData.Address) router.push(`/admin/listings/1`)
