@@ -6,12 +6,13 @@ import React, { FC, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import { useRouter } from 'next/navigation'
-
 import useStore from '../FormStore'
 import axios from 'axios'
+
 export interface PageAddListing7Props {
 	params?: { stepIndex: number }
 }
+
 const PageAddListing7: FC<PageAddListing7Props> = ({
 	params = { stepIndex: 7 },
 }) => {
@@ -26,33 +27,71 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 	const router = useRouter()
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
-	const NextBTN = () => {
+
+	const convertImagesToBlobs = async (images:any) => {
+		const blobPromises = images.map(async (image:any) => {
+			if (image instanceof Blob) {
+				return image // Already a Blob
+			} else {
+				// If image is a URL, fetch it and convert to Blob
+				const response = await fetch(image)
+				return await response.blob()
+			}
+		})
+		return await Promise.all(blobPromises)
+	}
+
+	const NextBTN = async () => {
 		setIsLoading(true)
-		axios
-			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
-				withCredentials: true,
-			})
-			.then(() => {
-				return axios.post(
-					`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing`,
-					ListingData,
-					{
-						withCredentials: true,
+
+		// Destructure ListingData to get images
+		const { images, ...listingDataWithoutImages } = ListingData || {}
+
+		try {
+			// Create a FormData object
+			const formData = new FormData()
+
+			// Append other listing data to FormData
+			for (const key in listingDataWithoutImages) {
+				formData.append(key, listingDataWithoutImages[key])
+			}
+
+			// Convert images to blobs and append to FormData
+			if (images && images.length > 0) {
+				const blobs = await convertImagesToBlobs(images)
+				blobs.forEach((blob, index) => {
+					formData.append('images[]', blob, `image-${index}.jpg`) // Use 'images[]' to ensure it's an array
+				})
+			}
+
+			// Send the FormData to the API
+			await axios.get(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`,
+				{
+					withCredentials: true,
+				},
+			)
+
+			const response = await axios.post(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing`,
+				formData,
+				{
+					withCredentials: true,
+					headers: {
+						'Content-Type': 'multipart/form-data',
 					},
-				)
-			})
-			.then((res) => {
-				setStatus('success')
-				console.log('Data upload Successfull')
-			})
-			.catch((error) => {
-				console.error(error)
-				setStatus('failed')
-			})
-			.finally(() => {
-				setIsLoading(false)
-				router.push(`/admin/listings/${index + 1}`)
-			})
+				},
+			)
+
+			setStatus('success')
+			console.log('Data upload successful:', response.data)
+			router.push(`/admin/listings/${index + 1}`)
+		} catch (error) {
+			console.error('Error uploading data:', error)
+			setStatus('failed')
+		} finally {
+			setIsLoading(false)
+		}
 	}
 
 	const BackBTN = () => {
@@ -80,7 +119,7 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 				<NcInputNumber label="Nights max" defaultValue={99} />
 			</div>
 
-			{/*  */}
+			{/* Set your availability */}
 			<div>
 				<h2 className="text-2xl font-semibold">Set your availability</h2>
 				<span className="mt-2 block text-neutral-500 dark:text-neutral-400">
@@ -105,7 +144,6 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 						}
 						setDates(newDates)
 					}}
-					// selected={startDate}
 					monthsShown={2}
 					showPopperArrow={false}
 					excludeDates={dates.filter(Boolean).map((item) => new Date(item))}
