@@ -1,125 +1,101 @@
-import React, { FC } from 'react'
-import { DEMO_STAY_LISTINGS } from '@/data/listings'
-import { StayDataType } from '@/data/types'
-import StartRating from '@/components/StartRating'
-import BtnLikeIcon from '@/components/BtnLikeIcon'
-import SaleOffBadge from '@/components/SaleOffBadge'
-import Badge from '@/shared/Badge'
-import Link from 'next/link'
-import GallerySlider from './GallerySlider'
+import React, { FC } from "react";
+import GallerySlider from "@/components/GallerySlider";
+import { DEMO_EXPERIENCES_LISTINGS } from "@/data/listings";
+import { ExperiencesDataType } from "@/data/types";
+import StartRating from "@/components/StartRating";
+import BtnLikeIcon from "@/components/BtnLikeIcon";
+import SaleOffBadge from "@/components/SaleOffBadge";
+import Badge from "@/shared/Badge";
+import Link from "next/link";
+import { MapPinIcon } from "@heroicons/react/24/outline";
 
 export interface ExperiencesCardProps {
-	className?: string
-	data?: StayDataType
-	size?: 'default' | 'small'
+  className?: string;
+  ratioClass?: string;
+  data?: ExperiencesDataType;
+  size?: "default" | "small";
 }
 
-const DEMO_DATA = DEMO_STAY_LISTINGS[0]
+const DEMO_DATA: ExperiencesDataType = DEMO_EXPERIENCES_LISTINGS[0];
 
 const ExperiencesCard: FC<ExperiencesCardProps> = ({
-	size = 'default',
-	className = '',
-	data = DEMO_DATA,
+  size = "default",
+  className = "",
+  data = DEMO_DATA,
+  ratioClass = "aspect-w-3 aspect-h-3",
 }) => {
-	const {
-		Address,
-		bedRoom,
-		Price,
-		reviewStart,
-		reviewCount,
-		id,
-		placeName,
-		images,
-	} = data
+  const {
+    galleryImgs,
+    address,
+    title,
+    href,
+    like,
+    saleOff,
+    isAds,
+    price,
+    reviewStart,
+    reviewCount,
+    id,
+  } = data;
 
-	const galleryImages = images.map((image) =>
-		typeof image === 'string' ? image : URL.createObjectURL(image),
-	)
+  const renderSliderGallery = () => {
+    return (
+      <div className="relative w-full rounded-2xl overflow-hidden ">
+        <GallerySlider
+          uniqueID={`ExperiencesCard_${id}`}
+          ratioClass={ratioClass}
+          galleryImgs={galleryImgs}
+          href={href}
+        />
+        <BtnLikeIcon isLiked={like} className="absolute right-3 top-3" />
+        {saleOff && <SaleOffBadge className="absolute left-3 top-3" />}
+      </div>
+    );
+  };
 
-	const renderSliderGallery = () => {
-		return (
-			<div className="relative w-full">
-				<GallerySlider
-					uniqueID={`ExperiencesCard_${id}`}
-					ratioClass="aspect-w-4 aspect-h-3 "
-					galleryImgs={galleryImages}
-					href={'/listing-stay-detail'}
-					galleryClass={size === 'default' ? undefined : ''}
-				/>
-			</div>
-		)
-	}
+  const renderContent = () => {
+    return (
+      <div className={size === "default" ? "py-4 space-y-3" : "p-3 space-y-1"}>
+        <div className="space-y-2">
+          <div className="flex items-center text-neutral-500 dark:text-neutral-400 text-sm space-x-2">
+            {size === "default" && <MapPinIcon className="w-4 h-4" />}
+            <span className="">{address}</span>
+          </div>
 
-	const renderContent = () => {
-		return (
-			<div className={size === 'default' ? 'space-y-4 p-4' : 'space-y-1 p-3'}>
-				<div className={size === 'default' ? 'space-y-2' : 'space-y-1'}>
-					<span className="text-sm text-neutral-500 dark:text-neutral-400">
-						{placeName} · {bedRoom} beds
-					</span>
-					<div className="flex items-center space-x-2">
-						<h2
-							className={`font-semibold capitalize text-neutral-900 dark:text-white ${
-								size === 'default' ? 'text-base' : 'text-base'
-							}`}
-						>
-							<span className="line-clamp-1">title</span>
-						</h2>
-					</div>
-					<div className="flex items-center space-x-1.5 text-sm text-neutral-500 dark:text-neutral-400">
-						{
-							<svg
-								className="h-4 w-4"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={1.5}
-									d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-								/>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={1.5}
-									d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-								/>
-							</svg>
-						}
-						<span className="">{Address}</span>
-					</div>
-				</div>
-				<div className="w-14 border-b border-neutral-100 dark:border-neutral-800"></div>
-				<div className="flex items-center justify-between">
-					<span className="text-base font-semibold">
-						{Price}
-						<span className="text-sm font-normal text-neutral-500 dark:text-neutral-400">
-							/night
-						</span>
-					</span>
-					{!!reviewStart && (
-						<StartRating reviewCount={reviewCount} point={reviewStart} />
-					)}
-				</div>
-			</div>
-		)
-	}
+          <div className="flex items-center space-x-2">
+            {isAds && <Badge name="ADS" color="green" />}
+            <h2
+              className={` font-medium capitalize ${
+                size === "default" ? "text-base" : "text-base"
+              }`}
+            >
+              <span className="line-clamp-1">{title}</span>
+            </h2>
+          </div>
+        </div>
+        <div className="border-b border-neutral-100 dark:border-neutral-800"></div>
+        <div className="flex justify-between items-center">
+          <span className="text-base font-semibold">
+            {price}
+            {` `}
+            {size === "default" && (
+              <span className="text-sm text-neutral-500 dark:text-neutral-400 font-normal">
+                /person
+              </span>
+            )}
+          </span>
+          <StartRating reviewCount={reviewCount} point={reviewStart} />
+        </div>
+      </div>
+    );
+  };
 
-	return (
-		<div
-			className={`nc-ExperiencesCard group relative bg-white dark:bg-neutral-900 ${
-				size === 'default'
-					? 'border border-neutral-100 dark:border-neutral-800'
-					: ''
-			} overflow-hidden rounded-2xl transition-shadow hover:shadow-xl ${className}`}
-			data-nc-id="ExperiencesCard"
-		>
-			{renderSliderGallery()}
-			<Link href={'/listing-stay-detail'}>{renderContent()}</Link>
-		</div>
-	)
-}
+  return (
+    <div className={`nc-ExperiencesCard group relative ${className}`}>
+      {renderSliderGallery()}
+      <Link href={href}>{renderContent()}</Link>
+    </div>
+  );
+};
 
-export default ExperiencesCard
+export default ExperiencesCard;
