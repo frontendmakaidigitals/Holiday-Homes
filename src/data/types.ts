@@ -75,7 +75,7 @@ export interface StayDataType {
 	reviewStart: number
 	reviewCount: number
 	like: boolean
-	galleryImgs: (StaticImageData | string)[]
+	galleryImgs: any
 	price: string
 	listingCategory: TaxonomyType
 	maxGuests: number
@@ -92,6 +92,7 @@ export interface StayDataType {
 	Price: string
 	placeName: string
 	images: (string | File)[]
+	
 }
 
 //

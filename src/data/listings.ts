@@ -57,6 +57,11 @@ const DEMO_STAY_LISTINGS = __stayListing.map((post, index): StayDataType => {
     author: DEMO_AUTHORS.filter((user) => user.id === post.authorId)[0],
     listingCategory: category,
     href: post.href as Route,
+    Address: "", // Add a default value for the missing property
+    bedRoom: "", // Add a default value for the missing property
+    Price: "", // Add a default value for the missing property
+    placeName: "", // Add a default value for the missing property
+    images: [], // Add a default value for the missing property
   };
 });
 
