@@ -47,7 +47,7 @@ const PageAddListing8: FC<PageAddListing10Props> = () => {
 				<div className="mt-8 flex items-center space-x-5">
 					<button
 						onClick={EditBTN}
-						className="rounded-full border border-gray-600 bg-transparent px-5 disabled:!cursor-not-allowed disabled:!bg-slate-300 disabled:!text-slate-500"
+						className="h-11 rounded-full border border-gray-600 bg-transparent px-5 disabled:!cursor-not-allowed disabled:!bg-slate-300 disabled:!text-slate-500"
 					>
 						Go Back
 					</button>
