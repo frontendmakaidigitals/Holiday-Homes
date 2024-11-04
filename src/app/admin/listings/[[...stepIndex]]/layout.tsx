@@ -17,7 +17,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children, params }) => {
 	console.log(index)
 	const { ListingData } = useStore()
 	const router = useRouter()
-
+	
 	return (
 		<div
 			className={`nc-PageAddListing1 mt-10 max-w-3xl xl:mt-5 xl:px-3 xxl:mt-7 xxl:px-10 xxxl:mt-10 xxxl:px-10`}
