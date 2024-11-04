@@ -1,25 +1,270 @@
-import React, { FC } from "react";
-import Textarea from "@/shared/Textarea";
+'use client'
+import React, { FC, useState, useEffect } from 'react'
+import { IoMdClose } from 'react-icons/io'
+import ButtonPrimary from '@/shared/ButtonPrimary'
+import { useRouter } from 'next/navigation'
+import { useToast } from '@/hooks/use-toast'
+import useStore from '../FormStore'
 
-export interface PageAddListing6Props {}
+export interface PageAddListing7Props {
+	params?: { stepIndex: number }
+}
 
-const PageAddListing6: FC<PageAddListing6Props> = () => {
-  return (
-    <>
-      <div>
-        <h2 className="text-2xl font-semibold">
-          Your place description for client
-        </h2>
-        <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
-          Mention the best features of your accommodation, any special amenities
-          like fast Wi-Fi or parking, as well as things you like about the
-          neighborhood.
-        </span>
-      </div>
+const PageAddListing6: FC<PageAddListing7Props> = ({
+	params = { stepIndex: 6 },
+}) => {
+	const index = Number(params.stepIndex) || 1
+	const nextBtnText = index > 9 ? 'Publish listing' : 'Continue'
+	const router = useRouter()
+	const { toast } = useToast()
+	const { ListingData, setCoverImage, setImages } = useStore()
+	const [coverPreviewUrl, setCoverPreviewUrl] = useState<string | null>(null)
+	const [previewUrls, setPreviewUrls] = useState<string[]>([])
+	const [showFrontImages, setShowFrontImages] = useState<boolean>(false)
+	const [showCoverImage, setShowCoverImage] = useState<boolean>(false)
 
-      <Textarea placeholder="..." rows={14} />
-    </>
-  );
-};
+	useEffect(() => {
+		if (ListingData.coverImage) {
+			setCoverPreviewUrl(URL.createObjectURL(ListingData.coverImage))
+		} else {
+			setCoverPreviewUrl(null)
+		}
+	}, [ListingData.coverImage])
 
-export default PageAddListing6;
+	useEffect(() => {
+		if (ListingData.images && ListingData.images.length > 0) {
+			const urls = ListingData.images.map((file: File) =>
+				URL.createObjectURL(file),
+			)
+			setPreviewUrls(urls)
+		} else {
+			setPreviewUrls([])
+		}
+	}, [ListingData.images])
+
+	const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (event.target.files) {
+			const files = Array.from(event.target.files)
+
+			// Check if the total count exceeds 5
+			if (ListingData.images.length + files.length > 5) {
+				return toast({
+					variant: 'destructive',
+					title: 'Image Limit Exceeded',
+					description: 'You can upload a maximum of 5 images.',
+				})
+			}
+
+			setImages(files)
+		}
+	}
+
+	const handleCoverImageChange = (
+		event: React.ChangeEvent<HTMLInputElement>,
+	) => {
+		if (event.target.files && event.target.files[0]) {
+			const file = event.target.files[0]
+			setCoverImage(file)
+			setCoverPreviewUrl(URL.createObjectURL(file))
+		}
+	}
+
+	const handleRemoveImage = (index: number) => {
+		const updatedImages = ListingData.images.filter(
+			(_: any, i: number) => i !== index,
+		)
+		setImages(updatedImages)
+	}
+
+	const handleRemoveCoverImage = () => {
+		setCoverImage(null)
+		setCoverPreviewUrl(null)
+	}
+	console.log(ListingData.images)
+	const NextBTN = () => {
+		if (ListingData.images.length < 1) {
+			return toast({
+				variant: 'destructive',
+				title: 'Popular Images are required',
+				description: 'Image cannot be empty',
+			})
+		}
+		if (ListingData.images.length < 5) {
+			return toast({
+				variant: 'destructive',
+				title: 'Minimum 5 Images are required',
+				description: `Add ${5 - ListingData.images.length} more images`,
+			})
+		}
+		if (!ListingData.coverImage) {
+			return toast({
+				variant: 'destructive',
+				title: 'Cover Image is required',
+				description: 'Cover Image cannot be empty',
+			})
+		}
+		router.push(`/admin/listings/${index + 1}`)
+	}
+
+	const BackBTN = () => {
+		if (index > 1) {
+			router.push(`/admin/listings/${index - 1}`)
+		} else {
+			router.push('/admin/listings/1')
+		}
+	}
+	useEffect(() => {
+		if (ListingData.images.length == 0) {
+			setShowFrontImages(false)
+		}
+	}, [ListingData.images])
+
+	useEffect(() => {
+		if (!ListingData.coverImage) {
+			setShowCoverImage(false)
+		}
+	}, [ListingData.coverImage])
+	return (
+		<>
+			<div>
+				<h2 className="text-2xl font-semibold">Pictures of the place</h2>
+				<span className="mt-2 block text-neutral-500 dark:text-neutral-400">
+					A few beautiful photos will help customers have more sympathy for your
+					property.
+				</span>
+			</div>
+
+			<div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
+			{/* FORM */}
+			<div className="space-y-8">
+				{/* Cover Image Section */}
+				<div>
+					<span className="text-lg font-semibold">Cover image</span>
+					<div className="mt-5">
+						<div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-neutral-300 px-6 pb-6 pt-5 dark:border-neutral-6000">
+							<div className="space-y-1 text-center">
+								<label
+									htmlFor="cover-upload"
+									className="relative cursor-pointer"
+								>
+									<span>Upload Cover Image</span>
+									<input
+										id="cover-upload"
+										name="cover-upload"
+										type="file"
+										accept="image/*"
+										onChange={handleCoverImageChange}
+										className="sr-only"
+									/>
+								</label>
+								<p className="text-xs text-neutral-500 dark:text-neutral-400">
+									PNG, JPG, GIF up to 10MB
+								</p>
+							</div>
+						</div>
+					</div>
+					<div className="mt-3 flex w-full items-center justify-between">
+						<button
+							onClick={() => setShowCoverImage(!showCoverImage)}
+							disabled={!coverPreviewUrl}
+							className="rounded-full border border-gray-300 px-4 py-2 text-sm disabled:cursor-not-allowed disabled:bg-slate-300"
+						>
+							{showCoverImage && coverPreviewUrl
+								? 'Hide Cover Image'
+								: 'Show Cover Image'}
+						</button>
+						<p>Cover Image: {ListingData.coverImage ? 'Uploaded' : 'None'}</p>
+					</div>
+					{/* Preview for Cover Image */}
+					{showCoverImage && coverPreviewUrl && (
+						<div className="relative mt-4">
+							<img
+								src={coverPreviewUrl}
+								alt="Cover Preview"
+								className="h-auto w-full rounded-md"
+							/>
+							<button
+								onClick={handleRemoveCoverImage}
+								className="absolute right-0 top-0 rounded bg-red-500 p-1 text-white"
+							>
+								<IoMdClose />
+							</button>
+						</div>
+					)}
+				</div>
+
+				{/* Images Section */}
+				<div>
+					<span className="text-lg font-semibold">Pictures of the place</span>
+					<div className="mt-5">
+						<div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-neutral-300 px-6 pb-6 pt-5 dark:border-neutral-6000">
+							<div className="space-y-1 text-center">
+								<label
+									htmlFor="file-upload"
+									className="relative cursor-pointer"
+								>
+									<span>Upload Images</span>
+									<input
+										id="file-upload"
+										name="file-upload"
+										type="file"
+										accept="image/*"
+										multiple
+										onChange={handleImageChange}
+										className="sr-only mb-4"
+									/>
+								</label>
+								<p className="text-xs text-neutral-500 dark:text-neutral-400">
+									PNG, JPG, GIF up to 10MB
+								</p>
+							</div>
+						</div>
+						<div className="mt-3 flex w-full items-center justify-between">
+							<button
+								onClick={() => setShowFrontImages(!showFrontImages)}
+								disabled={!previewUrls.length}
+								className="rounded-full border border-gray-300 px-4 py-2 text-sm disabled:cursor-not-allowed disabled:bg-slate-300"
+							>
+								{showFrontImages && previewUrls.length
+									? 'Hide Images'
+									: 'Show Images'}
+							</button>
+							<p>Image count: {previewUrls.length}</p>
+						</div>
+
+						<div className="mt-5 grid w-full grid-cols-2 gap-4">
+							{showFrontImages &&
+								previewUrls.map((url, index) => (
+									<div key={index} className="relative">
+										<img
+											src={url}
+											alt={`preview ${index}`}
+											className="h-auto w-full rounded-md"
+										/>
+										<button
+											onClick={() => handleRemoveImage(index)}
+											className="absolute right-0 top-0 rounded bg-red-500 p-1 text-white"
+										>
+											<IoMdClose />
+										</button>
+									</div>
+								))}
+						</div>
+					</div>
+				</div>
+				<div className="flex justify-end space-x-5">
+					<button
+						onClick={BackBTN}
+						className="rounded-full border border-gray-600 bg-transparent px-5 disabled:!cursor-not-allowed disabled:!bg-slate-300 disabled:!text-slate-500"
+						disabled={index === 1}
+					>
+						Go Back
+					</button>
+					<ButtonPrimary onClick={NextBTN}>{nextBtnText}</ButtonPrimary>
+				</div>
+			</div>
+		</>
+	)
+}
+
+export default PageAddListing6

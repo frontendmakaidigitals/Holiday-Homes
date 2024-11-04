@@ -1,86 +1,208 @@
-'use client'
-
-import { MapPinIcon } from '@heroicons/react/24/solid'
-import LocationMarker from '@/components/AnyReactComponent/LocationMarker'
+'use client' // Ensure this file runs on the client-side
 import Label from '@/components/Label'
-import { FC } from 'react'
-import ButtonSecondary from '@/shared/ButtonSecondary'
+import { FC, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Input from '@/shared/Input'
-import Select from '@/shared/Select'
 import FormItem from '../FormItem'
-import { Map, Marker } from '@vis.gl/react-google-maps'
+import ButtonPrimary from '@/shared/ButtonPrimary'
+import ButtonSecondary from '@/shared/ButtonSecondary'
+import useStore from '../FormStore'
+import dynamic from 'next/dynamic'
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+	SelectGroup,
+} from '@/Shadcncomponents/components/ui/select'
+import { Route } from '@/routers/types'
+import { Toast } from '@/Shadcncomponents/components/ui/toast'
+import { useToast } from '@/hooks/use-toast'
+// Dynamically import the MapComponent to prevent server-side rendering issues
+const DynamicMap = dynamic(() => import('@/components/MapComponent'), {
+	ssr: false, // This will prevent the map from rendering on the server side
+})
 
-export interface PageAddListing2Props {}
+export interface PageAddListing2Props {
+	params: { stepIndex: number }
+}
 
-const PageAddListing2: FC<PageAddListing2Props> = () => {
+const PageAddListing2: FC<PageAddListing2Props> = ({
+	params = { stepIndex: 2 },
+}) => {
+	const index = params.stepIndex
+	console.log(index)
+	const {
+		ListingData,
+		setCity,
+		setCountry,
+		setStreet,
+		setState,
+		setPin,
+		setRoomNum,
+		setAddress,
+		setMarker,
+	} = useStore()
+
+	const nextBtnText = index > 9 ? 'Publish listing' : 'Continue'
+	const router = useRouter()
+	const { toast } = useToast()
+
+	// State for the marker
+
+	const NextBTN = () => {
+		if (ListingData.Country === '') {
+			return toast({
+				variant: 'destructive',
+				title: 'Country is required',
+				description: 'Feild is Empty',
+			})
+		}
+		if (ListingData.Street === '') {
+			return toast({
+				variant: 'destructive',
+				title: 'Street is required',
+				description: 'Feild is Empty',
+			})
+		}
+
+		if (ListingData.City === '') {
+			return toast({
+				variant: 'destructive',
+				title: 'City is required',
+				description: 'Feild is Empty',
+			})
+		}
+		if (ListingData.State === '') {
+			return toast({
+				variant: 'destructive',
+				title: 'State is required',
+				description: 'Feild is Empty',
+			})
+		}
+		if (ListingData.postalCode === '') {
+			return toast({
+				variant: 'destructive',
+				title: 'Postal Code is required',
+				description: 'Feild is Empty',
+			})
+		}
+		if (!ListingData.Address) {
+			return toast({
+				variant: 'destructive',
+				title: 'Marking on Map is required',
+				description: 'No Marker is Detected on Map',
+			})
+		}
+		router.push(`/admin/listings/${index + 1}`)
+	}
+	console.log(ListingData.Address, 'address')
+
+	const BackBTN = () => {
+		if (index > 1) {
+			router.push(`/admin/listings/${index - 1}`)
+		} else {
+			router.push('/admin/listings/1')
+		}
+	}
+	const country = ['UAE', 'Dubai']
+
 	return (
 		<>
 			<h2 className="text-2xl font-semibold">Your place location</h2>
 			<div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
-			{/* FORM */}
 			<div className="space-y-8">
-				<ButtonSecondary>
-					<MapPinIcon className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
-					<span className="ml-3">Use current location</span>
-				</ButtonSecondary>
-				{/* ITEM */}
 				<FormItem label="Country/Region">
-					<Select>
-						<option value="Viet Nam">Viet Nam</option>
-						<option value="Thailand">Thailand</option>
-						<option value="France">France</option>
-						<option value="Singapore">Singapore</option>
-						<option value="Jappan">Jappan</option>
-						<option value="Korea">Korea</option>
-						<option value="...">...</option>
-					</Select>
+					<div className="relative">
+						<Select
+							value={ListingData.Country || ''}
+							onValueChange={(e) => setCountry(e)}
+						>
+							<SelectTrigger
+								className={`text-md w-full border bg-white py-2 font-medium`}
+							>
+								<SelectValue
+									placeholder="Select a country"
+									className="placeholder:text-gray-600"
+								/>
+							</SelectTrigger>
+							<SelectContent>
+								<SelectGroup>
+									{country.map((item, index) => (
+										<SelectItem key={index} value={item}>
+											{item}
+										</SelectItem>
+									))}
+								</SelectGroup>
+							</SelectContent>
+						</Select>
+					</div>
 				</FormItem>
 				<FormItem label="Street">
-					<Input placeholder="..." />
+					<Input
+						placeholder="Street"
+						value={ListingData.Street || ''}
+						onChange={(e) => setStreet(e.target.value)}
+					/>
 				</FormItem>
 				<FormItem label="Room number (optional)">
-					<Input />
+					<Input
+						placeholder="Room number (optional)"
+						value={ListingData.RoomNum || ''}
+						onChange={(e) => setRoomNum(e.target.value)}
+					/>
 				</FormItem>
 				<div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-5">
 					<FormItem label="City">
-						<Input />
+						<Input
+							placeholder="City"
+							value={ListingData.City || ''}
+							onChange={(e) => setCity(e.target.value)}
+						/>
 					</FormItem>
 					<FormItem label="State">
-						<Input />
+						<Input
+							placeholder="State"
+							value={ListingData.State || ''}
+							onChange={(e) => setState(e.target.value)}
+						/>
 					</FormItem>
 					<FormItem label="Postal code">
-						<Input />
+						<Input
+							placeholder="Postal Code"
+							value={ListingData.postalCode || ''}
+							onChange={(e) => setPin(e.target.value)}
+						/>
 					</FormItem>
 				</div>
 				<div>
 					<Label>Detailed address</Label>
 					<span className="mt-1 block text-sm text-neutral-500 dark:text-neutral-400">
-						1110 Pennsylvania Avenue NW, Washington, DC 20230
+						{ListingData.Address}
 					</span>
 					<div className="mt-4">
 						<div className="aspect-h-5 aspect-w-5 sm:aspect-h-3">
 							<div className="overflow-hidden rounded-xl">
-								<Map
-									style={{
-										width: '100%',
-										height: '100%',
-									}}
-									defaultZoom={15}
-									defaultCenter={{
-										lat: 55.9607277,
-										lng: 36.2172614,
-									}}
-									gestureHandling={'greedy'}
-								>
-									<Marker
-										position={{ lat: 55.9607277, lng: 36.2172614 }}
-										draggable
-										onDragEnd={(e) => console.log(e)}
-									/>
-								</Map>
+								<DynamicMap
+									marker={ListingData.marker}
+									setMarker={setMarker}
+									setAddress={setAddress}
+								/>
 							</div>
 						</div>
+						<p>Make sure Location marked on the map is same as the address</p>
 					</div>
+				</div>
+				<div className="flex justify-end space-x-5">
+					<button
+						onClick={BackBTN}
+						className="rounded-full border border-gray-600 bg-transparent px-5 disabled:!cursor-not-allowed disabled:!bg-slate-300 disabled:!text-slate-500"
+						disabled={index === 1}
+					>
+						Go back
+					</button>
+					<ButtonPrimary onClick={NextBTN}>{nextBtnText}</ButtonPrimary>
 				</div>
 			</div>
 		</>

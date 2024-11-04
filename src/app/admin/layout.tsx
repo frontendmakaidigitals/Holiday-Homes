@@ -3,6 +3,7 @@ import Sidebar from '@/app_chunks/Sidebar'
 import Navbar from '@/app_chunks/Navbar'
 import { usePathname } from 'next/navigation'
 import { useRef, useEffect, useState } from 'react'
+import { Toaster } from '@/Shadcncomponents/components/ui/toaster'
 export default function RootLayout({
 	children,
 }: {
@@ -32,6 +33,7 @@ export default function RootLayout({
 				</div>
 
 				{children}
+				<Toaster />
 			</div>
 		</div>
 	)
