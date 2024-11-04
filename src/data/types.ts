@@ -108,7 +108,7 @@ export interface ExperiencesDataType {
 	reviewStart: number
 	reviewCount: number
 	like: boolean
-	galleryImgs: (File | string)[]
+	galleryImgs: any
 	price: string
 	listingCategory: TaxonomyType
 	maxGuests: number
