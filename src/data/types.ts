@@ -92,7 +92,8 @@ export interface StayDataType {
 	Price: string
 	placeName: string
 	images: (string | File)[]
-	
+	State: string
+	Country: string
 }
 
 //

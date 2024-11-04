@@ -28,8 +28,8 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
 
-	const convertImagesToBlobs = async (images:any) => {
-		const blobPromises = images.map(async (image:any) => {
+	const convertImagesToBlobs = async (images: any) => {
+		const blobPromises = images.map(async (image: any) => {
 			if (image instanceof Blob) {
 				return image // Already a Blob
 			} else {
