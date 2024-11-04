@@ -10,7 +10,7 @@ import GallerySlider from './GallerySlider'
 
 export interface FinalListingCardProps {
 	className?: string
-	data?: { Address: string; bedRoom: number; Price: string }
+	data?: StayDataType
 	size?: 'default' | 'small'
 }
 
@@ -32,7 +32,7 @@ const FinalListingCard: FC<FinalListingCardProps> = ({
 		images,
 	} = data
 
-	const galleryImages = data.images.map(
+	const galleryImages = images.map(
 		(image) => image.url || URL.createObjectURL(image),
 	)
 
@@ -88,7 +88,7 @@ const FinalListingCard: FC<FinalListingCardProps> = ({
 								/>
 							</svg>
 						}
-						<span className="">{address}</span>
+						<span className="">{Address}</span>
 					</div>
 				</div>
 				<div className="w-14 border-b border-neutral-100 dark:border-neutral-800"></div>

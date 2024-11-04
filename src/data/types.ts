@@ -87,6 +87,11 @@ export interface StayDataType {
 		lat: number
 		lng: number
 	}
+	Address: string
+	bedRoom: string
+	Price: string
+	placeName: string
+	images: (StaticImageData | { url: string })[];
 }
 
 //
