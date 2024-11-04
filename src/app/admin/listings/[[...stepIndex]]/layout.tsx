@@ -17,7 +17,17 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children, params }) => {
 	console.log(index)
 	const { ListingData } = useStore()
 	const router = useRouter()
-	
+	useEffect(() => {
+		if (index > 1) {
+			if (!ListingData.rentalPlace) router.push(`/admin/listings/1`)
+		}
+		if (index > 2) {
+			if (!ListingData.Address) router.push(`/admin/listings/1`)
+		}
+		if (index > 3) {
+			if (!ListingData.Acreage) router.push(`/admin/listings/1`)
+		}
+	}, [index])
 	return (
 		<div
 			className={`nc-PageAddListing1 mt-10 max-w-3xl xl:mt-5 xl:px-3 xxl:mt-7 xxl:px-10 xxxl:mt-10 xxxl:px-10`}
