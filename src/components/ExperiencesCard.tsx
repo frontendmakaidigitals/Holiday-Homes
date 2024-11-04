@@ -1,101 +1,140 @@
-import React, { FC } from "react";
-import GallerySlider from "@/components/GallerySlider";
-import { DEMO_EXPERIENCES_LISTINGS } from "@/data/listings";
-import { ExperiencesDataType } from "@/data/types";
-import StartRating from "@/components/StartRating";
-import BtnLikeIcon from "@/components/BtnLikeIcon";
-import SaleOffBadge from "@/components/SaleOffBadge";
-import Badge from "@/shared/Badge";
-import Link from "next/link";
-import { MapPinIcon } from "@heroicons/react/24/outline";
+'use client'
 
-export interface ExperiencesCardProps {
-  className?: string;
-  ratioClass?: string;
-  data?: ExperiencesDataType;
-  size?: "default" | "small";
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
+import Image, { StaticImageData } from 'next/image'
+import { useState } from 'react'
+import { useSwipeable } from 'react-swipeable'
+import { variants } from '@/utils/animationVariants'
+import Link from 'next/link'
+import { Route } from '@/routers/types'
+
+export interface GallerySliderProps {
+	className?: string
+	galleryImgs: (string | File)[] // Accepting an array of strings for image URLs
+	ratioClass?: string
+	uniqueID: string
+	href?: Route<string>
+	imageClass?: string
+	galleryClass?: string
+	navigation?: boolean
 }
 
-const DEMO_DATA: ExperiencesDataType = DEMO_EXPERIENCES_LISTINGS[0];
+export default function GallerySlider({
+	className = '',
+	galleryImgs,
+	ratioClass = 'aspect-w-4 aspect-h-3',
+	imageClass = '',
+	uniqueID = 'uniqueID',
+	galleryClass = 'rounded-xl',
+	href = '/listing-stay-detail',
+	navigation = true,
+}: GallerySliderProps) {
+	const [loaded, setLoaded] = useState(false)
+	const [index, setIndex] = useState(0)
+	const [direction, setDirection] = useState(0)
+	const images = galleryImgs
 
-const ExperiencesCard: FC<ExperiencesCardProps> = ({
-  size = "default",
-  className = "",
-  data = DEMO_DATA,
-  ratioClass = "aspect-w-3 aspect-h-3",
-}) => {
-  const {
-    galleryImgs,
-    address,
-    title,
-    href,
-    like,
-    saleOff,
-    isAds,
-    price,
-    reviewStart,
-    reviewCount,
-    id,
-  } = data;
+	function changePhotoId(newVal: number) {
+		if (newVal > index) {
+			setDirection(1)
+		} else {
+			setDirection(-1)
+		}
+		setIndex(newVal)
+	}
 
-  const renderSliderGallery = () => {
-    return (
-      <div className="relative w-full rounded-2xl overflow-hidden ">
-        <GallerySlider
-          uniqueID={`ExperiencesCard_${id}`}
-          ratioClass={ratioClass}
-          galleryImgs={galleryImgs}
-          href={href}
-        />
-        <BtnLikeIcon isLiked={like} className="absolute right-3 top-3" />
-        {saleOff && <SaleOffBadge className="absolute left-3 top-3" />}
-      </div>
-    );
-  };
+	const handlers = useSwipeable({
+		onSwipedLeft: () => {
+			if (index < images.length - 1) {
+				changePhotoId(index + 1)
+			}
+		},
+		onSwipedRight: () => {
+			if (index > 0) {
+				changePhotoId(index - 1)
+			}
+		},
+		trackMouse: true,
+	})
 
-  const renderContent = () => {
-    return (
-      <div className={size === "default" ? "py-4 space-y-3" : "p-3 space-y-1"}>
-        <div className="space-y-2">
-          <div className="flex items-center text-neutral-500 dark:text-neutral-400 text-sm space-x-2">
-            {size === "default" && <MapPinIcon className="w-4 h-4" />}
-            <span className="">{address}</span>
-          </div>
+	let currentImage = images[index]
 
-          <div className="flex items-center space-x-2">
-            {isAds && <Badge name="ADS" color="green" />}
-            <h2
-              className={` font-medium capitalize ${
-                size === "default" ? "text-base" : "text-base"
-              }`}
-            >
-              <span className="line-clamp-1">{title}</span>
-            </h2>
-          </div>
-        </div>
-        <div className="border-b border-neutral-100 dark:border-neutral-800"></div>
-        <div className="flex justify-between items-center">
-          <span className="text-base font-semibold">
-            {price}
-            {` `}
-            {size === "default" && (
-              <span className="text-sm text-neutral-500 dark:text-neutral-400 font-normal">
-                /person
-              </span>
-            )}
-          </span>
-          <StartRating reviewCount={reviewCount} point={reviewStart} />
-        </div>
-      </div>
-    );
-  };
+	return (
+		<MotionConfig
+			transition={{
+				x: { type: 'spring', stiffness: 300, damping: 30 },
+				opacity: { duration: 0.2 },
+			}}
+		>
+			<div className={`group relative ${className}`} {...handlers}>
+				{/* Main image */}
+				<div className={`w-full overflow-hidden ${galleryClass}`}>
+					<Link
+						href={href}
+						className={`relative flex items-center justify-center ${ratioClass}`}
+					>
+						<AnimatePresence initial={false} custom={direction}>
+							<motion.div
+								key={index}
+								custom={direction}
+								variants={variants(340, 1)}
+								initial="enter"
+								animate="center"
+								exit="exit"
+								className="absolute inset-0"
+							>
+								<Image
+									src={
+										typeof currentImage === 'string'
+											? currentImage
+											: URL.createObjectURL(currentImage)
+									}
+									fill
+									alt="listing card gallery"
+									className={`object-cover ${imageClass}`}
+									onLoad={() => setLoaded(true)}
+									sizes="(max-width: 1025px) 100vw, 300px"
+								/>
+							</motion.div>
+						</AnimatePresence>
+					</Link>
+				</div>
 
-  return (
-    <div className={`nc-ExperiencesCard group relative ${className}`}>
-      {renderSliderGallery()}
-      <Link href={href}>{renderContent()}</Link>
-    </div>
-  );
-};
+				{/* Navigation Buttons */}
+				{loaded && navigation && (
+					<div className="opacity-0 transition-opacity group-hover:opacity-100">
+						{index > 0 && (
+							<button
+								className="absolute left-3 top-[calc(50%-16px)] flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 bg-white hover:border-neutral-300 focus:outline-none dark:border-neutral-6000 dark:bg-neutral-900 dark:hover:border-neutral-500"
+								onClick={() => changePhotoId(index - 1)}
+							>
+								<ChevronLeftIcon className="h-4 w-4" />
+							</button>
+						)}
+						{index + 1 < images.length && (
+							<button
+								className="absolute right-3 top-[calc(50%-16px)] flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 bg-white hover:border-neutral-300 focus:outline-none dark:border-neutral-6000 dark:bg-neutral-900 dark:hover:border-neutral-500"
+								onClick={() => changePhotoId(index + 1)}
+							>
+								<ChevronRightIcon className="h-4 w-4" />
+							</button>
+						)}
+					</div>
+				)}
 
-export default ExperiencesCard;
+				{/* Bottom Navigation Bar */}
+				<div className="absolute inset-x-0 bottom-0 h-10 rounded-b-lg bg-gradient-to-t from-neutral-900 opacity-50"></div>
+				<div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 transform items-center justify-center space-x-1.5">
+					{images.map((_, i) => (
+						<button
+							className={`h-1.5 w-1.5 rounded-full ${i === index ? 'bg-white' : 'bg-white/60'}`}
+							onClick={() => changePhotoId(i)}
+							key={i}
+						/>
+					))}
+				</div>
+			</div>
+		</MotionConfig>
+	)
+}
