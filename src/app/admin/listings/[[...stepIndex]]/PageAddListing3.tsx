@@ -29,7 +29,7 @@ const PageAddListing3: FC<PageAddListing3Props> = ({
 	const router = useRouter()
 
 	const NextBTN = () => {
-		if (!ListingData.acreage) {
+		if (!ListingData.Acreage) {
 			return toast({
 				variant: 'destructive',
 				title: 'Acreage is required',
