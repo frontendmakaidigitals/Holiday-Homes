@@ -7,7 +7,7 @@ import SaleOffBadge from '@/components/SaleOffBadge'
 import Badge from '@/shared/Badge'
 import Link from 'next/link'
 import GallerySlider from './GallerySlider'
-
+ 
 export interface FinalListingCardProps {
 	className?: string
 	data?: StayDataType

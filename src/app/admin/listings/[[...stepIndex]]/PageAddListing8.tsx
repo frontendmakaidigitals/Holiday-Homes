@@ -1,24 +1,23 @@
-"use client";
-import StayCard from '@/components/StayCard'; // This import may not be necessary
-import { DEMO_STAY_LISTINGS } from '@/data/listings'; // This import may not be necessary
-import React, { FC } from 'react';
-import ButtonPrimary from '@/shared/ButtonPrimary';
-import ButtonSecondary from '@/shared/ButtonSecondary';
-import { EyeIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
-import { Route } from '@/routers/types';
-import { useRouter } from 'next/navigation';
-import useStore from '../FormStore';
-import FinalListingCard from '@/components/FinalListingCard';
-import GallerySlider from '@/components/GallerySlider'; // Import GallerySlider
-
+'use client'
+import StayCard from '@/components/StayCard' // This import may not be necessary
+import { DEMO_STAY_LISTINGS } from '@/data/listings' // This import may not be necessary
+import React, { FC } from 'react'
+import ButtonPrimary from '@/shared/ButtonPrimary'
+import ButtonSecondary from '@/shared/ButtonSecondary'
+import { EyeIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
+import { Route } from '@/routers/types'
+import { useRouter } from 'next/navigation'
+import useStore from '../FormStore'
+import FinalListingCard from '@/components/FinalListingCard'
+import GallerySlider from '@/components/GallerySlider' // Import GallerySlider
+import ExperiencesCard from '@/components/ExperiencesCard'
 export interface PageAddListing10Props {}
 
 const PageAddListing8: FC<PageAddListing10Props> = () => {
-	const router = useRouter();
-	const { ListingData } = useStore();
+	const router = useRouter()
+	const { ListingData } = useStore()
 
 	// Prepare images for the GallerySlider
-	
 
 	return (
 		<>
@@ -32,10 +31,13 @@ const PageAddListing8: FC<PageAddListing10Props> = () => {
 			<div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
 
 			{/* FORM */}
+			<div className="hidden">
+				<ExperiencesCard data={ListingData} />
+			</div>
 			<div>
 				<h3 className="text-lg font-semibold">This is your listing</h3>
 				{/* Add the GallerySlider here */}
-				 
+
 				<div className="max-w-xs">
 					<FinalListingCard className="mt-8" data={ListingData} />
 				</div>
@@ -52,7 +54,7 @@ const PageAddListing8: FC<PageAddListing10Props> = () => {
 				</div>
 			</div>
 		</>
-	);
+	)
 }
 
-export default PageAddListing8;
+export default PageAddListing8
