@@ -32,8 +32,8 @@ const FinalListingCard: FC<FinalListingCardProps> = ({
 		images,
 	} = data
 
-	const galleryImages = images.map(
-		(image) => image.url || URL.createObjectURL(image),
+	const galleryImages = images.map((image) =>
+		typeof image === 'string' ? image : URL.createObjectURL(image),
 	)
 
 	const renderSliderGallery = () => {

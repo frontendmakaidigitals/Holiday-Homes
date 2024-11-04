@@ -11,7 +11,7 @@ import { Route } from '@/routers/types'
 
 export interface GallerySliderProps {
 	className?: string
-	galleryImgs: (string | StaticImageData)[] // Accepting an array of strings for image URLs
+	galleryImgs: (string | File)[] // Accepting an array of strings for image URLs
 	ratioClass?: string
 	uniqueID: string
 	href?: Route<string>
@@ -85,7 +85,11 @@ export default function GallerySlider({
 								className="absolute inset-0"
 							>
 								<Image
-									src={currentImage}
+									src={
+										typeof currentImage === 'string'
+											? currentImage
+											: URL.createObjectURL(currentImage)
+									}
 									fill
 									alt="listing card gallery"
 									className={`object-cover ${imageClass}`}

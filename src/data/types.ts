@@ -91,7 +91,7 @@ export interface StayDataType {
 	bedRoom: string
 	Price: string
 	placeName: string
-	images: (StaticImageData | { url: string })[];
+	images: (string | File)[]
 }
 
 //
