@@ -52,18 +52,17 @@ const PageAddListing8: FC<PageAddListing10Props> = () => {
 					>
 						Go Back
 					</button>
-
-					<ButtonPrimary>
-						<Link
-							href={{
-								pathname: '/listing-stay-detail', // The base path
-								query: { id: ListingData.editId },
-							}}
-						>
+					<Link
+						href={{
+							pathname: '/listing-stay-detail', // The base path
+							query: { id: ListingData.editId },
+						}}
+					>
+						<ButtonPrimary>
 							<EyeIcon className="h-5 w-5" />
 							<span className="ml-3">Preview</span>
-						</Link>
-					</ButtonPrimary>
+						</ButtonPrimary>
+					</Link>
 				</div>
 			</div>
 		</>

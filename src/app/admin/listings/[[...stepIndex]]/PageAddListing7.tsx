@@ -127,6 +127,7 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 			}
 		} finally {
 			setIsLoading(false)
+			setStatus('')
 		}
 	}
 
@@ -200,7 +201,7 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 					</button>
 					<ButtonPrimary
 						loading={isLoading}
-						className={`${status === 'failed' ? 'bg-red-500' : 'bg-green-500'}`}
+						className={`${status === 'failed' ? 'bg-red-500' : ''}`}
 						onClick={NextBTN}
 					>
 						{nextBtnText}
