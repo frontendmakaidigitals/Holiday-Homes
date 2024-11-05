@@ -197,7 +197,13 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 					>
 						Go Back
 					</button>
-					<ButtonPrimary onClick={NextBTN}>{nextBtnText}</ButtonPrimary>
+					<ButtonPrimary
+						loading={isLoading}
+						className={`${status === 'failed' ? 'bg-red-500' : 'bg-green-500'}`}
+						onClick={NextBTN}
+					>
+						{nextBtnText}
+					</ButtonPrimary>
 				</div>
 			</div>
 		</>

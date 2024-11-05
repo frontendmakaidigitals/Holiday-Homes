@@ -74,20 +74,7 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 				description: 'Feild is Empty',
 			})
 		}
-		if (ListingData.State === '') {
-			return toast({
-				variant: 'destructive',
-				title: 'State is required',
-				description: 'Feild is Empty',
-			})
-		}
-		if (ListingData.postalCode === '') {
-			return toast({
-				variant: 'destructive',
-				title: 'Postal Code is required',
-				description: 'Feild is Empty',
-			})
-		}
+
 		if (!ListingData.Address) {
 			return toast({
 				variant: 'destructive',
