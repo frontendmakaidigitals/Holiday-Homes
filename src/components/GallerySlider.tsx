@@ -60,6 +60,9 @@ export default function GallerySlider({
 	})
 
 	let currentImage = images[index]
+
+
+
 	return (
 		<MotionConfig
 			transition={{
