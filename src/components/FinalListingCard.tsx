@@ -52,7 +52,6 @@ const FinalListingCard: FC<FinalListingCardProps> = ({
 					uniqueID={`FinalListingCard_${id}`}
 					ratioClass="aspect-w-4 aspect-h-3"
 					galleryImgs={galleryImages}
-					href="/listing-stay-detail"
 					galleryClass={size === 'default' ? undefined : ''}
 				/>
 			</div>
