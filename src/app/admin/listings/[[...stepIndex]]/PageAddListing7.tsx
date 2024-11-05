@@ -21,7 +21,7 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 		new Date('2023/02/09').getTime(),
 		new Date('2023/02/15').getTime(),
 	])
-	const { ListingData } = useStore()
+	const { ListingData, setEditId } = useStore()
 	const index = Number(params.stepIndex)
 	const nextBtnText = index > 9 ? 'Publish listing' : 'Continue'
 	const router = useRouter()
@@ -117,6 +117,7 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 
 			setStatus('success')
 			console.log('Data upload successful:', response.data)
+			setEditId(response.data.data.id)
 			router.push(`/admin/listings/${index + 1}`)
 		} catch (error: any) {
 			console.error('Error uploading data:', error)

@@ -6,6 +6,7 @@ import FinalListingCard from '@/components/FinalListingCard'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import ButtonSecondary from '@/shared/ButtonSecondary'
 import { EyeIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 
 export interface PageAddListing10Props {}
 
@@ -53,8 +54,15 @@ const PageAddListing8: FC<PageAddListing10Props> = () => {
 					</button>
 
 					<ButtonPrimary>
-						<EyeIcon className="h-5 w-5" />
-						<span className="ml-3">Preview</span>
+						<Link
+							href={{
+								pathname: '/listing-stay-detail', // The base path
+								query: { id: ListingData.editId },
+							}}
+						>
+							<EyeIcon className="h-5 w-5" />
+							<span className="ml-3">Preview</span>
+						</Link>
 					</ButtonPrimary>
 				</div>
 			</div>

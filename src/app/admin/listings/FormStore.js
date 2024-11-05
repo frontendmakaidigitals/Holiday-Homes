@@ -35,6 +35,7 @@ const useStore = create((set) => ({
 			'Do not wear shoes in the house',
 			'No cooking in the bedroom',
 		],
+		editId: '',
 		houseRules: {
 			pets: 'allow',
 			partyOrganizing: 'allow',
@@ -79,6 +80,13 @@ const useStore = create((set) => ({
 			ListingData: {
 				...state.ListingData,
 				images,
+			},
+		})),
+	setEditId: (editId) =>
+		set((state) => ({
+			ListingData: {
+				...state.ListingData,
+				editId,
 			},
 		})),
 	setPropertyType: (propertyType) =>
