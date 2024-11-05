@@ -1,6 +1,6 @@
 'use client'
 import { createRoot } from 'react-dom/client'
-import dynamic from 'next/dynamic'
+
 import {
 	MapContainer as LeafletMapContainer,
 	TileLayer,
@@ -17,7 +17,7 @@ interface MapContainerProps {
 	DEMO_DATA: CarDataType[] | ExperiencesDataType[] | StayDataType[]
 	listingType: 'car' | 'experiences' | 'stay'
 }
- 
+
 // Dynamic import for AnyReactComponent
 
 const MapContainer: FC<MapContainerProps> = ({
@@ -67,9 +67,6 @@ const MapContainer: FC<MapContainerProps> = ({
 			})
 		}, 0)
 	}, [DEMO_DATA, currentHoverID, listingType])
-
-
-	 
 
 	return (
 		<LeafletMapContainer

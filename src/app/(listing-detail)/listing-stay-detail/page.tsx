@@ -22,11 +22,17 @@ import GuestsInput from './GuestsInput'
 import SectionDateRange from '../SectionDateRange'
 import { Route } from 'next'
 import axios from 'axios'
-import { MapContainer, TileLayer, Marker } from 'react-leaflet'
-import L from 'leaflet'
-import 'leaflet/dist/leaflet.css'
-export interface ListingStayDetailPageProps {}
+import dynamic from 'next/dynamic'
 
+import 'leaflet/dist/leaflet.css'
+
+export interface ListingStayDetailPageProps {}
+const MapViewContainer = dynamic(
+	() => import('@/components/MapViewContainer'),
+	{
+		ssr: false,
+	},
+)
 const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 	let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false)
 
@@ -437,14 +443,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 			</div>
 		)
 	}
-	const customIcon = new L.Icon({
-		iconUrl: 'https://unpkg.com/leaflet/dist/images/marker-icon.png', // default Leaflet icon
-		iconSize: [25, 41], // Size of the marker
-		iconAnchor: [12, 41], // Point of the icon where the marker points
-		popupAnchor: [1, -34], // Position of the popup
-		shadowUrl: 'https://unpkg.com/leaflet/dist/images/marker-shadow.png', // Shadow for the marker
-		shadowSize: [41, 41], // Shadow size
-	})
+
 	const renderSection7 = () => {
 		return (
 			<div className="listingSection__wrap">
@@ -459,28 +458,9 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 
 				{/* MAP */}
 				<div className="aspect-h-5 aspect-w-5 z-0 rounded-xl ring-1 ring-black/10 sm:aspect-h-3">
-					<div className="z-0 overflow-hidden rounded-xl">
-						<div style={{ display: 'flex' }}>
-							{marker?.lat || marker?.lng ? (
-								<MapContainer
-									style={{
-										height: '100vh',
-										width: '100%',
-									}}
-									center={[marker?.lat, marker?.lng]}
-									zoom={8}
-								>
-									<Marker
-										icon={customIcon}
-										position={[marker.lat, marker.lng]}
-									></Marker>
-									{/* add google map tile url  */}
-									<TileLayer
-										attribution="Google Maps"
-										url={`https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}`}
-									/>
-								</MapContainer>
-							) : null}
+					<div className="z-0 w-full overflow-hidden rounded-xl">
+						<div style={{ display: 'flex' }} className="w-full">
+							<MapViewContainer marker={marker} />
 						</div>
 					</div>
 				</div>
