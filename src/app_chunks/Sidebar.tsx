@@ -113,7 +113,7 @@ const Sidebar = ({
 										<ul className="ml-10 flex flex-col gap-2">
 											<li>
 												<Link
-													href="/admin/listings/"
+													href="/admin/viewListings"
 													className="font-Satoshi flex items-center gap-3 rounded-md px-2 py-1 font-[500] text-slate-100 duration-300 hover:bg-[#FEE3D4] hover:text-gray-950 xl:text-sm xxl:text-lg xxxl:text-xl"
 												>
 													<CiViewList />

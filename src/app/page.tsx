@@ -1,7 +1,7 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import SectionHero from '@/app/(server-components)/SectionHero'
 import BgGlassmorphism from '@/components/BgGlassmorphism'
-import { TaxonomyType } from '@/data/types'
 import SectionSliderNewCategories from '@/components/SectionSliderNewCategories'
 import SectionOurFeatures from '@/components/SectionOurFeatures'
 import SectionGridFeaturePlaces from '@/components/SectionGridFeaturePlaces'
@@ -16,69 +16,142 @@ import JLTImg from '@/images/MenuImages/JLT.webp'
 import JVCImg from '@/images/MenuImages/JVC.jpeg'
 import MarinaImg from '@/images/MenuImages/marina.jpg'
 import Heading from '@/shared/Heading'
-const Tabs: TaxonomyType[] = [
-	{
-		id: '1',
-		href: '/listing-stay-map',
-		name: 'Business Bay',
-		taxonomy: 'category',
-		count: 188288,
-		thumbnail: businessBayImg,
-	},
-	{
-		id: '2',
-		href: '/listing-stay-map',
-		name: 'Marina',
-		taxonomy: 'category',
-		count: 188288,
-		thumbnail: MarinaImg,
-	},
-	{
-		id: '3',
-		href: '/listing-stay-map',
-		name: 'Downtown',
-		taxonomy: 'category',
-		count: 188288,
-		thumbnail: donwtownImg,
-	},
-	{
-		id: '4',
-		href: '/listing-stay-map',
-		name: 'Jumeriah Village Circle',
-		taxonomy: 'category',
-		count: 188288,
-		thumbnail: JVCImg,
-	},
-	{
-		id: '5',
-		href: '/listing-stay-map',
-		name: 'Jumeriah Lake Triangle',
-		taxonomy: 'category',
-		count: 188288,
-		thumbnail: JLTImg,
-	},
-]
-
+import axios from 'axios'
+import { TaxonomyType } from '@/data/types'
 function PageHome() {
+	const initialTabs: TaxonomyType[] = [
+		{
+			id: '1',
+			href: '/listing-stay-map',
+			name: 'Business Bay',
+			taxonomy: 'category',
+			count: 0,
+			thumbnail: businessBayImg,
+		},
+		{
+			id: '2',
+			href: '/listing-stay-map',
+			name: 'Marina',
+			taxonomy: 'category',
+			count: 0,
+			thumbnail: MarinaImg,
+		},
+		{
+			id: '3',
+			href: '/listing-stay-map',
+			name: 'Downtown',
+			taxonomy: 'category',
+			count: 0,
+			thumbnail: donwtownImg,
+		},
+		{
+			id: '4',
+			href: '/listing-stay-map',
+			name: 'Jumeriah Village Circle',
+			taxonomy: 'category',
+			count: 0,
+			thumbnail: JVCImg,
+		},
+		{
+			id: '5',
+			href: '/listing-stay-map',
+			name: 'Jumeriah Lake Triangle',
+			taxonomy: 'category',
+			count: 0,
+			thumbnail: JLTImg,
+		},
+	]
+
+	const [isLoading, setIsLoading] = useState(false)
+	const [status, setStatus] = useState('')
+	const [listings, setListings] = useState([])
+	const [tabs, setTabs] = useState(initialTabs)
+	
+	interface listing {
+		Area: string
+	}
+	const getListings = () => {
+		setIsLoading(true)
+		axios
+			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
+				withCredentials: true,
+			})
+			.then(() => {
+				return axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing`, {
+					withCredentials: true,
+				})
+			})
+			.then((res) => {
+				const fetchedListings = Array.isArray(res.data.data)
+					? res.data.data
+					: [] // Ensure it's an array
+				setListings(fetchedListings)
+
+				setStatus('success')
+
+				// Calculate counts for each area
+				const areaCounts = fetchedListings.reduce(
+					(acc: any, listing: listing) => {
+						const area = listing.Area || '' // Ensure area is always a string
+						acc[area] = (acc[area] || 0) + 1
+						return acc
+					},
+					{},
+				)
+
+				// Update the tabs with the new counts
+				setTabs((prevTabs) => {
+					const updatedTabs = prevTabs.map((tab) => ({
+						...tab,
+						count: areaCounts[tab.name] || 0, // Use existing count or default to 0
+					}))
+					return updatedTabs
+				})
+			})
+			.catch((error) => {
+				console.error(error)
+				setStatus('failed')
+			})
+			.finally(() => {
+				setIsLoading(false)
+			})
+	}
+
+	useEffect(() => {
+		getListings()
+	}, [])
+
 	return (
 		<main className="nc-PageHome relative overflow-hidden">
-			{/* GLASSMOPHIN */}
+			{/* GLASSMORPHISM */}
 			<BgGlassmorphism />
 
 			<div className="mb-24 px-4">
 				{/* SECTION HERO */}
 				<SectionHero className="pt-3 lg:pb-16" />
 			</div>
-			<div className="container relative mb-24 mt-10 space-y-24 lg:mb-28 lg:space-y-28">
-				<SectionSliderNewCategories categories={Tabs} />
-				<SectionOurFeatures />
-				<SectionGridFeaturePlaces cardType="card2" />
 
-				<PromotinalOffers />
-				<TestitmonialCarousal />
+			<div className="container relative mb-24 mt-10 space-y-24 lg:mb-28 lg:space-y-28">
+				{/* If listings are loading or empty, show a loading message */}
+				{isLoading ? (
+					<div>Loading...</div>
+				) : (
+					<>
+						<SectionSliderNewCategories categories={tabs} />
+						<SectionOurFeatures />
+						<SectionGridFeaturePlaces
+							stayListings={listings}
+							cardType="card2"
+						/>
+
+						<PromotinalOffers />
+						<TestitmonialCarousal />
+					</>
+				)}
 			</div>
 
 			<AdditionalServices />
+
 			<div className="w-full bg-gradient-to-tl from-stone-100 via-transparent to-primary-300 !px-0">
 				<CtaSection />
 			</div>

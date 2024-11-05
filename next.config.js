@@ -45,6 +45,12 @@ const nextConfig = {
 				port: '',
 				pathname: '/**',
 			},
+			{
+				protocol: 'https',
+				hostname: 'admin.makmediaworks.com',
+				port: '',
+				pathname: '/**',
+			},
 		],
 	},
 }

@@ -1,6 +1,6 @@
 import { Route } from '@/routers/types'
 import { StaticImageData } from 'next/image'
-
+import { UrlObject } from 'url'
 //  ######  CustomLink  ######## //
 export interface CustomLink {
 	label: string
@@ -12,7 +12,7 @@ export interface CustomLink {
 export interface TaxonomyType {
 	id: string | number
 	name: string
-	href: Route<string>
+	href: Route<string> | string
 	count?: number
 	thumbnail?: StaticImageData | string
 	desc?: string
@@ -91,9 +91,13 @@ export interface StayDataType {
 	bedRoom: string
 	Price: string
 	placeName: string
-	images: (string | File)[]
+	images?: (string | File)[]
 	State: string
 	Country: string
+	Area: string
+	propertyType: string
+	imagesUrls: string[]
+	beds: string
 }
 
 //

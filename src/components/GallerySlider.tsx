@@ -8,13 +8,14 @@ import { useSwipeable } from 'react-swipeable'
 import { variants } from '@/utils/animationVariants'
 import Link from 'next/link'
 import { Route } from '@/routers/types'
+import { UrlObject } from 'url'
 
 export interface GallerySliderProps {
 	className?: string
 	galleryImgs: (string | File)[] // Accepting an array of strings for image URLs
 	ratioClass?: string
 	uniqueID: string
-	href?: Route<string>
+	href?: any
 	imageClass?: string
 	galleryClass?: string
 	navigation?: boolean
@@ -27,7 +28,7 @@ export default function GallerySlider({
 	imageClass = '',
 	uniqueID = 'uniqueID',
 	galleryClass = 'rounded-xl',
-	href = '/listing-stay-detail',
+	href,
 	navigation = true,
 }: GallerySliderProps) {
 	const [loaded, setLoaded] = useState(false)

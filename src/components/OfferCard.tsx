@@ -13,7 +13,7 @@ const OfferCard: FC<CardCategory3Props> = ({ className = '', taxonomy }) => {
 	const { count, name, href = '/', thumbnail } = taxonomy
 	return (
 		<Link
-			href={href}
+			href={'/About-us'}
 			className={`nc-CardCategory3 relative flex flex-col ${className}`}
 		>
 			<div

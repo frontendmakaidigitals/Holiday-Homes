@@ -1,15 +1,12 @@
-import React, { FC, ReactNode } from 'react'
-import { DEMO_STAY_LISTINGS } from '@/data/listings'
+'use client'
+import React, { FC, ReactNode, useState } from 'react'
 import { StayDataType } from '@/data/types'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import HeaderFilter from './HeaderFilter'
 import StayCard from './StayCard'
 import StayCard2 from './StayCard2'
 
-// OTHER DEMO WILL PASS PROPS
-const DEMO_DATA: StayDataType[] = DEMO_STAY_LISTINGS.filter((_, i) => i < 8)
-
-//
+// Example DEMO data for listings
 export interface SectionGridFeaturePlacesProps {
 	stayListings?: StayDataType[]
 	gridClass?: string
@@ -21,11 +18,10 @@ export interface SectionGridFeaturePlacesProps {
 }
 
 const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
-	stayListings = DEMO_DATA,
+	stayListings = [],
 	gridClass = '',
 	heading = 'Featured places to stay',
 	subHeading = 'Popular places to stay that Chisfis recommends for you',
-	headingIsCenter,
 	tabs = [
 		'Business Bay',
 		'Marina',
@@ -35,6 +31,15 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
 	],
 	cardType = 'card2',
 }) => {
+	// State to track the selected tab (area)
+	const [activeTab, setActiveTab] = useState(tabs[0])
+
+	// Filter listings based on the active tab, with optional chaining for undefined properties
+	const filteredListings = stayListings.filter(
+		(stay) => stay?.Area === activeTab, // Use optional chaining to handle undefined stays
+	)
+
+	// Function to render the appropriate card based on the cardType
 	const renderCard = (stay: StayDataType) => {
 		let CardName = StayCard
 		switch (cardType) {
@@ -44,27 +49,36 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
 			case 'card2':
 				CardName = StayCard2
 				break
-
 			default:
 				CardName = StayCard
 		}
-
-		return <CardName key={stay.id} data={stay} />
+		return <CardName key={stay?.id} data={stay} /> // Optional chaining for 'id' too
 	}
 
 	return (
 		<div className="nc-SectionGridFeaturePlaces relative">
+			{/* Header with filter and tab selection */}
 			<HeaderFilter
-				tabActive={'Business Bay'}
+				tabActive={activeTab}
 				subHeading={subHeading}
 				tabs={tabs}
 				heading={heading}
+				onClickTab={(tab) => setActiveTab(tab)} // Update active tab when clicked
 			/>
+
+			{/* Grid to display the filtered listings */}
 			<div
 				className={`grid gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-4 ${gridClass}`}
 			>
-				{stayListings.map((stay) => renderCard(stay))}
+				{/* Render cards for the filtered listings */}
+				{filteredListings?.length > 0 ? (
+					filteredListings.map((stay) => renderCard(stay))
+				) : (
+					<p>No listings available for this area.</p>
+				)}
 			</div>
+
+			{/* Button to show more listings */}
 			<div className="mt-16 flex items-center justify-center">
 				<ButtonPrimary>Show me more</ButtonPrimary>
 			</div>

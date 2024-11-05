@@ -13,10 +13,15 @@ const CardCategory3: FC<CardCategory3Props> = ({
 	className = '',
 	taxonomy,
 }) => {
-	const { count, name, href = '/', thumbnail } = taxonomy
+	const { id, count, name, href, thumbnail } = taxonomy
+
+
 	return (
 		<Link
-			href={href}
+			href={{
+				pathname: href, // The base path
+				query: { id: id }, // The query parameter
+			}}
 			className={`nc-CardCategory3 relative flex flex-col ${className}`}
 		>
 			<div

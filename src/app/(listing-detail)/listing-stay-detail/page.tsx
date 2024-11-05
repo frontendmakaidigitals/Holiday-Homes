@@ -49,13 +49,12 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 			<div className="listingSection__wrap !space-y-6">
 				{/* 1 */}
 				<div className="flex items-center justify-between">
-					<Badge name="Wooden house" />
-					<LikeSaveBtns />
+					<Badge name={'propertyType'} />
 				</div>
 
 				{/* 2 */}
 				<h2 className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
-					Beach House in Collingwood
+					{'placeName'}
 				</h2>
 
 				{/* 3 */}
@@ -64,22 +63,12 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 					<span>·</span>
 					<span>
 						<i className="las la-map-marker-alt"></i>
-						<span className="ml-1"> Tokyo, Jappan</span>
-					</span>
-				</div>
-
-				{/* 4 */}
-				<div className="flex items-center">
-					<Avatar hasChecked sizeClass="h-10 w-10" radius="rounded-full" />
-					<span className="ml-2.5 text-neutral-500 dark:text-neutral-400">
-						Hosted by{' '}
-						<span className="font-medium text-neutral-900 dark:text-neutral-200">
-							Kevin Francis
+						<span className="ml-1">
+							{' '}
+							{'State'}, {'Country'}
 						</span>
 					</span>
 				</div>
-
-				{/* 5 */}
 				<div className="w-full border-b border-neutral-100 dark:border-neutral-700" />
 
 				{/* 6 */}
@@ -87,25 +76,27 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 					<div className="flex items-center space-x-3">
 						<i className="las la-user text-2xl"></i>
 						<span className="">
-							6 <span className="hidden sm:inline-block">guests</span>
+							{'guestNum'}{' '}
+							<span className="hidden sm:inline-block">guests</span>
 						</span>
 					</div>
 					<div className="flex items-center space-x-3">
 						<i className="las la-bed text-2xl"></i>
 						<span className=" ">
-							6 <span className="hidden sm:inline-block">beds</span>
+							{'beds'} <span className="hidden sm:inline-block">beds</span>
 						</span>
 					</div>
 					<div className="flex items-center space-x-3">
 						<i className="las la-bath text-2xl"></i>
 						<span className=" ">
-							3 <span className="hidden sm:inline-block">baths</span>
+							{'bathroom'} <span className="hidden sm:inline-block">baths</span>
 						</span>
 					</div>
 					<div className="flex items-center space-x-3">
 						<i className="las la-door-open text-2xl"></i>
 						<span className=" ">
-							2 <span className="hidden sm:inline-block">bedrooms</span>
+							{'bedroom'}{' '}
+							<span className="hidden sm:inline-block">bedrooms</span>
 						</span>
 					</div>
 				</div>
@@ -119,23 +110,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				<h2 className="text-2xl font-semibold">Stay information</h2>
 				<div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
 				<div className="text-neutral-6000 dark:text-neutral-300">
-					<span>
-						Providing lake views, The Symphony 9 Tam Coc in Ninh Binh provides
-						accommodation, an outdoor swimming pool, a bar, a shared lounge, a
-						garden and barbecue facilities. Complimentary WiFi is provided.
-					</span>
-					<br />
-					<br />
-					<span>
-						There is a private bathroom with bidet in all units, along with a
-						hairdryer and free toiletries.
-					</span>
-					<br /> <br />
-					<span>
-						The Symphony 9 Tam Coc offers a terrace. Both a bicycle rental
-						service and a car rental service are available at the accommodation,
-						while cycling can be enjoyed nearby.
-					</span>
+					{'description'}
 				</div>
 			</div>
 		)
@@ -162,12 +137,6 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				</div>
 
 				{/* ----- */}
-				<div className="w-14 border-b border-neutral-200"></div>
-				<div>
-					<ButtonSecondary onClick={openModalAmenities}>
-						View more 20 amenities
-					</ButtonSecondary>
-				</div>
 				{renderMotalAmenities()}
 			</div>
 		)
@@ -260,10 +229,6 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				<div className="flow-root">
 					<div className="-mb-4 text-sm text-neutral-6000 dark:text-neutral-300 sm:text-base">
 						<div className="flex items-center justify-between space-x-4 rounded-lg bg-neutral-100 p-4 dark:bg-neutral-800">
-							<span>Monday - Thursday</span>
-							<span>$199</span>
-						</div>
-						<div className="flex items-center justify-between space-x-4 rounded-lg p-4">
 							<span>Monday - Thursday</span>
 							<span>$199</span>
 						</div>
@@ -517,7 +482,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				{/* PRICE */}
 				<div className="flex justify-between">
 					<span className="text-3xl font-semibold">
-						$119
+						{'price'} + {'AED'}
 						<span className="ml-1 text-base font-normal text-neutral-500 dark:text-neutral-400">
 							/night
 						</span>
@@ -599,7 +564,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 					))}
 
 					<button
-						className="absolute bottom-3 left-3 z-10 hidden rounded-xl bg-neutral-100 px-4 py-2 text-neutral-500 hover:bg-neutral-200 md:flex md:items-center md:justify-center"
+						className="absolute bottom-3 left-3 z-10 hidden rounded-xl bg-slate-100 px-4 py-2 text-neutral-500 hover:bg-neutral-200 md:flex md:items-center md:justify-center"
 						onClick={handleOpenModalImageGallery}
 					>
 						<Squares2X2Icon className="h-5 w-5" />

@@ -14,21 +14,21 @@ const CategoryBadgeList: FC<CategoryBadgeListProps> = ({
   categories,
 }) => {
   return (
-    <div
-      className={`nc-CategoryBadgeList ${className}`}
-      data-nc-id="CategoryBadgeList"
-    >
-      {categories.map((item, index) => (
-        <Badge
-          className={itemClass}
-          key={index}
-          name={item.name}
-          href={item.href}
-          color={item.color as any}
-        />
-      ))}
-    </div>
-  );
+		<div
+			className={`nc-CategoryBadgeList ${className}`}
+			data-nc-id="CategoryBadgeList"
+		>
+			{categories.map((item, index) => (
+				<Badge
+					className={itemClass}
+					key={index}
+					name={item.name}
+					href={'/About-us'}
+					color={item.color as any}
+				/>
+			))}
+		</div>
+	)
 };
 
 export default CategoryBadgeList;
