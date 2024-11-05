@@ -36,7 +36,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 								onMouseEnter={() => setCurrentHoverID((_) => item.id)}
 								onMouseLeave={() => setCurrentHoverID((_) => -1)}
 							>
-								<StayCard2 data={item} />
+								 
 							</div>
 						))}
 					</div>

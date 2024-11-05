@@ -22,7 +22,7 @@ const PageAddListing6: FC<PageAddListing7Props> = ({
 	const [previewUrls, setPreviewUrls] = useState<string[]>([])
 	const [showFrontImages, setShowFrontImages] = useState<boolean>(false)
 	const [showCoverImage, setShowCoverImage] = useState<boolean>(false)
-	console.log(ListingData.coverImage, ListingData.images)
+
 	useEffect(() => {
 		if (ListingData.coverImage) {
 			setCoverPreviewUrl(URL.createObjectURL(ListingData.coverImage))
