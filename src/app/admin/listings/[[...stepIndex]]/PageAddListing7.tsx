@@ -44,8 +44,15 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 	const NextBTN = async () => {
 		setIsLoading(true)
 
-		// Destructure ListingData to get images
-		const { images, ...listingDataWithoutImages } = ListingData || {}
+		// Destructure ListingData to get images, coverImage, and other fields
+		const {
+			images,
+			checkedAmenities,
+			houseRules,
+			marker,
+			coverImage,
+			...listingDataWithoutImages
+		} = ListingData || {}
 
 		try {
 			// Create a FormData object
@@ -53,14 +60,39 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 
 			// Append other listing data to FormData
 			for (const key in listingDataWithoutImages) {
-				formData.append(key, listingDataWithoutImages[key])
+				// If the value is an object (like checkedAmenities, marker, or houseRules), stringify it
+				if (typeof listingDataWithoutImages[key] === 'object') {
+					formData.append(key, JSON.stringify(listingDataWithoutImages[key]))
+				} else {
+					formData.append(key, listingDataWithoutImages[key])
+				}
+			}
+
+			// Handle the marker object separately (if it exists)
+			if (marker && typeof marker === 'object') {
+				formData.append('marker', JSON.stringify(marker))
+			}
+
+			// Handle the checkedAmenities object separately (if it exists)
+			if (checkedAmenities && typeof checkedAmenities === 'object') {
+				formData.append('checkedAmenities', JSON.stringify(checkedAmenities))
+			}
+
+			// Handle the houseRules object separately (if it exists)
+			if (houseRules && typeof houseRules === 'object') {
+				formData.append('houseRules', JSON.stringify(houseRules))
+			}
+
+			// Handle the cover image (if it exists)
+			if (coverImage && coverImage instanceof File) {
+				formData.append('coverImage', coverImage) // Append the cover image directly as a file
 			}
 
 			// Convert images to blobs and append to FormData
 			if (images && images.length > 0) {
 				const blobs = await convertImagesToBlobs(images)
 				blobs.forEach((blob, index) => {
-					formData.append('images[]', blob, `image-${index}.jpg`) // Use 'images[]' to ensure it's an array
+					formData.append('images[]', blob, `image-${index}.jpg`) // Ensure it's an array
 				})
 			}
 
@@ -86,9 +118,12 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 			setStatus('success')
 			console.log('Data upload successful:', response.data)
 			router.push(`/admin/listings/${index + 1}`)
-		} catch (error) {
+		} catch (error: any) {
 			console.error('Error uploading data:', error)
 			setStatus('failed')
+			if (error.response) {
+				console.log('Server error:', error.response.data) // Log server-side error message
+			}
 		} finally {
 			setIsLoading(false)
 		}

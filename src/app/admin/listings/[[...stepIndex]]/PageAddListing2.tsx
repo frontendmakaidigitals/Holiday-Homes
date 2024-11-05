@@ -97,7 +97,7 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 		}
 		router.push(`/admin/listings/${index + 1}`)
 	}
-	console.log(ListingData.Address, 'address')
+	console.log(ListingData.marker, 'address')
 
 	const BackBTN = () => {
 		if (index > 1) {

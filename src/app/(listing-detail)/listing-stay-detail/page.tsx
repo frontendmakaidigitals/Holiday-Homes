@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, Fragment, useState } from 'react'
+import { FC, Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition, TransitionChild } from '@headlessui/react'
 import { ArrowRightIcon, Squares2X2Icon } from '@heroicons/react/24/outline'
 import CommentListing from '@/components/CommentListing'
@@ -15,46 +15,89 @@ import ButtonClose from '@/shared/ButtonClose'
 import Input from '@/shared/Input'
 import LikeSaveBtns from '@/components/LikeSaveBtns'
 import Image from 'next/image'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { Amenities_demos, PHOTOS } from './constant'
 import StayDatesRangeInput from './StayDatesRangeInput'
 import GuestsInput from './GuestsInput'
 import SectionDateRange from '../SectionDateRange'
 import { Route } from 'next'
-
+import axios from 'axios'
+import { MapContainer, TileLayer, Marker } from 'react-leaflet'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 export interface ListingStayDetailPageProps {}
 
 const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
-	//
-
 	let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false)
 
 	const thisPathname = usePathname()
 	const router = useRouter()
+	const searchParams = useSearchParams()
+	const id = searchParams.get('id')
 
 	function closeModalAmenities() {
 		setIsOpenModalAmenities(false)
 	}
 
-	function openModalAmenities() {
-		setIsOpenModalAmenities(true)
+	const [isLoading, setIsLoading] = useState(false)
+	const [status, setStatus] = useState('')
+	const [listings, setListing]: any = useState([])
+
+	const getQueries = () => {
+		setIsLoading(true)
+		axios
+			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
+				withCredentials: true,
+			})
+			.then(() => {
+				return axios.get(
+					`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing/${id}`,
+					{
+						withCredentials: true,
+					},
+				)
+			})
+			.then((res) => {
+				setListing(res.data?.data)
+				setStatus('success')
+			})
+			.catch((error) => {
+				console.error(error)
+				setStatus('failed')
+			})
+			.finally(() => {
+				setIsLoading(false)
+			})
 	}
 
-	const handleOpenModalImageGallery = () => {
-		router.push(`${thisPathname}/?modal=PHOTO_TOUR_SCROLLABLE` as Route)
-	}
+	useEffect(() => {
+		getQueries()
+	}, [])
+	const [marker, setMarker] = useState<{ lat: number; lng: number } | null>(
+		null,
+	)
+
+	useEffect(() => {
+		if (listings?.marker) {
+			// Parse the marker string and set the state
+			setMarker(JSON.parse(listings?.marker))
+		} else {
+			// If no marker is available, set it to null
+			setMarker(null)
+		}
+	}, [listings?.marker])
 
 	const renderSection1 = () => {
 		return (
 			<div className="listingSection__wrap !space-y-6">
 				{/* 1 */}
 				<div className="flex items-center justify-between">
-					<Badge name={'propertyType'} />
+					<Badge name={listings?.propertyType} />
 				</div>
 
 				{/* 2 */}
 				<h2 className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
-					{'placeName'}
+					{listings?.placeName}
 				</h2>
 
 				{/* 3 */}
@@ -65,7 +108,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 						<i className="las la-map-marker-alt"></i>
 						<span className="ml-1">
 							{' '}
-							{'State'}, {'Country'}
+							{listings?.State}, {listings?.Country}
 						</span>
 					</span>
 				</div>
@@ -76,26 +119,28 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 					<div className="flex items-center space-x-3">
 						<i className="las la-user text-2xl"></i>
 						<span className="">
-							{'guestNum'}{' '}
+							{listings?.guestNum}{' '}
 							<span className="hidden sm:inline-block">guests</span>
 						</span>
 					</div>
 					<div className="flex items-center space-x-3">
 						<i className="las la-bed text-2xl"></i>
 						<span className=" ">
-							{'beds'} <span className="hidden sm:inline-block">beds</span>
+							{listings.beds}{' '}
+							<span className="hidden sm:inline-block">beds</span>
 						</span>
 					</div>
 					<div className="flex items-center space-x-3">
 						<i className="las la-bath text-2xl"></i>
 						<span className=" ">
-							{'bathroom'} <span className="hidden sm:inline-block">baths</span>
+							{listings.bathroom}{' '}
+							<span className="hidden sm:inline-block">baths</span>
 						</span>
 					</div>
 					<div className="flex items-center space-x-3">
 						<i className="las la-door-open text-2xl"></i>
 						<span className=" ">
-							{'bedroom'}{' '}
+							{listings.bedRoom}{' '}
 							<span className="hidden sm:inline-block">bedrooms</span>
 						</span>
 					</div>
@@ -110,7 +155,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				<h2 className="text-2xl font-semibold">Stay information</h2>
 				<div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
 				<div className="text-neutral-6000 dark:text-neutral-300">
-					{'description'}
+					{listings?.Description}
 				</div>
 			</div>
 		)
@@ -392,7 +437,14 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 			</div>
 		)
 	}
-
+	const customIcon = new L.Icon({
+		iconUrl: 'https://unpkg.com/leaflet/dist/images/marker-icon.png', // default Leaflet icon
+		iconSize: [25, 41], // Size of the marker
+		iconAnchor: [12, 41], // Point of the icon where the marker points
+		popupAnchor: [1, -34], // Position of the popup
+		shadowUrl: 'https://unpkg.com/leaflet/dist/images/marker-shadow.png', // Shadow for the marker
+		shadowSize: [41, 41], // Shadow size
+	})
 	const renderSection7 = () => {
 		return (
 			<div className="listingSection__wrap">
@@ -408,14 +460,28 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				{/* MAP */}
 				<div className="aspect-h-5 aspect-w-5 z-0 rounded-xl ring-1 ring-black/10 sm:aspect-h-3">
 					<div className="z-0 overflow-hidden rounded-xl">
-						<iframe
-							width="100%"
-							height="100%"
-							loading="lazy"
-							allowFullScreen
-							referrerPolicy="no-referrer-when-downgrade"
-							src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAGVJfZMAKYfZ71nzL_v5i3LjTTWnCYwTY&q=Eiffel+Tower,Paris+France"
-						></iframe>
+						<div style={{ display: 'flex' }}>
+							{marker?.lat || marker?.lng ? (
+								<MapContainer
+									style={{
+										height: '100vh',
+										width: '100%',
+									}}
+									center={[marker?.lat, marker?.lng]}
+									zoom={8}
+								>
+									<Marker
+										icon={customIcon}
+										position={[marker.lat, marker.lng]}
+									></Marker>
+									{/* add google map tile url  */}
+									<TileLayer
+										attribution="Google Maps"
+										url={`https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}`}
+									/>
+								</MapContainer>
+							) : null}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -482,7 +548,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				{/* PRICE */}
 				<div className="flex justify-between">
 					<span className="text-3xl font-semibold">
-						{'price'} + {'AED'}
+						{listings?.Price || 100} AED
 						<span className="ml-1 text-base font-normal text-neutral-500 dark:text-neutral-400">
 							/night
 						</span>
@@ -525,53 +591,39 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 			{/*  HEADER */}
 			<header className="rounded-md sm:rounded-xl">
 				<div className="relative grid grid-cols-3 gap-1 sm:grid-cols-4 sm:gap-2">
-					<div
-						className="relative col-span-2 row-span-3 cursor-pointer overflow-hidden rounded-md sm:row-span-2 sm:rounded-xl"
-						onClick={handleOpenModalImageGallery}
-					>
+					<div className="relative col-span-2 row-span-3 cursor-pointer overflow-hidden rounded-md sm:row-span-2 sm:rounded-xl">
 						<Image
 							fill
 							className="rounded-md object-cover sm:rounded-xl"
-							src={PHOTOS[0]}
+							src={listings?.coverImageUrl}
 							alt=""
 							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
 						/>
 						<div className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 transition-opacity hover:opacity-100"></div>
 					</div>
-					{PHOTOS.filter((_, i) => i >= 1 && i < 5).map((item, index) => (
-						<div
-							key={index}
-							className={`relative overflow-hidden rounded-md sm:rounded-xl ${
-								index >= 3 ? 'hidden sm:block' : ''
-							}`}
-						>
-							<div className="aspect-h-3 aspect-w-4 sm:aspect-h-5 sm:aspect-w-6">
-								<Image
-									fill
-									className="rounded-md object-cover sm:rounded-xl"
-									src={item || ''}
-									alt=""
-									sizes="400px"
-								/>
-							</div>
-
-							{/* OVERLAY */}
+					{listings?.imagesUrls
+						?.filter((_: any, i: number) => i >= 1 && i < 5)
+						.map((item: any, index: number) => (
 							<div
-								className="absolute inset-0 cursor-pointer bg-neutral-900 bg-opacity-20 opacity-0 transition-opacity hover:opacity-100"
-								onClick={handleOpenModalImageGallery}
-							/>
-						</div>
-					))}
+								key={index}
+								className={`relative overflow-hidden rounded-md sm:rounded-xl ${
+									index >= 3 ? 'hidden sm:block' : ''
+								}`}
+							>
+								<div className="aspect-h-3 aspect-w-4 sm:aspect-h-5 sm:aspect-w-6">
+									<Image
+										fill
+										className="rounded-md object-cover sm:rounded-xl"
+										src={item || ''}
+										alt=""
+										sizes="400px"
+									/>
+								</div>
 
-					<button
-						className="absolute bottom-3 left-3 z-10 hidden rounded-xl bg-slate-100 px-4 py-2 text-neutral-500 hover:bg-neutral-200 md:flex md:items-center md:justify-center"
-						onClick={handleOpenModalImageGallery}
-					>
-						<Squares2X2Icon className="h-5 w-5" />
-						<span className="ml-2 text-sm font-medium text-neutral-800">
-							Show all photos
-						</span>
-					</button>
+								{/* OVERLAY */}
+								<div className="absolute inset-0 cursor-pointer bg-neutral-900 bg-opacity-20 opacity-0 transition-opacity hover:opacity-100" />
+							</div>
+						))}
 				</div>
 			</header>
 

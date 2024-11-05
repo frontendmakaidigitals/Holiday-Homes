@@ -30,6 +30,7 @@ const PageAddListing6: FC<PageAddListing7Props> = ({
 			setCoverPreviewUrl(null)
 		}
 	}, [ListingData.coverImage])
+	console.log(ListingData)
 
 	useEffect(() => {
 		if (ListingData.images && ListingData.images.length > 0) {

@@ -29,7 +29,7 @@ const StayCard2: FC<StayCard2Props> = ({
 		address,
 		title,
 		bedRoom,
-		href = '/listing-stay-map',
+		href = '/listing-stay-detail',
 		like,
 		saleOff,
 		isAds,
