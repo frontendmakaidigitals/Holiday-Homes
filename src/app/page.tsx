@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import SectionHero from '@/app/(server-components)/SectionHero'
 import BgGlassmorphism from '@/components/BgGlassmorphism'
 import SectionSliderNewCategories from '@/components/SectionSliderNewCategories'
@@ -66,6 +66,7 @@ function PageHome() {
 	const [status, setStatus] = useState('')
 	const [listings, setListings] = useState([])
 	const [tabs, setTabs] = useState(initialTabs)
+	const btnRef = useRef(null)
 	interface listing {
 		Area: string
 	}
@@ -127,7 +128,7 @@ function PageHome() {
 
 			<div className="mb-24 px-4">
 				{/* SECTION HERO */}
-				<SectionHero className="pt-3 lg:pb-16" />
+				<SectionHero btnRef={btnRef} className="pt-3 lg:pb-16" />
 			</div>
 
 			<div className="container relative mb-24 mt-10 space-y-24 lg:mb-28 lg:space-y-28">
@@ -141,6 +142,7 @@ function PageHome() {
 						<SectionGridFeaturePlaces
 							stayListings={listings}
 							cardType="card2"
+							btnRef={btnRef}
 						/>
 
 						<PromotinalOffers />
