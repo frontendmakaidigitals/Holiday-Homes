@@ -658,7 +658,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				</div>
 
 				{/* SUBMIT */}
-				<ButtonPrimary href={'/checkout'}>Reserve</ButtonPrimary>
+				<ButtonPrimary href={'https://bookings11.rmscloud.com/Search/Index/20926/59/?Y=1'}>Reserve</ButtonPrimary>
 			</div>
 		)
 	}
