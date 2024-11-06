@@ -66,7 +66,7 @@ function PageHome() {
 	const [status, setStatus] = useState('')
 	const [listings, setListings] = useState([])
 	const [tabs, setTabs] = useState(initialTabs)
-	
+
 	interface listing {
 		Area: string
 	}

@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import AnyReactComponent from '@/components/AnyReactComponent/AnyReactComponent'
 import { DEMO_STAY_LISTINGS } from '@/data/listings'
 import ButtonClose from '@/shared/ButtonClose'
@@ -9,7 +9,8 @@ import Pagination from '@/shared/Pagination'
 import TabFilters from './TabFilters'
 import Heading2 from '@/shared/Heading2'
 import StayCard2 from '@/components/StayCard2'
-
+import axios from 'axios'
+import { useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
 const DEMO_STAYS = DEMO_STAY_LISTINGS.filter((_, i) => i < 12)
 export interface SectionGridHasMapProps {}
@@ -19,7 +20,75 @@ const MapContainer = dynamic(() => import('@/components/MapContainer'), {
 const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 	const [currentHoverID, setCurrentHoverID] = useState<string | number>(-1)
 	const [showFullMapFixed, setShowFullMapFixed] = useState(false)
+	const searchParams = useSearchParams()
+	const area = searchParams.get('area')
+	const [isLoading, setIsLoading] = useState(false)
+	const [status, setStatus] = useState('')
+	const [listings, setListings] = useState([])
 
+	interface listing {
+		Area: string
+	}
+	const getListings = () => {
+		setIsLoading(true)
+		axios
+			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
+				withCredentials: true,
+			})
+			.then(() => {
+				return axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing`, {
+					withCredentials: true,
+				})
+			})
+			.then((res) => {
+				const fetchedListings = Array.isArray(res.data.data)
+					? res.data.data
+					: []
+
+				// Parse the marker field if it's a stringified JSON object
+				const parsedListings = fetchedListings.map((listing: any) => {
+					let marker = listing?.marker
+
+					// If marker is a string (stringified JSON), parse it
+					if (typeof marker === 'string') {
+						try {
+							marker = JSON.parse(marker) // Parse the string into an object
+						} catch (e) {
+							console.error('Error parsing marker string:', e)
+						}
+					}
+
+					// Now marker should be an object with lat and lng as numbers
+					return {
+						...listing,
+						marker: {
+							lat: Number(marker?.lat), // Convert lat to number if it's not already
+							lng: Number(marker?.lng), // Convert lng to number if it's not already
+						},
+					}
+				})
+
+				// Filter listings based on the 'area' query parameter
+				const filteredListings = area
+					? parsedListings.filter((listing: any) => listing.Area === area)
+					: parsedListings
+
+				setListings(filteredListings)
+				setStatus('success')
+			})
+			.catch((error) => {
+				console.error(error)
+				setStatus('failed')
+			})
+			.finally(() => {
+				setIsLoading(false)
+			})
+	}
+
+	useEffect(() => {
+		getListings()
+	}, [])
+	console.log(currentHoverID)
 	return (
 		<div>
 			<div className="relative flex min-h-screen">
@@ -30,13 +99,13 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 						<TabFilters />
 					</div>
 					<div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 2xl:gap-x-6">
-						{DEMO_STAYS.map((item) => (
+						{listings.map((item: any) => (
 							<div
 								key={item.id}
 								onMouseEnter={() => setCurrentHoverID((_) => item.id)}
 								onMouseLeave={() => setCurrentHoverID((_) => -1)}
 							>
-								 
+								<StayCard2 data={item} />
 							</div>
 						))}
 					</div>
@@ -71,8 +140,8 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 					<div className="fixed left-0 top-0 h-full w-full overflow-hidden rounded-md xl:sticky xl:top-[88px] xl:h-[calc(100vh-88px)]">
 						<MapContainer
 							currentHoverID={currentHoverID}
-							DEMO_DATA={DEMO_STAYS}
-							listingType="stay"
+							DEMO_DATA={listings}
+							listingType="car"
 						/>
 					</div>
 				</div>

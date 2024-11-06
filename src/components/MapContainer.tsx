@@ -39,17 +39,13 @@ const MapContainer: FC<MapContainerProps> = ({
 				const markerId = `marker-${item.id}`
 				const element = document.getElementById(markerId)
 				if (element) {
-					// Create a root for the AnyReactComponent
-					const root = createRoot(element) // Use createRoot instead of ReactDOM.render
-
-					// Debug: Log the item data being passed
-					console.log('Rendering marker for item:', item)
+					const root = createRoot(element)
 
 					root.render(
 						<AnyReactComponent
 							isSelected={currentHoverID === item.id}
-							lat={item.map.lat}
-							lng={item.map.lng}
+							lat={item?.marker.lat}
+							lng={item?.marker.lng}
 							car={listingType === 'car' ? (item as CarDataType) : undefined}
 							experiences={
 								listingType === 'experiences'
@@ -69,49 +65,51 @@ const MapContainer: FC<MapContainerProps> = ({
 	}, [DEMO_DATA, currentHoverID, listingType])
 
 	return (
-		<LeafletMapContainer
-			style={{ width: '100%', height: '100%' }}
-			center={
-				DEMO_DATA.length > 0
-					? [DEMO_DATA[0].map.lat, DEMO_DATA[0].map.lng]
-					: [0, 0]
-			}
-			zoom={12}
-			scrollWheelZoom={false}
-		>
-			<TileLayer
-				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-			/>
-			<div className="z-10 mt-5 min-w-max rounded-2xl bg-neutral-100 px-4 py-2 shadow-xl dark:bg-neutral-900">
-				<Checkbox
-					className="text-xs text-neutral-800 xl:text-sm"
-					name="search_as_i_move"
-					label="Search as I move the map"
+		DEMO_DATA.length !== 0 && (
+			<LeafletMapContainer
+				style={{ width: '100%', height: '100%' }}
+				center={
+					DEMO_DATA.length > 0
+						? [DEMO_DATA[0].marker?.lat, DEMO_DATA[0]?.marker.lng]
+						: [0, 0]
+				}
+				zoom={12}
+				scrollWheelZoom={false}
+			>
+				<TileLayer
+					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 				/>
-			</div>
-			{DEMO_DATA.map((item) => {
-				const markerId = `marker-${item.id}`
-				const customIcon = L.divIcon({
-					className: 'custom-marker',
-					html: `<div id="${markerId}"></div>`,
-					iconSize: [40, 40],
-				})
-
-				return (
-					<Marker
-						key={item.id}
-						position={[item.map.lat, item.map.lng]}
-						icon={customIcon}
-						eventHandlers={{
-							click: () => {
-								setActiveItem(item.id)
-							},
-						}}
+				<div className="z-10 mt-5 min-w-max rounded-2xl bg-neutral-100 px-4 py-2 shadow-xl dark:bg-neutral-900">
+					<Checkbox
+						className="text-xs text-neutral-800 xl:text-sm"
+						name="search_as_i_move"
+						label="Search as I move the map"
 					/>
-				)
-			})}
-		</LeafletMapContainer>
+				</div>
+				{DEMO_DATA.map((item) => {
+					const markerId = `marker-${item.id}`
+					const customIcon = L.divIcon({
+						className: 'custom-marker',
+						html: `<div id="${markerId}"></div>`,
+						iconSize: [40, 40],
+					})
+
+					return (
+						<Marker
+							key={item.id}
+							position={[item?.marker.lat, item?.marker.lng]}
+							icon={customIcon}
+							eventHandlers={{
+								click: () => {
+									setActiveItem(item.id)
+								},
+							}}
+						/>
+					)
+				})}
+			</LeafletMapContainer>
+		)
 	)
 }
 

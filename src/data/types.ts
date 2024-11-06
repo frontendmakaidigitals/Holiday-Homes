@@ -87,6 +87,10 @@ export interface StayDataType {
 		lat: number
 		lng: number
 	}
+	marker: {
+		lat: number
+		lng: number
+	}
 	Address: string
 	bedRoom: string
 	Price: string
@@ -124,6 +128,10 @@ export interface ExperiencesDataType {
 		lat: number
 		lng: number
 	}
+	marker: {
+		lat: number
+		lng: number
+	}
 }
 
 //
@@ -151,4 +159,15 @@ export interface CarDataType {
 		lat: number
 		lng: number
 	}
+	marker: {
+		lat: number
+		lng: number
+	}
+	Price: number
+	Country: string
+	City: string
+	coverImageUrl: string
+	placeName: string
+	bedRoom: string
+	guestNum: string
 }

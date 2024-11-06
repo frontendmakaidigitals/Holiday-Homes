@@ -24,7 +24,7 @@ const AnyReactComponent: FC<AnyReactComponentProps> = ({
 	isSelected,
 }) => {
 	const [isOpen, setIsOpen] = useState(false)
-
+	console.log(car?.Price)
 	const handleMouseEnter = () => setIsOpen(true)
 	const handleMouseLeave = () => setIsOpen(false)
 
@@ -42,7 +42,7 @@ const AnyReactComponent: FC<AnyReactComponentProps> = ({
 						: 'bg-white hover:bg-gray-900 hover:text-white dark:bg-neutral-900 dark:hover:bg-white dark:hover:text-gray-900'
 				}`}
 			>
-				{listing?.price}
+				{car?.Price}
 			</span>
 			<Transition
 				show={isOpen}
@@ -55,17 +55,6 @@ const AnyReactComponent: FC<AnyReactComponentProps> = ({
 				leaveTo="opacity-0"
 			>
 				<div className="aspect-w-1 absolute -left-12 bottom-full z-50 w-[260px] pb-3">
-					{listing && (
-						<StayCard size="small" data={listing} className="shadow-2xl" />
-					)}
-					{experiences && (
-						<ExperiencesCard
-							size="small"
-							data={experiences}
-							ratioClass="aspect-w-12 aspect-h-10"
-							className="rounded-3xl bg-white shadow-2xl dark:bg-neutral-900"
-						/>
-					)}
 					{car && <CarCard size="small" data={car} className="shadow-2xl" />}
 				</div>
 			</Transition>

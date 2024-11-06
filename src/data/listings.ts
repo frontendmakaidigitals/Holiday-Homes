@@ -63,8 +63,8 @@ const DEMO_STAY_LISTINGS = __stayListing.map((post, index): StayDataType => {
 		propertyType: '', // Add a default value for the missing property
 		imagesUrls: [], // Add a default value for the missing property
 		beds: '',
-    placeName:''
-    
+		placeName: '',
+		marker: { lat: 0, lng: 0 },
 	}
 })
 
@@ -83,6 +83,7 @@ const DEMO_EXPERIENCES_LISTINGS = __experiencesListing.map(
 			author: DEMO_AUTHORS.filter((user) => user.id === post.authorId)[0],
 			listingCategory: category,
 			href: post.href as Route,
+			marker: { lat: 0, lng: 0 },
 		}
 	},
 )
@@ -102,6 +103,15 @@ const DEMO_CAR_LISTINGS = __carsListing.map((post, index): CarDataType => {
 		listingCategory: category,
 		featuredImage: carsImgs[index],
 		href: post.href as Route,
+		marker: { lat: 0, lng: 0 },
+		Price: 0,
+		Country: '', // Add a default value for the missing property
+		City: '', // Add a default value for the missing property
+		coverImageUrl: '', // Add a default value for the missing property
+		placeName: '',
+		bedRoom: '',
+		guestNum: '', // Add a default value for the missing property
+		// Add default values for the other missing properties
 	}
 })
 
