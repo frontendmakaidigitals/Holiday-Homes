@@ -15,6 +15,7 @@ export interface SectionGridFeaturePlacesProps {
 	headingIsCenter?: boolean
 	tabs?: string[]
 	cardType?: 'card1' | 'card2'
+	btnRef?:any
 }
 
 const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
