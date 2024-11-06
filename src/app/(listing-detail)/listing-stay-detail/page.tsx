@@ -275,9 +275,8 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 
 						return matchingAmenity ? (
 							<div key={index} className="flex items-center space-x-3">
-								{matchingAmenity.icon} {/* Render the corresponding icon */}
-								<span>{matchingAmenity.name}</span>{' '}
-								{/* Render the amenity name */}
+								<div className="text-lg">{matchingAmenity.icon}</div>
+								<p>{matchingAmenity.name}</p> {/* Render the amenity name */}
 							</div>
 						) : null // If no match, render nothing
 					})}

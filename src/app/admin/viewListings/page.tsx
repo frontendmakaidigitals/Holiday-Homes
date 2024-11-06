@@ -95,7 +95,9 @@ const Page = () => {
 										</div>
 									))
 								) : (
-									<p>No listings available for this area.</p>
+									<div className="w-ful flex h-full items-center justify-center">
+										<p>No listings available for this area.</p>
+									</div>
 								)}
 							</AccordionContent>
 						</AccordionItem>

@@ -37,7 +37,7 @@ const HeroSearchForm2RealEstateMobile = () => {
 		return (
 			<button
 				onClick={openModal}
-				className="relative flex w-full items-center rounded-full border border-neutral-200 px-4 py-2 pr-11 shadow-lg dark:border-neutral-6000"
+				className="relative flex w-full items-center rounded-full border border-slate-200 px-4 py-2 pr-11 shadow-lg dark:border-neutral-6000"
 			>
 				<MagnifyingGlassIcon className="h-5 w-5 flex-shrink-0" />
 

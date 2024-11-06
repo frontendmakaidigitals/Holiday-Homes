@@ -67,21 +67,24 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
 			/>
 
 			{/* Grid to display the filtered listings */}
-			<div
-				className={`grid gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-4 ${gridClass}`}
-			>
+			<div className={`w-full`}>
 				{/* Render cards for the filtered listings */}
 				{filteredListings?.length > 0 ? (
-					filteredListings.map((stay) => renderCard(stay))
+					<div
+						className={`grid gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-4 ${gridClass}`}
+					>
+						{filteredListings.map((stay) => renderCard(stay))}
+					</div>
 				) : (
-					<p>No listings available for this area.</p>
+					<div className="mt-5 flex h-10 w-full items-center justify-center lg:h-[300px]">
+						<p className="text-xl font-semibold">
+							No listings available for this area.
+						</p>
+					</div>
 				)}
 			</div>
 
 			{/* Button to show more listings */}
-			<div className="mt-16 flex items-center justify-center">
-				<ButtonPrimary>Show me more</ButtonPrimary>
-			</div>
 		</div>
 	)
 }
