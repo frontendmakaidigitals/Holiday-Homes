@@ -8,7 +8,12 @@ export interface SectionHero3Props {
 	className?: string
 }
 
-const SectionHero: FC<SectionHero3Props> = ({ className = '' }) => {
+const SectionHero: FC<SectionHero3Props> = ({ className = '',btnRef }) => {
+	const handleScrollToComponent = () => {
+    if (btnRef.current) {
+      btnRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 	return (
 		<div
 			className={`nc-SectionHero3 relative ${className}`}
@@ -23,6 +28,7 @@ const SectionHero: FC<SectionHero3Props> = ({ className = '' }) => {
 					in Dubai
 				</h2>
 				<ButtonPrimary
+					onClick={handleScrollToComponent}
 					sizeClass="px-6 py-3 lg:px-8 lg:py-4 rounded-xl"
 					fontSize="text-sm sm:text-base lg:text-lg font-medium"
 				>
