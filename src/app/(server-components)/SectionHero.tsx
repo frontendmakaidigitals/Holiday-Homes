@@ -1,3 +1,4 @@
+'use client'
 import React, { FC } from 'react'
 import imagePng from '@/images/heroBg.jpg'
 import Image from 'next/image'
