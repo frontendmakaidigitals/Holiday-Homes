@@ -50,7 +50,7 @@ const PageAddListing8: FC<PageAddListing10Props> = () => {
 						onClick={EditBTN}
 						className="h-11 rounded-full border border-gray-700 bg-transparent px-5 disabled:!cursor-not-allowed disabled:!bg-slate-300 disabled:!text-slate-500"
 					>
-						Go Back
+						Edit
 					</button>
 					<Link
 						href={{

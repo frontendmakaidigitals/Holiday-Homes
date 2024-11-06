@@ -64,13 +64,13 @@ const FinalListingCard: FC<FinalListingCardProps> = ({
 			<div className={size === 'default' ? 'space-y-4 p-4' : 'space-y-1 p-3'}>
 				<div className={size === 'default' ? 'space-y-2' : 'space-y-1'}>
 					<span className="text-sm text-neutral-500 dark:text-neutral-400">
-						{placeName} · {bedRoom} beds
+						 {bedRoom} beds
 					</span>
 					<div className="flex items-center space-x-2">
 						<h2
 							className={`font-semibold capitalize text-neutral-900 dark:text-white ${size === 'default' ? 'text-base' : 'text-base'}`}
 						>
-							<span className="line-clamp-1">title</span>
+							<span className="line-clamp-1">{placeName}</span>
 						</h2>
 					</div>
 					<div className="flex items-center space-x-1.5 text-sm text-neutral-500 dark:text-neutral-400">

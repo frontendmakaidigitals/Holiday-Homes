@@ -14,9 +14,36 @@ export interface CommonLayoutProps {
 
 const CommonLayout: FC<CommonLayoutProps> = ({ children, params }) => {
 	const index = Number(params.stepIndex) || 1
-	console.log(index)
+
 	const { ListingData } = useStore()
 	const router = useRouter()
+	useEffect(() => {
+		if (index > 1) {
+			if (!ListingData.placeName) {
+				router.push('/admin/listings/1')
+			}
+		}
+		if (index > 2) {
+			if (!ListingData.Country) {
+				router.push('/admin/listings/1')
+			}
+		}
+		if (index > 3) {
+			if (!ListingData.Acreage) {
+				router.push('/admin/listings/1')
+			}
+		}
+		if (index > 4) {
+			if (!ListingData.checkedAmenities.included) {
+				router.push('/admin/listings/1')
+			}
+		}
+		if (index > 6) {
+			if (!ListingData.coverImage) {
+				router.push('/admin/listings/1')
+			}
+		}
+	}, [index])
 
 	return (
 		<div
