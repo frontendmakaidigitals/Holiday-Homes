@@ -6,6 +6,7 @@ import HeroSearchForm2MobileFactory from '../(client-components)/(HeroSearchForm
 import HeroSearchFormSmall from '../(client-components)/(HeroSearchForm)/HeroSearchForm'
 export interface SectionHero3Props {
 	className?: string
+	btnRef?: any
 }
 
 const SectionHero: FC<SectionHero3Props> = ({ className = '',btnRef }) => {
