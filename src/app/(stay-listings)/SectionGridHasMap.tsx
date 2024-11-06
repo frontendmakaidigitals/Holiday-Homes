@@ -162,7 +162,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 			<div className="relative flex min-h-screen">
 				{/* CARDSSSS */}
 				<div className="min-h-screen w-full max-w-[1184px] flex-shrink-0 xl:w-[60%] xl:px-8 2xl:w-[60%]">
-					<Heading2 className="!mb-8" />
+					<Heading2 heading={`Stays in ${area}`} className="!mb-8" />
 					<div className="mb-8 lg:mb-11">
 						<TabFilters />
 					</div>

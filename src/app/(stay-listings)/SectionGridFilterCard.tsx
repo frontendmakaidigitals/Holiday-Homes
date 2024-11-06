@@ -5,6 +5,7 @@ import Pagination from '@/shared/Pagination'
 import TabFilters from './TabFilters'
 import Heading2 from '@/shared/Heading2'
 import StayCard2 from '@/components/StayCard2'
+import { useSearchParams } from 'next/navigation'
 
 export interface SectionGridFilterCardProps {
 	className?: string
@@ -17,12 +18,16 @@ const SectionGridFilterCard: FC<SectionGridFilterCardProps> = ({
 	className = '',
 	data = DEMO_DATA,
 }) => {
+	const searchParams = useSearchParams()
+
+	 
+	
 	return (
 		<div
 			className={`nc-SectionGridFilterCard ${className}`}
 			data-nc-id="SectionGridFilterCard"
 		>
-			<Heading2 />
+			<Heading2 heading="Stays in Tokyo" />
 
 			<div className="mb-8 lg:mb-11">
 				<TabFilters />

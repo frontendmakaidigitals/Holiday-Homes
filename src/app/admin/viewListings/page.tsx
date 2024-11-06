@@ -1,5 +1,5 @@
 'use client'
-
+import { MdClose } from 'react-icons/md'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {
@@ -9,6 +9,7 @@ import {
 	AccordionTrigger,
 } from '@/Shadcncomponents/components/ui/accordion'
 import Heading from '@/shared/Heading'
+import { useRouter } from 'next/navigation'
 
 const Page = () => {
 	const [isLoading, setIsLoading] = useState(false)
@@ -21,8 +22,10 @@ const Page = () => {
 			State: string
 			Country: string
 			Price: string
+			id: number
 		}[]
 	>([])
+	const router = useRouter()
 
 	const getListings = () => {
 		setIsLoading(true)
@@ -42,6 +45,31 @@ const Page = () => {
 			})
 			.catch((error) => {
 				console.error(error)
+				setStatus('failed')
+			})
+			.finally(() => {
+				setIsLoading(false)
+			})
+	}
+	const delListings = (id: number) => {
+		setIsLoading(true)
+		axios
+			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
+				withCredentials: true,
+			})
+			.then(() => {
+				return axios.delete(
+					`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing/${id}`,
+					{
+						withCredentials: true,
+					},
+				)
+			})
+			.then((res) => {
+				setStatus('success')
+				router.refresh()
+			})
+			.catch((error) => {
 				setStatus('failed')
 			})
 			.finally(() => {
@@ -78,7 +106,18 @@ const Page = () => {
 							<AccordionContent className="mt-5 grid w-full grid-cols-1 gap-5 lg:grid-cols-4">
 								{filteredListings.length > 0 ? (
 									filteredListings.map((listing, idx) => (
-										<div key={idx} className="w-full overflow-hidden">
+										<div
+											key={idx}
+											className="group relative w-full overflow-hidden"
+										>
+											<button
+												onClick={() => {
+													delListings(listing.id)
+												}}
+												className="absolute right-1 top-1 z-10 hidden rounded-full bg-red-200 p-2 transition-all duration-300 hover:scale-105 hover:bg-red-400 group-hover:block"
+											>
+												<MdClose />
+											</button>
 											<div className="h-60 overflow-hidden rounded-lg bg-slate-300">
 												<img
 													src={`${process.env.NEXT_PUBLIC_SERVER_URL}/storage/${listing.coverImage}`}
