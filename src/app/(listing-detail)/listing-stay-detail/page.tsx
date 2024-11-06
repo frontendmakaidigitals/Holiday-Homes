@@ -35,11 +35,9 @@ const MapViewContainer = dynamic(
 )
 const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 	let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false)
-
-	const thisPathname = usePathname()
-	const router = useRouter()
 	const searchParams = useSearchParams()
 	const id = searchParams.get('id')
+	const [getDay, setGetDay] = useState({ days: 0, minutes: 0, hours: 0 })
 
 	function closeModalAmenities() {
 		setIsOpenModalAmenities(false)
@@ -538,7 +536,10 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 
 				{/* FORM */}
 				<form className="flex flex-col rounded-3xl border border-neutral-200 dark:border-neutral-700">
-					<StayDatesRangeInput className="z-[11] flex-1" />
+					<StayDatesRangeInput
+						setGetDay={setGetDay}
+						className="z-[11] flex-1"
+					/>
 					<div className="w-full border-b border-neutral-200 dark:border-neutral-700"></div>
 					<GuestsInput className="flex-1" />
 				</form>
@@ -546,8 +547,10 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				{/* SUM */}
 				<div className="flex flex-col space-y-4">
 					<div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
-						<span>$119 x 3 night</span>
-						<span>$357</span>
+						<span>
+							AED {listings?.Price} x {getDay?.days} night
+						</span>
+						<span>AED {listings?.Price * getDay?.days}</span>
 					</div>
 					<div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
 						<span>Service charge</span>
@@ -556,7 +559,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 					<div className="border-b border-neutral-200 dark:border-neutral-700"></div>
 					<div className="flex justify-between font-semibold">
 						<span>Total</span>
-						<span>$199</span>
+						<span>AED {listings?.Price * getDay?.days}</span>
 					</div>
 				</div>
 
