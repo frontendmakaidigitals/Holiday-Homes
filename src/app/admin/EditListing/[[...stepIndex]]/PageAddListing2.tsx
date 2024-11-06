@@ -84,7 +84,7 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 		}
 		router.push(`/admin/listings/${index + 1}`)
 	}
-	 
+ 
 
 	const BackBTN = () => {
 		if (index > 1) {

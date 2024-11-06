@@ -111,9 +111,50 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 		'Jumeriah Lake Triangle',
 	]
 
+	const [isLoading, setIsLoading] = useState(false)
+	const [status, setStatus] = useState('')
+	const [listings, setListing]: any = useState([])
+	const [amenities, setAmenities] = useState<string[]>([])
+	const getQueries = () => {
+		setIsLoading(true)
+		axios
+			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
+				withCredentials: true,
+			})
+			.then(() => {
+				return axios.get(
+					`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing/${1}`,
+					{
+						withCredentials: true,
+					},
+				)
+			})
+			.then((res) => {
+				setListing(res.data?.data)
+				setStatus('success')
+			})
+			.catch((error) => {
+				console.error(error)
+				setStatus('failed')
+			})
+			.finally(() => {
+				setIsLoading(false)
+			})
+	}
+
+	useEffect(() => {
+		getQueries()
+	}, [])
 	const [marker, setMarker] = useState<{ lat: number; lng: number } | null>(
 		null,
 	)
+
+	useEffect(() => {
+		if (listings) {
+			setPropertyType(listings?.propertyType)
+		}
+	}, [listings])
+	console.log(ListingData.propertyType)
 
 	return (
 		<>

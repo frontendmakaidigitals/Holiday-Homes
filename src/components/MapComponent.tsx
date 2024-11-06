@@ -34,29 +34,27 @@ const MapComponent = ({
 			},
 		})
 		return null // This component doesn't render anything itself
-    }
+	}
 	const fetchAddress = async (lat: number, lng: number) => {
 		const response = await fetch(
 			`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`,
-        )
+		)
 
-        
-        const data = await response.json()
+		const data = await response.json()
 		setAddress(data.display_name) // Set the address in state
 	}
 
 	useEffect(() => {
-        fetchAddress(marker?.lat, marker?.lng)
-        
+		fetchAddress(marker?.lat, marker?.lng)
 	}, [marker])
 	return (
 		<MapContainer
-			center={[55.9607277, 36.2172614]}
+			center={[23.4241, 53.8478]}
 			zoom={15}
 			style={{ width: '100%', height: '100%' }}
 		>
 			<TileLayer
-				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+				url={`https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}`}
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 			/>
 			<MapEvents />
