@@ -404,7 +404,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 		<div className={`nc-PageContact overflow-hidden`}>
 			<div className="mb-24 bg-[url('https://img.freepik.com/free-vector/gradient-blur-pink-blue-abstract-background_53876-117324.jpg?semt=ais_hybrid')] bg-cover bg-center bg-no-repeat py-10 lg:mb-32">
 				<h2 className="container !mt-10 flex flex-col items-center justify-center text-center text-3xl font-semibold leading-[115%] text-primary-900 dark:text-neutral-100 sm:my-20 md:text-6xl md:leading-[115%] lg:text-start">
-					Get Estimate Revenue
+					Short Term Rentals
 					<span className="text-3xl font-medium text-black">
 						for Airbnb & Holiday Home
 					</span>

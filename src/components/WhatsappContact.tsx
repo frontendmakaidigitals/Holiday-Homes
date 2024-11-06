@@ -9,7 +9,7 @@ const WhatsappContact = () => {
 		<div className="relative z-[999999]">
 			<a
 				className="fixed bottom-10 right-10 z-[999999] flex size-14 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-green-600 bg-[#25D366] transition-all duration-300 hover:bg-green-400 hover:shadow-lg"
-				href="https://wa.me/15551234567"
+				href="https://wa.me/+971585129847"
 			>
 				<img
 					width={30}

@@ -74,7 +74,7 @@ const Footer: React.FC = () => {
 								className="!h-auto !w-[150px] lg:!w-[100px]"
 							/>
 							<p className="font-regular mt-3 text-sm text-gray-100">
-								We is one of the top and recognized holiday homes company in
+								We are one of the top and recognized holiday homes company in
 								Dubai. Providing premium vacation stays with immense knowledge
 								and strength
 							</p>
