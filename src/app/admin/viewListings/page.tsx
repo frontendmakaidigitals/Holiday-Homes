@@ -10,10 +10,13 @@ import {
 } from '@/Shadcncomponents/components/ui/accordion'
 import Heading from '@/shared/Heading'
 import { useRouter } from 'next/navigation'
-
+import { GrStatusWarning } from 'react-icons/gr'
+import ButtonPrimary from '@/shared/ButtonPrimary'
 const Page = () => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
+	const [showPopUp, setShowPopUp] = useState(false)
+	const [id, setId] = useState<number | null>(null)
 	const [listings, setListings] = useState<
 		{
 			Area: string
@@ -51,7 +54,7 @@ const Page = () => {
 				setIsLoading(false)
 			})
 	}
-	const delListings = (id: number) => {
+	const delListings = (id: number | null) => {
 		setIsLoading(true)
 		axios
 			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
@@ -88,6 +91,14 @@ const Page = () => {
 
 	return (
 		<div className="w-full xl:mt-5 xl:px-3 xxl:mt-10 xxl:px-10">
+			{showPopUp && (
+				<PopUp
+					setShowPopUp={setShowPopUp}
+					id={id}
+					delListings={delListings}
+					isLoading={isLoading}
+				/>
+			)}
 			<p className="mb-5 text-xl font-medium">
 				Total Listings ({listings.length})
 			</p>
@@ -112,7 +123,8 @@ const Page = () => {
 										>
 											<button
 												onClick={() => {
-													delListings(listing.id)
+													setId(listing.id)
+													setShowPopUp(true)
 												}}
 												className="absolute right-1 top-1 z-10 hidden rounded-full bg-red-200 p-2 transition-all duration-300 hover:scale-105 hover:bg-red-400 group-hover:block"
 											>
@@ -148,3 +160,44 @@ const Page = () => {
 }
 
 export default Page
+
+const PopUp = ({
+	setShowPopUp,
+	id,
+	delListings,
+	isLoading,
+}: {
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
+	id: number | null
+	delListings: (id: number | null) => void
+	isLoading: boolean
+}) => {
+	return (
+		<div className="fixed left-0 top-0 z-[99] flex h-screen w-screen items-center justify-center bg-slate-900/60">
+			<div className="flex flex-col items-center justify-center rounded-xl bg-white p-10 shadow-xl">
+				<div className="flex size-14 items-center justify-center rounded-full bg-slate-200">
+					<GrStatusWarning className="mb-1 text-3xl text-red-500" />
+				</div>
+				<p className="mt-5 text-xl font-semibold">Delete Listing</p>
+				<p>You are going to delete this listing</p>
+				<div className="mt-5 flex items-center gap-4">
+					<ButtonPrimary
+						onClick={() => delListings(id)}
+						disabled={isLoading}
+						loading={isLoading}
+						className="rounded-full bg-red-500 !py-2 px-5 leading-normal text-white hover:bg-red-400"
+					>
+						Delete
+					</ButtonPrimary>
+					<button
+						disabled={isLoading}
+						onClick={() => setShowPopUp(false)}
+						className="rounded-full bg-primary-50 px-5 py-2 disabled:bg-slate-300 disabled:text-slate-500"
+					>
+						Cancel
+					</button>
+				</div>
+			</div>
+		</div>
+	)
+}

@@ -37,9 +37,10 @@ const useStore = create((set) => ({
 		],
 		editId: '',
 		houseRules: {
-			pets: 'allow',
-			partyOrganizing: 'allow',
-			cooking: 'allow',
+			Pet: 'Allow',
+			Cooking: 'Allow',
+			'Extra Bed': 'Allow',
+			'Baby Crib': 'Allow',
 		},
 	},
 	setHouseRule: (ruleName, value) =>

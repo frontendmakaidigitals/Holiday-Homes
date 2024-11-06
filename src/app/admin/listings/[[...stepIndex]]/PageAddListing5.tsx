@@ -105,7 +105,7 @@ const PageAddListing5: FC<PageAddListing5Props> = ({
 
 			{/* FORM */}
 			<div className="space-y-8">
-				{['Pet', 'Party organizing', 'Cooking'].map((rule) => (
+				{['Pet', 'Baby Crib', 'Cooking', 'Extra Bed'].map((rule) => (
 					<div key={rule}>
 						<label className="text-lg font-semibold">{rule}</label>
 						<div className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
