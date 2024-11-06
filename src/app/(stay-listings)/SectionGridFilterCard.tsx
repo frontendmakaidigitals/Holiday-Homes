@@ -1,3 +1,4 @@
+'use client'
 import React, { FC } from 'react'
 import { DEMO_STAY_LISTINGS } from '@/data/listings'
 import { StayDataType } from '@/data/types'
