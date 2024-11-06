@@ -30,6 +30,7 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
 		'Jumeriah Lake Triangle',
 	],
 	cardType = 'card2',
+	btnRef
 }) => {
 	// State to track the selected tab (area)
 	const [activeTab, setActiveTab] = useState(tabs[0])
@@ -56,7 +57,7 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
 	}
 
 	return (
-		<div className="nc-SectionGridFeaturePlaces relative">
+		<div ref={btnRef} className="nc-SectionGridFeaturePlaces relative">
 			{/* Header with filter and tab selection */}
 			<HeaderFilter
 				tabActive={activeTab}
