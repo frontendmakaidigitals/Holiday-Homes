@@ -4,6 +4,7 @@ import Image from 'next/image'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import HeroSearchForm2MobileFactory from '../(client-components)/(HeroSearchForm2Mobile)/HeroSearchForm2MobileFactory'
 import HeroSearchFormSmall from '../(client-components)/(HeroSearchForm)/HeroSearchForm'
+import Link from 'next/link'
 export interface SectionHero3Props {
 	className?: string
 }
@@ -23,9 +24,11 @@ const SectionHostHero: FC<SectionHero3Props> = ({ className = '' }) => {
 					for travellers worldwide. It empowers you to run a unique and
 					fulfilling business – on your terms.
 				</span>
-				<button className="rounded-xl bg-primary-6000 px-5 py-3 font-semibold text-white hover:bg-primary-500">
-					Get Started
-				</button>
+				<Link href={'/Get-Estimate'}>
+					<button className="rounded-xl bg-primary-6000 px-5 py-3 font-semibold text-white hover:bg-primary-500">
+						Get Started
+					</button>
+				</Link>
 			</div>
 			<div className="aspect-h-1 aspect-w-1 relative sm:aspect-h-3 sm:aspect-w-4 lg:aspect-h-9 lg:aspect-w-16 xl:aspect-h-8">
 				<img

@@ -16,16 +16,101 @@ import Input from '@/shared/Input'
 import LikeSaveBtns from '@/components/LikeSaveBtns'
 import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Amenities_demos, PHOTOS } from './constant'
 import StayDatesRangeInput from './StayDatesRangeInput'
 import GuestsInput from './GuestsInput'
 import SectionDateRange from '../SectionDateRange'
 import { Route } from 'next'
 import axios from 'axios'
 import dynamic from 'next/dynamic'
-
+import {
+	FaKey,
+	FaLuggageCart,
+	FaShower,
+	FaSmoking,
+	FaSnowflake,
+	FaSpa,
+	FaSuitcase,
+	FaSuitcaseRolling,
+	FaSwimmer,
+	FaSwimmingPool,
+	FaTv,
+	FaUmbrellaBeach,
+	FaUtensils,
+	FaWheelchair,
+	FaWifi,
+	FaBabyCarriage,
+	FaBath,
+	FaBed,
+	FaBriefcase,
+	FaCar,
+	FaCocktail,
+	FaCoffee,
+	FaConciergeBell,
+	FaDice,
+	FaDumbbell,
+	FaHotTub,
+	FaInfinity,
+	FaFan,
+	FaSoap,
+	FaTshirt,
+	FaCouch,
+	FaFire,
+	FaToiletPaper,
+	FaFireExtinguisher,
+	FaLock,
+} from 'react-icons/fa'
+import { GiWashingMachine } from 'react-icons/gi'
+import { BiFridge } from 'react-icons/bi'
+import { GiToothbrush } from 'react-icons/gi'
+import { GiLipstick } from 'react-icons/gi'
 import 'leaflet/dist/leaflet.css'
-
+import { FaPlateWheat } from 'react-icons/fa6'
+import { MdOutdoorGrill } from 'react-icons/md'
+import { GiToaster } from 'react-icons/gi'
+import { PiTowel } from 'react-icons/pi'
+import { MdOutlineRamenDining } from 'react-icons/md'
+import { GiFirstAidKit } from 'react-icons/gi'
+import { PiSirenFill } from 'react-icons/pi'
+const Amenities_demos = [
+	{ name: 'Swimming Pool', icon: <FaSwimmingPool /> },
+	{ name: 'Gym', icon: <FaDumbbell /> },
+	{ name: 'Parking', icon: <FaCar /> },
+	{ name: 'Wifi', icon: <FaWifi /> },
+	{ name: 'Internet', icon: <FaWifi /> }, // Assuming Wifi icon represents Internet
+	{ name: 'TV', icon: <FaTv /> },
+	{ name: 'Air conditioning', icon: <FaSnowflake /> },
+	{ name: 'Fan', icon: <FaSnowflake /> }, // Assuming Fan icon represents cooling fan
+	{ name: 'Private entrance', icon: <FaKey /> },
+	{ name: 'Dryer', icon: <FaFan /> }, // Assuming Fan icon for Dryer
+	{ name: 'Heater', icon: <FaSnowflake /> }, // Assuming Heater is represented by Snowflake
+	{ name: 'Washing machine', icon: <GiWashingMachine /> },
+	{ name: 'Detergent', icon: <FaSoap /> }, // Assuming Soap icon for detergent
+	{ name: 'Clothes dryer', icon: <FaTshirt /> }, // Assuming T-shirt icon for dryer
+	{ name: 'Baby cot', icon: <FaBabyCarriage /> },
+	{ name: 'Desk', icon: <FaBriefcase /> },
+	{ name: 'Fridge', icon: <BiFridge /> }, // Assuming Fridge icon
+	{ name: 'Bed Linen', icon: <FaBed /> }, // Assuming Bed icon for linen
+	{ name: 'Wardrobe', icon: <FaSuitcase /> },
+	{ name: 'Cloth hook', icon: <FaShower /> }, // Assuming Shower icon for cloth hook
+	{ name: 'Extra cushion', icon: <FaCouch /> }, // Assuming Couch icon for cushions
+	{ name: 'Gas stove', icon: <FaFire /> }, // Assuming Fire icon for Gas stove
+	{ name: 'Toilet paper', icon: <FaToiletPaper /> }, // Assuming ToiletPaper icon
+	{ name: 'Free toiletries', icon: <GiToothbrush /> }, // Assuming Toothbrush for toiletries
+	{ name: 'Makeup table', icon: <GiLipstick /> }, // Assuming Vanity icon for makeup table
+	{ name: 'Hot pot', icon: <FaHotTub /> },
+	{ name: 'Bathroom heaters', icon: <FaSnowflake /> }, // Assuming Snowflake icon for heaters
+	{ name: 'Kettle', icon: <FaCoffee /> }, // Assuming Coffee icon for Kettle
+	{ name: 'Dishwasher', icon: <FaPlateWheat /> }, // Assuming Cutlery icon for Dishwasher
+	{ name: 'BBQ grill', icon: <MdOutdoorGrill /> },
+	{ name: 'Toaster', icon: <GiToaster /> },
+	{ name: 'Towel', icon: <PiTowel /> },
+	{ name: 'Dining table', icon: <MdOutlineRamenDining /> },
+	{ name: 'First Aid Kit', icon: <GiFirstAidKit /> },
+	{ name: 'Fire siren', icon: <PiSirenFill /> },
+	{ name: 'Fire extinguisher', icon: <FaFireExtinguisher /> },
+	{ name: 'Anti-theft key', icon: <FaLock /> },
+	{ name: 'Safe vault', icon: <FaLock /> },
+]
 export interface ListingStayDetailPageProps {}
 const MapViewContainer = dynamic(
 	() => import('@/components/MapViewContainer'),
@@ -38,6 +123,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 	const searchParams = useSearchParams()
 	const id = searchParams.get('id')
 	const [getDay, setGetDay] = useState({ days: 0, minutes: 0, hours: 0 })
+	const [houseRule, setHouseRule] = useState([])
 
 	function closeModalAmenities() {
 		setIsOpenModalAmenities(false)
@@ -46,7 +132,8 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
 	const [listings, setListing]: any = useState([])
-
+	const [amenities, setAmenities] = useState<string[]>([])
+	console.log(amenities)
 	const getQueries = () => {
 		setIsLoading(true)
 		axios
@@ -85,11 +172,14 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 		if (listings?.marker) {
 			// Parse the marker string and set the state
 			setMarker(JSON.parse(listings?.marker))
+			setHouseRule(JSON.parse(listings?.additionalRules))
+			const { included, other, safe } = JSON.parse(listings?.checkedAmenities)
+			setAmenities((prev: string[]) => [...included, ...other, ...safe])
 		} else {
 			// If no marker is available, set it to null
 			setMarker(null)
 		}
-	}, [listings?.marker])
+	}, [listings?.marker, listings?.additionalRules])
 
 	const renderSection1 = () => {
 		return (
@@ -177,12 +267,20 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				<div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
 				{/* 6 */}
 				<div className="grid grid-cols-1 gap-6 text-sm text-neutral-700 dark:text-neutral-300 xl:grid-cols-3">
-					{Amenities_demos.filter((_, i) => i < 12).map((item) => (
-						<div key={item.name} className="flex items-center space-x-3">
-							<i className={`las text-3xl ${item.icon}`}></i>
-							<span className=" ">{item.name}</span>
-						</div>
-					))}
+					{amenities.map((amenity, index) => {
+						// Find the corresponding icon from the Amenities_demos array
+						const matchingAmenity = Amenities_demos.find(
+							(demo) => demo.name == amenity,
+						)
+
+						return matchingAmenity ? (
+							<div key={index} className="flex items-center space-x-3">
+								{matchingAmenity.icon} {/* Render the corresponding icon */}
+								<span>{matchingAmenity.name}</span>{' '}
+								{/* Render the amenity name */}
+							</div>
+						) : null // If no match, render nothing
+					})}
 				</div>
 
 				{/* ----- */}
@@ -507,12 +605,9 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 					<h4 className="text-lg font-semibold">Special Note</h4>
 					<div className="prose sm:prose">
 						<ul className="mt-3 space-y-2 text-neutral-500 dark:text-neutral-400">
-							<li>
-								Ban and I will work together to keep the landscape and
-								environment green and clean by not littering, not using
-								stimulants and respecting people around.
-							</li>
-							<li>Do not sing karaoke past 11:30</li>
+							{houseRule.map((rule, index) => (
+								<li key={index}>{rule}</li>
+							))}
 						</ul>
 					</div>
 				</div>

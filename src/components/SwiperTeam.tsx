@@ -43,9 +43,7 @@ export default function SwiperTeams() {
 						</div>
 						<div className="px-4 py-7">
 							<p className="text-xl font-semibold">{item.name}</p>
-							<p className="font-medium text-gray-600">
-								{item.designation}, BSHH
-							</p>
+							<p className="font-medium text-gray-600">{item.designation}</p>
 						</div>
 					</div>
 				))}
