@@ -77,7 +77,7 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
 					</div>
 				) : (
 					<div className="mt-5 flex h-10 w-full items-center justify-center lg:h-[300px]">
-						<p className="text-xl font-semibold">
+						<p className="text-md lg:text-xl font-semibold">
 							No listings available for this area.
 						</p>
 					</div>

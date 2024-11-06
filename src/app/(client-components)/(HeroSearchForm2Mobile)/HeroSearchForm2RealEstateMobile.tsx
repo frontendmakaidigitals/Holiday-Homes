@@ -75,7 +75,7 @@ const HeroSearchForm2RealEstateMobile = () => {
 					className="HeroSearchFormMobile__Dialog z-max relative"
 					onClose={closeModal}
 				>
-					<div className="fixed inset-0 bg-neutral-500 dark:bg-neutral-900">
+					<div className="fixed inset-0 bg-slate-500 dark:bg-neutral-900">
 						<div className="flex h-full">
 							<TransitionChild
 								as={Fragment}
@@ -95,7 +95,7 @@ const HeroSearchForm2RealEstateMobile = () => {
 												</button>
 											</div>
 
-											<TabList className="flex w-full justify-center space-x-6 pt-12 text-sm font-semibold text-neutral-500 dark:text-neutral-400 sm:space-x-8 sm:text-base">
+											<TabList className="flex w-full justify-center space-x-6 pt-12 text-sm font-semibold text-slate-500 dark:text-slate-400 sm:space-x-8 sm:text-base">
 												{['Buy', 'Rent', 'Sold'].map((item, index) => (
 													<Tab key={index} as={Fragment}>
 														{({ selected }) => (

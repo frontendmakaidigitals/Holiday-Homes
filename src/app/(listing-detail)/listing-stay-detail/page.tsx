@@ -553,8 +553,8 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 
 				{/* MAP */}
 				<div className="aspect-h-5 aspect-w-5 z-0 rounded-xl ring-1 ring-black/10 sm:aspect-h-3">
-					<div className="z-0 w-full overflow-hidden rounded-xl">
-						<div style={{ display: 'flex' }} className="w-full">
+					<div className="z-0 h-full w-full overflow-hidden rounded-xl">
+						<div style={{ display: 'flex' }} className="h-full w-full">
 							<MapViewContainer marker={marker} />
 						</div>
 					</div>

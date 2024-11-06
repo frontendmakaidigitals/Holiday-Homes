@@ -77,7 +77,7 @@ const HeroSearchForm2Mobile = () => {
 					className="HeroSearchFormMobile__Dialog z-max relative"
 					onClose={closeModal}
 				>
-					<div className="fixed inset-0 bg-neutral-100 dark:bg-neutral-900">
+					<div className="fixed inset-0 bg-slate-100 dark:bg-neutral-900">
 						<div className="flex h-full">
 							<TransitionChild
 								as={Fragment}
@@ -97,30 +97,7 @@ const HeroSearchForm2Mobile = () => {
 												</button>
 											</div>
 
-											<TabList className="flex w-full justify-center space-x-6 pt-12 text-sm font-semibold text-neutral-500 dark:text-neutral-400 sm:space-x-8 sm:text-base">
-												{['Stay', 'Experiences', 'Cars', 'Flights'].map(
-													(item, index) => (
-														<Tab key={index} as={Fragment}>
-															{({ selected }) => (
-																<div className="relative select-none outline-none focus:outline-none focus-visible:ring-0">
-																	<div
-																		className={`${
-																			selected
-																				? 'text-black dark:text-white'
-																				: ''
-																		} `}
-																	>
-																		{item}
-																	</div>
-																	{selected && (
-																		<span className="absolute inset-x-0 top-full border-b-2 border-black dark:border-white"></span>
-																	)}
-																</div>
-															)}
-														</Tab>
-													),
-												)}
-											</TabList>
+											<div className='mt-7'></div>
 											<div className="flex flex-1 overflow-hidden px-1.5 pt-3 sm:px-4">
 												<TabPanels className="hiddenScrollbar flex-1 overflow-y-auto py-4">
 													<TabPanel>

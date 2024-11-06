@@ -32,10 +32,10 @@ const MapViewContainer = ({ marker }: any) => {
 	if (!mapReady) return null // Don't render until after mount
 
 	return (
-		<div>
+		<div className="w-full h-full">
 			{marker ? (
 				<MapWithNoSSR
-					className="h-[500px] w-[100vw]"
+					className="aspect-h-5 aspect-w-5 z-0 h-full w-full rounded-xl ring-1 ring-black/10 sm:aspect-h-3"
 					center={[marker?.lat, marker?.lng]}
 					zoom={8}
 				>
