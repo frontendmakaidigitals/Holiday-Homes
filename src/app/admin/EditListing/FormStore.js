@@ -5,7 +5,7 @@ const useStore = create((set) => ({
 		propertyType: '',
 		rentalPlace: '',
 		propertyName: '',
-		RentalTags: ['Hot Property'],
+		RentalTags: [],
 		placeName: '',
 		Country: '',
 		Street: '',

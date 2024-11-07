@@ -180,6 +180,75 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 			setMarker(null)
 		}
 	}, [listings?.marker, listings?.additionalRules])
+	const [ip, setIp] = useState()
+	const [data, setData] = useState<{
+		placeName: string
+		city: string
+		country: string
+		state: string
+		price: string
+	}>({
+		placeName: '',
+		city: '',
+		country: '',
+		state: '',
+		price: '',
+	})
+
+	const [linkLoading, setLinkLoading] = useState<boolean>(false)
+	const [linkStatus, setLinkStatus] = useState<string>('')
+	const HandleReserve = async () => {
+		setLinkLoading(true)
+		try {
+			// Step 1: Get the IP address
+			const ipResponse = await axios.get('https://api.ipify.org?format=json')
+			const ip = ipResponse.data.ip
+
+			// Step 2: Get geolocation data based on IP address
+			const geoResponse = await axios.get(
+				`${process.env.NEXT_PUBLIC_IP_GEO_URL}${ip}`,
+			)
+
+			// Step 3: Prepare the data to send in the tracking request
+			const trackingData = {
+				placeName: listings?.placeName,
+				city: geoResponse.data.city,
+				country: geoResponse.data.country_name,
+				state: geoResponse.data.state_prov,
+				price: listings?.Price,
+			}
+
+			// Step 4: Set the data in state
+			setData(trackingData)
+
+			// Step 5: Get CSRF token for the session
+			await axios.get(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`,
+				{
+					withCredentials: true,
+				},
+			)
+
+			// Step 6: Check if `data.country` exists before sending POST request
+			if (trackingData.country) {
+				await axios.post(
+					`${process.env.NEXT_PUBLIC_SERVER_URL}/api/tracking`,
+					trackingData,
+				)
+			}
+
+			// Step 7: Redirect after successful tracking
+			window.location.href =
+				'https://bookings11.rmscloud.com/Search/Index/20926/59/?Y=1'
+		} catch (err) {
+			// Error handling
+			console.error('Error in HandleReserve:', err)
+			setLinkStatus('error')
+		} finally {
+			// This will ensure loading state is reset regardless of success/failure
+			setLinkLoading(false)
+		}
+	}
 
 	const renderSection1 = () => {
 		return (
@@ -451,42 +520,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 								d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
 							/>
 						</svg>
-						<span>Joined in March 2016</span>
-					</div>
-					<div className="flex items-center space-x-3">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-6 w-6"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={1.5}
-								d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-							/>
-						</svg>
-						<span>Response rate - 100%</span>
-					</div>
-					<div className="flex items-center space-x-3">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-6 w-6"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={1.5}
-								d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-							/>
-						</svg>
-
-						<span>Fast response - within a few hours</span>
+						<span>Joined in 2018</span>
 					</div>
 				</div>
 
@@ -503,27 +537,27 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 		return (
 			<div className="listingSection__wrap">
 				{/* HEADING */}
-				<h2 className="text-2xl font-semibold">Reviews (23 reviews)</h2>
+				<div className="flex items-center justify-between">
+					<h2 className="text-2xl font-semibold">Reviews (23 reviews)</h2>
+					<div className="relative">
+						<ButtonSecondary
+							href="https://www.google.com/search?client=ms-android-xiaomi-terr1-rso2&sa=X&bih=736&hl=en-IN&cs=0&biw=393&sca_esv=50d94ed858873d05&sxsrf=ADLYWILY60r9DYU8AcAj-B9yS4lfGL4S9w:1730897136150&kgmid=/g/11k43l0q2r&q=BROWN+STONE+HOLIDAY+HOMES&shndl=30&shem=uaasic&source=sh/x/loc/uni/m1/4&kgs=c6c9b5ef9c5b14f6#lrd=0x3e5f690e0866765f:0xa2fced93dbf039b,3,,,,"
+							className="flex items-center gap-3 hover:bg-slate-100"
+						>
+							<img
+								className={'size-8'}
+								src={
+									'https://cdn.iconscout.com/icon/free/png-256/free-google-logo-icon-download-in-svg-png-gif-file-formats--brands-pack-logos-icons-189824.png?f=webp&w=256'
+								}
+							/>
+							Review us on Google
+						</ButtonSecondary>
+					</div>
+				</div>
+
 				<div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
 
 				{/* Content */}
-				<div className="space-y-5">
-					<FiveStartIconForRate iconClass="w-6 h-6" className="space-x-0.5" />
-					<div className="relative">
-						<Input
-							fontClass=""
-							sizeClass="h-16 px-4 py-3"
-							rounded="rounded-3xl"
-							placeholder="Share your thoughts ..."
-						/>
-						<ButtonCircle
-							className="absolute right-2 top-1/2 -translate-y-1/2 transform"
-							size=" w-12 h-12 "
-						>
-							<ArrowRightIcon className="h-5 w-5" />
-						</ButtonCircle>
-					</div>
-				</div>
 
 				{/* comment */}
 				<div className="divide-y divide-neutral-100 dark:divide-neutral-800">
@@ -531,9 +565,6 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 					<CommentListing className="py-8" />
 					<CommentListing className="py-8" />
 					<CommentListing className="py-8" />
-					<div className="pt-8">
-						<ButtonSecondary>View more 20 reviews</ButtonSecondary>
-					</div>
 				</div>
 			</div>
 		)
@@ -656,12 +687,12 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 						<span>AED {listings?.Price * getDay?.days}</span>
 					</div>
 				</div>
-
-				{/* SUBMIT */}
 				<ButtonPrimary
-					href={'https://bookings11.rmscloud.com/Search/Index/20926/59/?Y=1'}
+					onClick={HandleReserve}
+					loading={linkLoading}
+					className={`${linkStatus == 'error' ? 'bg-red-500 hover:bg-red-400' : ''}`}
 				>
-					Reserve
+					{linkStatus == 'error' ? 'Try Again' : 'Reserve'}
 				</ButtonPrimary>
 			</div>
 		)
@@ -715,7 +746,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 					{renderSection1()}
 					{renderSection2()}
 					{renderSection3()}
-					{renderSection4()}
+
 					<SectionDateRange />
 					{renderSection5()}
 					{renderSection6()}

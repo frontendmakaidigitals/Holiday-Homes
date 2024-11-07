@@ -19,10 +19,6 @@ const PageAddListing8: FC<PageAddListing10Props> = () => {
 		console.log('ListingData:', ListingData)
 	}, [ListingData])
 
-	const EditBTN = () => {
-		router.push(`/admin/listings/1`)
-	}
-
 	return (
 		<>
 			<div>
@@ -46,21 +42,10 @@ const PageAddListing8: FC<PageAddListing10Props> = () => {
 					)}
 				</div>
 				<div className="mt-8 flex items-center space-x-5">
-					<button
-						onClick={EditBTN}
-						className="h-11 rounded-full border border-gray-700 bg-transparent px-5 disabled:!cursor-not-allowed disabled:!bg-slate-300 disabled:!text-slate-500"
-					>
-						Go Back
-					</button>
-					<Link
-						href={{
-							pathname: '/listing-stay-detail', // The base path
-							query: { id: ListingData.editId },
-						}}
-					>
+					<Link href={'/admin/listings/'}>
 						<ButtonPrimary>
 							<EyeIcon className="h-5 w-5" />
-							<span className="ml-3">Preview</span>
+							<span className="ml-3">View All Listing</span>
 						</ButtonPrimary>
 					</Link>
 				</div>

@@ -118,7 +118,7 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 			setStatus('success')
 			console.log('Data upload successful:', response.data)
 			setEditId(response.data.data.id)
-			router.push(`/admin/listings/${index + 1}`)
+			router.push(`/admin/EditListing/${index + 1}`)
 		} catch (error: any) {
 			console.error('Error uploading data:', error)
 			setStatus('failed')
@@ -133,9 +133,9 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 
 	const BackBTN = () => {
 		if (index > 1) {
-			router.push(`/admin/listings/${index - 1}`)
+			router.push(`/admin/EditListing/${index - 1}`)
 		} else {
-			router.push('/admin/listings/1')
+			router.push('/admin/EditListing/1')
 		}
 	}
 

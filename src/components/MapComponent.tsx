@@ -49,7 +49,7 @@ const MapComponent = ({
 	}, [marker])
 	return (
 		<MapContainer
-			center={[23.4241, 53.8478]}
+			center={[marker?.lat, marker?.lng]}
 			zoom={15}
 			style={{ width: '100%', height: '100%' }}
 		>

@@ -39,6 +39,7 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 	const index = Number(params.stepIndex) || 1
 	const router = useRouter()
 	const { toast } = useToast()
+
 	const NextBTN = () => {
 		if (ListingData.propertyType === '') {
 			return toast({
@@ -82,13 +83,13 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 				description: 'At least one need to be selected',
 			})
 		}
-		router.push(`/admin/listings/${index + 1}`)
+		router.push(`/admin/EditListing/${index + 1}`)
 	}
 	const BackBTN = () => {
 		if (index > 1) {
-			router.push(`/admin/listings/${index - 1}`)
+			router.push(`/admin/EditListing/${index - 1}`)
 		} else {
-			router.push('/admin/listings/1')
+			router.push('/admin/EditListing/1')
 		}
 	}
 	const nextBtnText = index > 9 ? 'Publish listing' : 'Continue'
@@ -115,36 +116,7 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 	const [status, setStatus] = useState('')
 	const [listings, setListing]: any = useState([])
 	const [amenities, setAmenities] = useState<string[]>([])
-	const getQueries = () => {
-		setIsLoading(true)
-		axios
-			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
-				withCredentials: true,
-			})
-			.then(() => {
-				return axios.get(
-					`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing/${1}`,
-					{
-						withCredentials: true,
-					},
-				)
-			})
-			.then((res) => {
-				setListing(res.data?.data)
-				setStatus('success')
-			})
-			.catch((error) => {
-				console.error(error)
-				setStatus('failed')
-			})
-			.finally(() => {
-				setIsLoading(false)
-			})
-	}
 
-	useEffect(() => {
-		getQueries()
-	}, [])
 	const [marker, setMarker] = useState<{ lat: number; lng: number } | null>(
 		null,
 	)
@@ -154,7 +126,6 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 			setPropertyType(listings?.propertyType)
 		}
 	}, [listings])
-	console.log(ListingData.propertyType)
 
 	return (
 		<>
@@ -262,15 +233,17 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 					desc="Entire place: Guests have the whole place to themselves—there's a private entrance and no shared spaces. A bedroom, bathroom, and kitchen are usually included."
 				>
 					<div className="relative">
-						<MultiSelect
-							options={RentalForms}
-							onValueChange={setRentalTags}
-							defaultValue={ListingData.RentalTags || []} // Ensure defaultValue is an array
-							placeholder="Select frameworks"
-							variant="inverted"
-							animation={2}
-							maxCount={3}
-						/>
+						{ListingData.RentalTags != 0 ? (
+							<MultiSelect
+								options={RentalForms}
+								onValueChange={setRentalTags}
+								defaultValue={ListingData.RentalTags} // Ensure defaultValue is an array
+								placeholder="Select Types"
+								variant="inverted"
+								animation={2}
+								maxCount={3}
+							/>
+						) : null}
 					</div>
 				</FormItem>
 

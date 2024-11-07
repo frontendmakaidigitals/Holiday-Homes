@@ -27,12 +27,12 @@ const PageAddListing5: FC<PageAddListing5Props> = ({
 	}, [ListingData.additionalRules])
 
 	const navigateToNext = () => {
-		router.push(`/admin/listings/${index + 1}`)
+		router.push(`/admin/EditListing/${index + 1}`)
 	}
 
 	const navigateToPrevious = () => {
 		router.push(
-			index > 1 ? `/admin/listings/${index - 1}` : '/admin/listings/1',
+			index > 1 ? `/admin/EditListing/${index - 1}` : '/admin/EditListing/1',
 		)
 	}
 

@@ -144,7 +144,7 @@ export const MultiSelect = React.forwardRef<
 			React.useState<string[]>(defaultValue)
 		const [isPopoverOpen, setIsPopoverOpen] = React.useState(false)
 		const [isAnimating, setIsAnimating] = React.useState(false)
-
+		console.log(defaultValue, 'default value')
 		const handleInputKeyDown = (
 			event: React.KeyboardEvent<HTMLInputElement>,
 		) => {
@@ -210,7 +210,7 @@ export const MultiSelect = React.forwardRef<
 						{selectedValues.length > 0 ? (
 							<div className="flex w-full items-center justify-between">
 								<div className="flex flex-wrap items-center">
-									{selectedValues.slice(0, maxCount).map((value) => {
+									{selectedValues.slice(0, maxCount)?.map((value) => {
 										const option = options.find((o) => o.value === value)
 										const IconComponent = option?.icon
 										return (

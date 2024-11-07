@@ -22,23 +22,50 @@ const PageAddListing6: FC<PageAddListing7Props> = ({
 	const [previewUrls, setPreviewUrls] = useState<string[]>([])
 	const [showFrontImages, setShowFrontImages] = useState<boolean>(false)
 	const [showCoverImage, setShowCoverImage] = useState<boolean>(false)
-
+	console.log(coverPreviewUrl)
 	useEffect(() => {
 		if (ListingData.coverImage) {
-			setCoverPreviewUrl(URL.createObjectURL(ListingData.coverImage))
+			// If the cover image is a File object (e.g., from file input)
+			if (
+				typeof ListingData.coverImage === 'object' &&
+				ListingData.coverImage instanceof File
+			) {
+				setCoverPreviewUrl(URL.createObjectURL(ListingData.coverImage))
+			}
+			// If the cover image is a URL string (e.g., from database or server)
+			else if (typeof ListingData.coverImage === 'string') {
+				setCoverPreviewUrl(
+					process.env.NEXT_PUBLIC_SERVER_URL +
+						'/storage/' +
+						ListingData.coverImage,
+				)
+			}
 		} else {
+			// If no cover image exists
 			setCoverPreviewUrl(null)
 		}
 	}, [ListingData.coverImage])
-	console.log(ListingData)
 
 	useEffect(() => {
 		if (ListingData.images && ListingData.images.length > 0) {
-			const urls = ListingData.images.map((file: File) =>
-				URL.createObjectURL(file),
-			)
-			setPreviewUrls(urls)
+			// Create an array to store URLs
+			const urls = ListingData.images.map((image:File | string) => {
+				// If the image is a File object, create a blob URL
+				if (image instanceof File) {
+					return URL.createObjectURL(image)
+				}
+				// If the image is a string (assumed to be a URL), concatenate the server URL
+				else if (typeof image === 'string') {
+					return `${process.env.NEXT_PUBLIC_SERVER_URL}/storage/${image}`
+				}
+				// Return null for invalid types
+				return null
+			})
+
+			// Filter out any null values (in case of invalid types) and set the preview URLs
+			setPreviewUrls(urls.filter(Boolean))
 		} else {
+			// If no images exist, clear the preview URLs
 			setPreviewUrls([])
 		}
 	}, [ListingData.images])
@@ -105,14 +132,14 @@ const PageAddListing6: FC<PageAddListing7Props> = ({
 				description: 'Cover Image cannot be empty',
 			})
 		}
-		router.push(`/admin/listings/${index + 1}`)
+		router.push(`/admin/EditListing/${index + 1}`)
 	}
 
 	const BackBTN = () => {
 		if (index > 1) {
-			router.push(`/admin/listings/${index - 1}`)
+			router.push(`/admin/EditListing/${index - 1}`)
 		} else {
-			router.push('/admin/listings/1')
+			router.push('/admin/EditListing/1')
 		}
 	}
 

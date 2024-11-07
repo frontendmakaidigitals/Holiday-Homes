@@ -82,15 +82,15 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 				description: 'No Marker is Detected on Map',
 			})
 		}
-		router.push(`/admin/listings/${index + 1}`)
+		router.push(`/admin/EditListing/${index + 1}`)
 	}
  
 
 	const BackBTN = () => {
 		if (index > 1) {
-			router.push(`/admin/listings/${index - 1}`)
+			router.push(`/admin/EditListing/${index - 1}`)
 		} else {
-			router.push('/admin/listings/1')
+			router.push('/admin/EditListing/1')
 		}
 	}
 	const country = ['UAE', 'Dubai']

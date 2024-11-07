@@ -130,14 +130,16 @@ const Page = () => {
 											>
 												<MdClose />
 											</button>
-											<div className="h-60 overflow-hidden rounded-lg bg-slate-300">
+											<div className="aspect-1 overflow-hidden rounded-lg bg-slate-300">
 												<img
 													src={`${process.env.NEXT_PUBLIC_SERVER_URL}/storage/${listing.coverImage}`}
 													className="h-full w-full object-cover"
 												/>
 											</div>
 											<div className="mt-3">
-												<p className="text-xl">{listing.placeName}</p>
+												<p className="font-semibold xl:text-lg xxl:text-xl">
+													{listing.placeName}
+												</p>
 												<p className="text-md mt-1">
 													{listing.State}, {listing.Country}
 												</p>

@@ -7,10 +7,9 @@ export interface CheckboxProps {
 	subLabel?: string
 	className?: string
 	name: string
-	defaultChecked?: boolean
+	checked?: boolean
 	onChange?: (checked: boolean) => void
 	disabled?: boolean
-	checked?: boolean
 }
 
 const Checkbox: FC<CheckboxProps> = ({
@@ -18,12 +17,10 @@ const Checkbox: FC<CheckboxProps> = ({
 	label = '',
 	name,
 	className = '',
-	defaultChecked,
+	checked,
 	onChange,
 	disabled = false,
-	checked ,
 }) => {
-	console.log(defaultChecked)
 	return (
 		<div className={`flex text-sm sm:text-base ${className}`}>
 			<input
@@ -32,8 +29,8 @@ const Checkbox: FC<CheckboxProps> = ({
 				type="checkbox"
 				disabled={disabled}
 				className="focus:ring-action-primary border-primary h-6 w-6 rounded border-neutral-500 bg-white text-primary-500 focus:ring-primary-500 disabled:bg-gray-600 disabled:hover:bg-gray-600 dark:bg-neutral-700 dark:checked:bg-primary-500"
-				defaultChecked={defaultChecked}
-				onChange={(e) => onChange && onChange(e.target.checked)}
+				checked={checked} // Use checked here to control the checkbox
+				onChange={(e) => onChange && onChange(e.target.checked)} // Pass the checked value
 			/>
 			{label && (
 				<label

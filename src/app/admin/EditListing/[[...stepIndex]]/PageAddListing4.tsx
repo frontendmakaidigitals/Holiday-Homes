@@ -1,4 +1,3 @@
-// PageAddListing4.tsx
 'use client'
 import React, { FC, useEffect, useState } from 'react'
 import Checkbox from '@/shared/Checkbox'
@@ -6,6 +5,7 @@ import ButtonPrimary from '@/shared/ButtonPrimary'
 import { useRouter } from 'next/navigation'
 import useStore from '../FormStore'
 import { useToast } from '@/hooks/use-toast'
+
 export interface PageAddListing4Props {
 	params?: { stepIndex: string }
 }
@@ -31,15 +31,29 @@ const PageAddListing4: FC<PageAddListing4Props> = ({
 	const router = useRouter()
 	const { setCheckedAmenities, ListingData } = useStore()
 
-	// Ensure checkedAmenities is an array
-	const checkedAmenities = ListingData.checkedAmenities
 	const { toast } = useToast()
+
+	// Ensure checkedAmenities has a default value if undefined
+	const checkedAmenities = ListingData?.checkedAmenities || {
+		included: [],
+		other: [],
+		safe: [],
+	}
+
 	const [amenities, setAmenities] = useState<AmenitiesState>({
 		included: [],
 		other: [],
 		safe: [],
 	})
 
+	// Ensure state is set correctly when ListingData is ready
+	useEffect(() => {
+		if (ListingData?.checkedAmenities) {
+			setAmenities(ListingData.checkedAmenities)
+		}
+	}, [ListingData?.checkedAmenities])
+
+	// Initialize amenities with the checkedAmenities values or fallback to default
 	useEffect(() => {
 		setAmenities({
 			included: [
@@ -150,24 +164,22 @@ const PageAddListing4: FC<PageAddListing4Props> = ({
 			})
 		}
 
-		router.push(`/admin/listings/${index + 1}`)
+		router.push(`/admin/EditListing/${index + 1}`)
 	}
 
 	const BackBTN = () => {
 		router.push(
-			index > 1 ? `/admin/listings/${index - 1}` : '/admin/listings/1',
+			index > 1 ? `/admin/EditListing/${index - 1}` : '/admin/EditListing/1',
 		)
 	}
-	console.log(ListingData.checkedAmenities)
+
 	return (
-		<>
-			<div>
-				<h2 className="text-2xl font-semibold">Amenities</h2>
-				<span className="mt-2 block text-neutral-500 dark:text-neutral-400">
-					Many customers have searched for accommodation based on amenities
-					criteria.
-				</span>
-			</div>
+		<div>
+			<h2 className="text-2xl font-semibold">Amenities</h2>
+			<span className="mt-2 block text-neutral-500 dark:text-neutral-400">
+				Many customers have searched for accommodation based on amenities
+				criteria.
+			</span>
 			<div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
 
 			<div className="space-y-8">
@@ -186,7 +198,7 @@ const PageAddListing4: FC<PageAddListing4Props> = ({
 									key={i}
 									label={option.label}
 									name={option.label}
-									defaultChecked={option.checked} // Use checked for controlled checkbox
+									checked={option.checked} // controlled checkbox
 									onChange={() =>
 										handleCheckboxChange(
 											category as 'included' | 'other' | 'safe',
@@ -210,7 +222,7 @@ const PageAddListing4: FC<PageAddListing4Props> = ({
 					<ButtonPrimary onClick={NextBTN}>{nextBtnText}</ButtonPrimary>
 				</div>
 			</div>
-		</>
+		</div>
 	)
 }
 
