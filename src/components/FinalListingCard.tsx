@@ -34,7 +34,7 @@ const FinalListingCard: FC<FinalListingCardProps> = ({
 	// Validate images to ensure they are either strings or Files
 	const galleryImages = images.reduce<string[]>((acc, image) => {
 		if (typeof image === 'string') {
-			acc.push(image)
+			acc.push(process.env.NEXT_PUBLIC_SERVER_URL + '/storage/' + image)
 		} else if (image instanceof File) {
 			acc.push(URL.createObjectURL(image))
 		}
@@ -64,7 +64,7 @@ const FinalListingCard: FC<FinalListingCardProps> = ({
 			<div className={size === 'default' ? 'space-y-4 p-4' : 'space-y-1 p-3'}>
 				<div className={size === 'default' ? 'space-y-2' : 'space-y-1'}>
 					<span className="text-sm text-neutral-500 dark:text-neutral-400">
-						 {bedRoom} beds
+						{bedRoom} beds
 					</span>
 					<div className="flex items-center space-x-2">
 						<h2

@@ -134,10 +134,8 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children, params }) => {
 	useEffect(() => {
 		// Check if the page has been refreshed
 		const isPageRefreshed = sessionStorage.getItem('isPageRefreshed')
-
-		if (index > 1) {
-			if (isPageRefreshed) {
-				// Ask user for confirmation before redirection
+		if (isPageRefreshed) {
+			if (index > 1) {
 				const userConfirmed = window.confirm(
 					'Current Data is not saved. Refreshing the page will take you to the first section of the Edit form.',
 				)
@@ -151,6 +149,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children, params }) => {
 					sessionStorage.removeItem('isPageRefreshed')
 				}
 			}
+			// Ask user for confirmation before redirection
 		}
 
 		// Set the flag when the page is about to unload (refresh or close)
