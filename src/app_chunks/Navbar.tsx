@@ -9,7 +9,7 @@ import { IoNotificationsOutline } from 'react-icons/io5'
 import { motion } from 'framer-motion'
 
 const Navbar = () => {
-	const name = 'faheem'
+	const name = 'BSHH Admin'
 	return (
 		<div className="flex w-full items-start justify-between xl:mt-5 xl:px-3 xxl:mt-10 xxl:px-10">
 			<div className="w-full">

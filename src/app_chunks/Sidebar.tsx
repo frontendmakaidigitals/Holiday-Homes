@@ -84,7 +84,7 @@ const Sidebar = ({
 					)}
 				</div>
 				<p className="font-Satoshi xxl:text-md mt-1 text-lg font-medium text-white xl:text-sm xxxl:text-lg">
-					Faheem
+					BSHH Admin
 				</p>
 			</div>
 

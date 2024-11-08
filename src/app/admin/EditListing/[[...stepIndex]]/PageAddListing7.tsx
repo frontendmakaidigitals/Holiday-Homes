@@ -104,8 +104,8 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 				},
 			)
 
-			const response = await axios.post(
-				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing`,
+			const response = await axios.put(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing/${search}`,
 				formData,
 				{
 					withCredentials: true,

@@ -1,7 +1,7 @@
 'use client'
 import Sidebar from '@/app_chunks/Sidebar'
 import Navbar from '@/app_chunks/Navbar'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useRef, useEffect, useState } from 'react'
 import { Toaster } from '@/Shadcncomponents/components/ui/toaster'
 import { useSearchParams } from 'next/navigation'
@@ -42,6 +42,7 @@ export default function RootLayout({
 		setImages,
 		setCoverImage,
 	} = useStore()
+	console.log(path)
 	const sideRef = useRef<HTMLDivElement>(null)
 	useEffect(() => {
 		if (sideRef.current) {
@@ -86,8 +87,10 @@ export default function RootLayout({
 		setListing([])
 	}
 	useEffect(() => {
-		getQueries()
-	}, [])
+		if (path.toLowerCase() == 'editlisting') {
+			getQueries()
+		}
+	}, [search])
 
 	useEffect(() => {
 		if (listings && status == 'success') {
