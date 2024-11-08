@@ -10,6 +10,7 @@ export interface CheckboxProps {
 	checked?: boolean
 	onChange?: (checked: boolean) => void
 	disabled?: boolean
+	defaultChecked?: boolean
 }
 
 const Checkbox: FC<CheckboxProps> = ({
@@ -20,6 +21,7 @@ const Checkbox: FC<CheckboxProps> = ({
 	checked,
 	onChange,
 	disabled = false,
+	defaultChecked,
 }) => {
 	return (
 		<div className={`flex text-sm sm:text-base ${className}`}>
