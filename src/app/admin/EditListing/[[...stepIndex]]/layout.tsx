@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { FC } from 'react'
 import axios from 'axios'
 import { Route } from '@/routers/types'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import useStore from '../../EditListing/FormStore'
 export interface CommonLayoutProps {
 	children: React.ReactNode
@@ -43,6 +43,10 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children, params }) => {
 		setCoverImage,
 	} = useStore()
 	const router = useRouter()
+	const searchParams = useSearchParams()
+
+	const search = searchParams.get('id')
+
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
 	const [listings, setListing]: any = useState([])
@@ -54,7 +58,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children, params }) => {
 			})
 			.then(() => {
 				return axios.get(
-					`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing/${7}`,
+					`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing/${search}`,
 					{
 						withCredentials: true,
 					},

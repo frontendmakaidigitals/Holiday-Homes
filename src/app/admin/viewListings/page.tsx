@@ -12,6 +12,8 @@ import Heading from '@/shared/Heading'
 import { useRouter } from 'next/navigation'
 import { GrStatusWarning } from 'react-icons/gr'
 import ButtonPrimary from '@/shared/ButtonPrimary'
+import { LiaEditSolid } from 'react-icons/lia'
+import Link from 'next/link'
 const Page = () => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
@@ -121,15 +123,26 @@ const Page = () => {
 											key={idx}
 											className="group relative w-full overflow-hidden"
 										>
-											<button
-												onClick={() => {
-													setId(listing.id)
-													setShowPopUp(true)
-												}}
-												className="absolute right-1 top-1 z-10 hidden rounded-full bg-red-200 p-2 transition-all duration-300 hover:scale-105 hover:bg-red-400 group-hover:block"
-											>
-												<MdClose />
-											</button>
+											<div className="absolute right-1 top-1 z-10 hidden items-center gap-2 group-hover:flex">
+												<Link
+													href={{
+														pathname: '/admin/EditListing',
+														query: { id: listing.id },
+													}}
+													className="rounded-full bg-primary-200 p-2 transition-all duration-300 hover:scale-105 hover:bg-white"
+												>
+													<LiaEditSolid />
+												</Link>
+												<button
+													onClick={() => {
+														setId(listing.id)
+														setShowPopUp(true)
+													}}
+													className="rounded-full bg-red-200 p-2 transition-all duration-300 hover:scale-105 hover:bg-red-400"
+												>
+													<MdClose />
+												</button>
+											</div>
 											<div className="aspect-1 overflow-hidden rounded-lg bg-slate-300">
 												<img
 													src={`${process.env.NEXT_PUBLIC_SERVER_URL}/storage/${listing.coverImage}`}
