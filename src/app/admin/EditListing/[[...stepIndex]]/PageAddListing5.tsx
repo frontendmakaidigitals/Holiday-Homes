@@ -2,7 +2,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import Input from '@/shared/Input'
 import ButtonPrimary from '@/shared/ButtonPrimary'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import useStore from '../FormStore'
 
 export interface PageAddListing5Props {
@@ -15,6 +15,9 @@ const PageAddListing5: FC<PageAddListing5Props> = ({
 	const index = Number(params.stepIndex)
 	const nextBtnText = index > 9 ? 'Publish listing' : 'Continue'
 	const router = useRouter()
+	const searchParams = useSearchParams()
+
+	const search = searchParams.get('id')
 	const { ListingData, setAdditionalRules, setHouseRule } = useStore(
 		(state) => state,
 	)
@@ -27,13 +30,15 @@ const PageAddListing5: FC<PageAddListing5Props> = ({
 	}, [ListingData.additionalRules])
 
 	const navigateToNext = () => {
-		router.push(`/admin/EditListing/${index + 1}`)
+		router.push(`/admin/EditListing/${index + 1}?id=${search}`)
 	}
 
 	const navigateToPrevious = () => {
-		router.push(
-			index > 1 ? `/admin/EditListing/${index - 1}` : '/admin/EditListing/1',
-		)
+		if (index > 1) {
+			router.push(`/admin/EditListing/${index - 1}?id=${search}`)
+		} else {
+			router.push(`/admin/EditListing/1?id=${search}`)
+		}
 	}
 
 	const renderNoInclude = (text: string, index: number) => (

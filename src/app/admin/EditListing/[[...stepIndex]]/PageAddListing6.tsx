@@ -2,7 +2,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import { IoMdClose } from 'react-icons/io'
 import ButtonPrimary from '@/shared/ButtonPrimary'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useToast } from '@/hooks/use-toast'
 import useStore from '../FormStore'
 
@@ -22,7 +22,10 @@ const PageAddListing6: FC<PageAddListing7Props> = ({
 	const [previewUrls, setPreviewUrls] = useState<string[]>([])
 	const [showFrontImages, setShowFrontImages] = useState<boolean>(false)
 	const [showCoverImage, setShowCoverImage] = useState<boolean>(false)
-	console.log(coverPreviewUrl)
+	const searchParams = useSearchParams()
+
+	const search = searchParams.get('id')
+
 	useEffect(() => {
 		if (ListingData.coverImage) {
 			// If the cover image is a File object (e.g., from file input)
@@ -49,7 +52,7 @@ const PageAddListing6: FC<PageAddListing7Props> = ({
 	useEffect(() => {
 		if (ListingData.images && ListingData.images.length > 0) {
 			// Create an array to store URLs
-			const urls = ListingData.images.map((image:File | string) => {
+			const urls = ListingData.images.map((image: File | string) => {
 				// If the image is a File object, create a blob URL
 				if (image instanceof File) {
 					return URL.createObjectURL(image)
@@ -132,14 +135,14 @@ const PageAddListing6: FC<PageAddListing7Props> = ({
 				description: 'Cover Image cannot be empty',
 			})
 		}
-		router.push(`/admin/EditListing/${index + 1}`)
+		router.push(`/admin/EditListing/${index + 1}?id=${search}`)
 	}
 
 	const BackBTN = () => {
 		if (index > 1) {
-			router.push(`/admin/EditListing/${index - 1}`)
+			router.push(`/admin/EditListing/${index - 1}?id=${search}`)
 		} else {
-			router.push('/admin/EditListing/1')
+			router.push(`/admin/EditListing/1?id=${search}`)
 		}
 	}
 

@@ -126,7 +126,7 @@ const Page = () => {
 											<div className="absolute right-1 top-1 z-10 hidden items-center gap-2 group-hover:flex">
 												<Link
 													href={{
-														pathname: '/admin/EditListing',
+														pathname: `/admin/EditListing/1`,
 														query: { id: listing.id },
 													}}
 													className="rounded-full bg-primary-200 p-2 transition-all duration-300 hover:scale-105 hover:bg-white"

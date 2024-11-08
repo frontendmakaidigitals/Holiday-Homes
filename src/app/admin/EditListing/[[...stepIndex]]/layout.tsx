@@ -14,7 +14,7 @@ export interface CommonLayoutProps {
 
 const CommonLayout: FC<CommonLayoutProps> = ({ children, params }) => {
 	const index = Number(params.stepIndex) || 1
-
+	const [counter, setCounter] = useState(0)
 	const {
 		setPropertyType,
 		ListingData,
@@ -47,128 +47,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children, params }) => {
 
 	const search = searchParams.get('id')
 
-	const [isLoading, setIsLoading] = useState(false)
-	const [status, setStatus] = useState('')
-	const [listings, setListing]: any = useState([])
-	const getQueries = () => {
-		setIsLoading(true)
-		axios
-			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
-				withCredentials: true,
-			})
-			.then(() => {
-				return axios.get(
-					`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing/${search}`,
-					{
-						withCredentials: true,
-					},
-				)
-			})
-			.then((res) => {
-				setListing(res.data?.data)
-				setStatus('success')
-			})
-			.catch((error) => {
-				console.error(error)
-				setStatus('failed')
-			})
-			.finally(() => {
-				setIsLoading(false)
-			})
-	}
-
-	useEffect(() => {
-		getQueries()
-	}, [])
-	useEffect(() => {
-		if (listings) {
-			setPropertyType(listings?.propertyType)
-			setPlaceName(listings?.placeName)
-			setDescription(listings?.Description)
-			setPrice(listings?.Price)
-			setArea(listings?.Area)
-			setCity(listings?.City)
-			setCountry(listings?.Country)
-			setStreet(listings?.Street)
-			setState(listings?.State)
-			setPin(listings?.Pin)
-			setRoomNum(listings?.RoomNum)
-			setAddress(listings?.Address)
-			let marker = listings?.marker
-			setAcreage(listings?.Acreage)
-			setBedRoom(Number(listings?.bedRoom))
-			setBeds(Number(listings?.beds))
-			setGuestNum(Number(listings?.guestNum))
-			setBathroom(Number(listings?.bathroom))
-			setCoverImage(listings?.coverImage)
-
-			if (listings?.checkedAmenities) {
-				const TempCheckedAmenties = JSON.parse(listings?.checkedAmenities)
-				console.log(TempCheckedAmenties)
-				setCheckedAmenities(TempCheckedAmenties)
-			}
-			if (listings.additionalRules) {
-				const parser = JSON.parse(listings?.additionalRules)
-				const RuleParser = JSON.parse(listings?.houseRules)
-				const imagesParser = JSON.parse(listings?.images)
-				const tagsParser = JSON.parse(listings?.RentalTags)
-				if (tagsParser) {
-					setRentalTags(tagsParser)
-				}
-				setImages(imagesParser)
-				setHouseRule(RuleParser)
-				setAdditionalRules(parser)
-			}
-			if (typeof marker === 'string') {
-				try {
-					marker = JSON.parse(marker)
-					setMarker({ lat: marker.lat, lng: marker.lng })
-				} catch (e) {
-					console.error('Error parsing marker string:', e)
-				}
-			}
-		}
-	}, [listings])
-	useEffect(() => {
-		console.log('Updated RentalTags:', ListingData.RentalTags)
-	}, [ListingData.RentalTags])
-
-	const [isRefreshed, setIsRefreshed] = useState(false)
-
-	useEffect(() => {
-		// Check if the page has been refreshed
-		const isPageRefreshed = sessionStorage.getItem('isPageRefreshed')
-		if (isPageRefreshed) {
-			if (index > 1) {
-				const userConfirmed = window.confirm(
-					'Current Data is not saved. Refreshing the page will take you to the first section of the Edit form.',
-				)
-
-				if (userConfirmed) {
-					// Redirect to the specific page if user confirms
-					router.push('/admin/EditListing/1')
-					router.refresh()
-				} else {
-					// If user cancels, reset the flag so the user doesn't get stuck in a loop
-					sessionStorage.removeItem('isPageRefreshed')
-				}
-			}
-			// Ask user for confirmation before redirection
-		}
-
-		// Set the flag when the page is about to unload (refresh or close)
-		const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-			sessionStorage.setItem('isPageRefreshed', 'true')
-		}
-
-		// Add beforeunload event listener
-		window.addEventListener('beforeunload', handleBeforeUnload)
-
-		// Clean up the event listener on component unmount
-		return () => {
-			window.removeEventListener('beforeunload', handleBeforeUnload)
-		}
-	}, [router])
+	
 
 	return (
 		<div

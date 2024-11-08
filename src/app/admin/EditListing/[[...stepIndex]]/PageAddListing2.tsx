@@ -1,7 +1,7 @@
 'use client' // Ensure this file runs on the client-side
 import Label from '@/components/Label'
 import { FC, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Input from '@/shared/Input'
 import FormItem from '../FormItem'
 import ButtonPrimary from '@/shared/ButtonPrimary'
@@ -32,7 +32,7 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 	params = { stepIndex: 2 },
 }) => {
 	const index = params.stepIndex
- 
+
 	const {
 		ListingData,
 		setCity,
@@ -48,6 +48,10 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 	const nextBtnText = index > 9 ? 'Publish listing' : 'Continue'
 	const router = useRouter()
 	const { toast } = useToast()
+	const searchParams = useSearchParams()
+
+	const search = searchParams.get('id')
+	 
 
 	// State for the marker
 
@@ -82,15 +86,14 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 				description: 'No Marker is Detected on Map',
 			})
 		}
-		router.push(`/admin/EditListing/${index + 1}`)
+		router.push(`/admin/EditListing/${index + 1}?id=${search}`)
 	}
- 
 
 	const BackBTN = () => {
 		if (index > 1) {
-			router.push(`/admin/EditListing/${index - 1}`)
+			router.push(`/admin/EditListing/${index - 1}?id=${search}`)
 		} else {
-			router.push('/admin/EditListing/1')
+			router.push(`/admin/EditListing/1?id=${search}`)
 		}
 	}
 	const country = ['UAE', 'Dubai']

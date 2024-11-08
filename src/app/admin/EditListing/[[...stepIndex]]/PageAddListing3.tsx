@@ -1,7 +1,7 @@
 'use client'
 import NcInputNumber from '@/components/NcInputNumber'
 import React, { FC, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import FormItem from '../FormItem'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import Input from '@/shared/Input'
@@ -16,6 +16,9 @@ const PageAddListing3: FC<PageAddListing3Props> = ({
 }) => {
 	const index = params.stepIndex
 	const { toast } = useToast()
+	const searchParams = useSearchParams()
+
+	const search = searchParams.get('id')
 
 	const nextBtnText = index > 9 ? 'Publish listing' : 'Continue'
 	const {
@@ -36,14 +39,14 @@ const PageAddListing3: FC<PageAddListing3Props> = ({
 				description: 'Feild is Empty',
 			})
 		}
-		router.push(`/admin/EditListing/${index + 1}`)
+		router.push(`/admin/EditListing/${index + 1}?id=${search}`)
 	}
 
 	const BackBTN = () => {
 		if (index > 1) {
-			router.push(`/admin/EditListing/${index - 1}`)
+			router.push(`/admin/EditListing/${index - 1}?id=${search}`)
 		} else {
-			router.push('/admin/EditListing/1')
+			router.push(`/admin/EditListing/1?id=${search}`)
 		}
 	}
 

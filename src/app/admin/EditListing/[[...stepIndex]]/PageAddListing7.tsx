@@ -5,7 +5,7 @@ import NcInputNumber from '@/components/NcInputNumber'
 import React, { FC, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import ButtonPrimary from '@/shared/ButtonPrimary'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import useStore from '../FormStore'
 import axios from 'axios'
 
@@ -27,6 +27,8 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 	const router = useRouter()
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
+	const searchParams = useSearchParams()
+	const search = searchParams.get('id')
 
 	const convertImagesToBlobs = async (images: any) => {
 		const blobPromises = images.map(async (image: any) => {
@@ -43,8 +45,6 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 
 	const NextBTN = async () => {
 		setIsLoading(true)
-
-		// Destructure ListingData to get images, coverImage, and other fields
 		const {
 			images,
 			checkedAmenities,
@@ -116,9 +116,9 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 			)
 
 			setStatus('success')
-			console.log('Data upload successful:', response.data)
+
 			setEditId(response.data.data.id)
-			router.push(`/admin/EditListing/${index + 1}`)
+			router.push(`/admin/EditListing/${index + 1}?id=${search}`)
 		} catch (error: any) {
 			console.error('Error uploading data:', error)
 			setStatus('failed')
@@ -133,9 +133,9 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 
 	const BackBTN = () => {
 		if (index > 1) {
-			router.push(`/admin/EditListing/${index - 1}`)
+			router.push(`/admin/EditListing/${index - 1}?id=${search}`)
 		} else {
-			router.push('/admin/EditListing/1')
+			router.push(`/admin/EditListing/1?id=${search}`)
 		}
 	}
 

@@ -8,7 +8,7 @@ import ButtonPrimary from '@/shared/ButtonPrimary'
 import ButtonSecondary from '@/shared/ButtonSecondary'
 import { Route } from '@/routers/types'
 import { MultiSelect } from '@/components/MultiSelect'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import {
 	Select,
 	SelectContent,
@@ -39,6 +39,10 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 	const index = Number(params.stepIndex) || 1
 	const router = useRouter()
 	const { toast } = useToast()
+	const searchParams = useSearchParams()
+
+	const search = searchParams.get('id')
+	console.log(search)
 
 	const NextBTN = () => {
 		if (ListingData.propertyType === '') {
@@ -83,7 +87,7 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 				description: 'At least one need to be selected',
 			})
 		}
-		router.push(`/admin/EditListing/${index + 1}`)
+		router.push(`/admin/EditListing/${index + 1}?id=${search}`)
 	}
 	const BackBTN = () => {
 		if (index > 1) {

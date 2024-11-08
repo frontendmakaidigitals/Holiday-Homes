@@ -2,7 +2,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import Checkbox from '@/shared/Checkbox'
 import ButtonPrimary from '@/shared/ButtonPrimary'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import useStore from '../FormStore'
 import { useToast } from '@/hooks/use-toast'
 
@@ -30,7 +30,9 @@ const PageAddListing4: FC<PageAddListing4Props> = ({
 	const nextBtnText = index > 9 ? 'Publish listing' : 'Continue'
 	const router = useRouter()
 	const { setCheckedAmenities, ListingData } = useStore()
+	const searchParams = useSearchParams()
 
+	const search = searchParams.get('id')
 	const { toast } = useToast()
 
 	// Ensure checkedAmenities has a default value if undefined
@@ -164,13 +166,15 @@ const PageAddListing4: FC<PageAddListing4Props> = ({
 			})
 		}
 
-		router.push(`/admin/EditListing/${index + 1}`)
+		router.push(`/admin/EditListing/${index + 1}?id=${search}`)
 	}
 
 	const BackBTN = () => {
-		router.push(
-			index > 1 ? `/admin/EditListing/${index - 1}` : '/admin/EditListing/1',
-		)
+		if (index > 1) {
+			router.push(`/admin/EditListing/${index - 1}?id=${search}`)
+		} else {
+			router.push(`/admin/EditListing/1?id=${search}`)
+		}
 	}
 
 	return (

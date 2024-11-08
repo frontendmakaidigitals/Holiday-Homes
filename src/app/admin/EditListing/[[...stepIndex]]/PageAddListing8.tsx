@@ -13,12 +13,6 @@ export interface PageAddListing10Props {}
 const PageAddListing8: FC<PageAddListing10Props> = () => {
 	const router = useRouter()
 	const { ListingData } = useStore()
-
-	// Debugging: Log ListingData to inspect its structure
-	useEffect(() => {
-		console.log('ListingData:', ListingData)
-	}, [ListingData])
-
 	return (
 		<>
 			<div>
@@ -42,7 +36,7 @@ const PageAddListing8: FC<PageAddListing10Props> = () => {
 					)}
 				</div>
 				<div className="mt-8 flex items-center space-x-5">
-					<Link href={'/admin/listings/'}>
+					<Link href={'/admin/viewListings'}>
 						<ButtonPrimary>
 							<EyeIcon className="h-5 w-5" />
 							<span className="ml-3">View All Listing</span>
