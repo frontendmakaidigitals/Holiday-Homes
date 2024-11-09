@@ -57,6 +57,7 @@ const Header3: FC<Header3Props> = ({ className = '' }) => {
 		window.requestAnimationFrame(handleHideSearchForm)
 	}
 
+
 	const handleHideSearchForm = () => {
 		if (!document.querySelector('#nc-Header-3-anchor')) {
 			return

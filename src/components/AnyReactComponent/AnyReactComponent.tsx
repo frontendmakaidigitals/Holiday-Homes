@@ -42,7 +42,7 @@ const AnyReactComponent: FC<AnyReactComponentProps> = ({
 						: 'bg-white hover:bg-gray-900 hover:text-white dark:bg-neutral-900 dark:hover:bg-white dark:hover:text-gray-900'
 				}`}
 			>
-				{car?.Price}
+				{car?.discountedPrice}
 			</span>
 			<Transition
 				show={isOpen}

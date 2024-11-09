@@ -15,7 +15,7 @@ const useStore = create((set) => ({
 		RoomNum: '',
 		Acreage: '',
 		Description: '',
-		Price: '',
+		discountedPrice: '',
 		guestNum: 1,
 		bedRoom: 1,
 		beds: 1,
@@ -25,6 +25,8 @@ const useStore = create((set) => ({
 		coverImage: null,
 		images: [],
 		Area: '',
+		orgPrice: '',
+		listingBadge: {},
 		checkedAmenities: {
 			included: [],
 			other: [],
@@ -43,6 +45,7 @@ const useStore = create((set) => ({
 			'Baby Crib': 'Allow',
 		},
 	},
+
 	setHouseRule: (ruleName, value) =>
 		set((state) => ({
 			ListingData: {
@@ -76,6 +79,13 @@ const useStore = create((set) => ({
 				coverImage,
 			},
 		})),
+	setOrgPrice: (orgPrice) =>
+		set((state) => ({
+			ListingData: {
+				...state.ListingData,
+				orgPrice,
+			},
+		})),
 	setImages: (images) =>
 		set((state) => ({
 			ListingData: {
@@ -88,6 +98,13 @@ const useStore = create((set) => ({
 			ListingData: {
 				...state.ListingData,
 				editId,
+			},
+		})),
+	setDiscountedPrice: (discountedPrice) =>
+		set((state) => ({
+			ListingData: {
+				...state.ListingData,
+				discountedPrice,
 			},
 		})),
 	setPropertyType: (propertyType) =>
@@ -116,6 +133,13 @@ const useStore = create((set) => ({
 			ListingData: {
 				...state.ListingData,
 				Address,
+			},
+		})),
+	setListingBadge: (listingBadge) =>
+		set((state) => ({
+			ListingData: {
+				...state.ListingData,
+				listingBadge,
 			},
 		})),
 	setGuestNum: (guestNum) =>

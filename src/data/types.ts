@@ -102,6 +102,10 @@ export interface StayDataType {
 	propertyType: string
 	imagesUrls: string[]
 	beds: string
+	orgPrice: string
+	discountedPrice: string
+	checkedAmenities: string
+	listingBadge: string
 }
 
 //
@@ -170,4 +174,5 @@ export interface CarDataType {
 	placeName: string
 	bedRoom: string
 	guestNum: string
+	discountedPrice:string
 }

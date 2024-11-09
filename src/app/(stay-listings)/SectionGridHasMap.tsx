@@ -19,6 +19,7 @@ import MarinaImg from '@/images/MenuImages/marina.jpg'
 import dynamic from 'next/dynamic'
 import SectionSliderNewCategories from '@/components/SectionSliderNewCategories'
 import { TaxonomyType } from '@/data/types'
+import useStore from '@/components/ListingStore'
 const DEMO_STAYS = DEMO_STAY_LISTINGS.filter((_, i) => i < 12)
 export interface SectionGridHasMapProps {}
 const MapContainer = dynamic(() => import('@/components/MapContainer'), {
@@ -29,6 +30,11 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 	const [showFullMapFixed, setShowFullMapFixed] = useState(false)
 	const searchParams = useSearchParams()
 	const area = searchParams.get('area')
+	const { Listings } = useStore()
+	const loc = searchParams.get('loc')
+	const bed = searchParams.get('Bed')
+	const pri = searchParams.get('pri')
+
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
 	const [listings, setListings] = useState([])
@@ -75,6 +81,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 		},
 	]
 	const [tabs, setTabs] = useState(initialTabs)
+	const [filteredData, setFilteredData] = useState([])
 
 	interface listing {
 		Area: string
@@ -156,6 +163,24 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 	useEffect(() => {
 		getListings()
 	}, [])
+
+	useEffect(() => {
+		if (bed && pri && loc) {
+			setFilteredData(
+				listings.filter(
+					(list: any) =>
+						list.beds === Number(bed) ||
+						list.discountedPrice === Number(pri) ||
+						list.Country === loc,
+				),
+			)
+		}
+		if (area) {
+			setFilteredData(listings.filter((list: any) => list.Area === area))
+		} else {
+			setFilteredData(listings)
+		}
+	}, [listings])
 
 	return (
 		<div>

@@ -1,13 +1,13 @@
 'use client'
 
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { FC } from 'react'
 import { BanknotesIcon } from '@heroicons/react/24/outline' // Importing the icon
 import ClearDataButton from './ClearDataButton' // Clear button for resetting the price
 import ButtonSubmit from './ButtonSubmit' // Submit button if needed
 import { PathName } from '@/routers/types' // Assuming you use this for routing
-
+import useStore from '@/components/ListingStore'
 export interface PriceSliderProps {
 	fieldClassName?: string
 	className?: string
@@ -22,10 +22,14 @@ const PriceSlider: FC<PriceSliderProps> = ({
 	hasButtonSubmit = true,
 }) => {
 	const [priceValue, setPriceValue] = useState<number>(50) // Default price value
-
+	const { setPrice, Listings } = useStore()
 	const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setPriceValue(Number(e.target.value)) // Update the price from the slider
 	}
+
+	useEffect(() => {
+		setPrice(priceValue)
+	}, [priceValue])
 
 	return (
 		<Popover className={`relative flex ${className}`}>
@@ -46,7 +50,7 @@ const PriceSlider: FC<PriceSliderProps> = ({
 
 							<div className="flex-grow">
 								<span className="block font-semibold xl:text-lg">
-									Price: ${priceValue}
+									Price: {priceValue} AED
 								</span>
 							</div>
 

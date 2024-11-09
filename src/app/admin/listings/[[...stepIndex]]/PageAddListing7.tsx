@@ -51,6 +51,7 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 			houseRules,
 			marker,
 			coverImage,
+			listingBadge,
 			...listingDataWithoutImages
 		} = ListingData || {}
 
@@ -76,6 +77,9 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 			// Handle the checkedAmenities object separately (if it exists)
 			if (checkedAmenities && typeof checkedAmenities === 'object') {
 				formData.append('checkedAmenities', JSON.stringify(checkedAmenities))
+			}
+			if (listingBadge && typeof listingBadge === 'object') {
+				formData.append('listingBadge', JSON.stringify(listingBadge))
 			}
 
 			// Handle the houseRules object separately (if it exists)
@@ -116,9 +120,8 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 			)
 
 			setStatus('success')
-			console.log('Data upload successful:', response.data)
-			setEditId(response.data.data.id)
 			router.push(`/admin/listings/${index + 1}`)
+			setEditId(response.data.data.id)
 		} catch (error: any) {
 			console.error('Error uploading data:', error)
 			setStatus('failed')
@@ -192,13 +195,6 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 				/>
 
 				<div className="mt-8 flex justify-end space-x-5">
-					<button
-						onClick={BackBTN}
-						className="rounded-full border border-gray-600 bg-transparent px-5 disabled:!cursor-not-allowed disabled:!bg-slate-300 disabled:!text-slate-500"
-						disabled={index === 1}
-					>
-						Go Back
-					</button>
 					<ButtonPrimary
 						loading={isLoading}
 						className={`${status === 'failed' ? 'bg-red-500' : ''}`}

@@ -1,33 +1,27 @@
 import { PathName } from '@/routers/types'
 import Link from 'next/link'
 import React, { FC } from 'react'
-
+import { CiSearch } from 'react-icons/ci'
+import { UrlObject } from 'url'
 interface Props {
-	href?: PathName
+	href?: UrlObject | PathName
+	disabled?: boolean
 }
 
-const ButtonSubmit: FC<Props> = ({ href = '/listing-stay-map' }) => {
+const ButtonSubmit: FC<Props> = ({
+	href = '/listing-stay-map',
+	disabled = false,
+}) => {
 	return (
-		<Link
-			href={href}
-			type="button"
-			className="flex h-14 w-full items-center justify-center rounded-3xl bg-primary-6000 text-gray-50 hover:bg-primary-700 focus:outline-none md:h-16 md:w-16"
-		>
-			<span className="mr-3 md:hidden">Search</span>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				className="h-6 w-6"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
+		<Link href={href}>
+			<button
+				disabled={disabled}
+				type="button"
+				className="flex h-14 w-full items-center justify-center rounded-3xl bg-primary-6000 text-gray-50 hover:bg-primary-700 focus:outline-none disabled:bg-slate-300 md:h-16 md:w-16"
 			>
-				<path
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					strokeWidth={1.5}
-					d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-				/>
-			</svg>
+				<span className="mr-3 md:hidden">Search</span>
+				<CiSearch className="text-4xl" />
+			</button>
 		</Link>
 	)
 }

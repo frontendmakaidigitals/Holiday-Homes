@@ -18,6 +18,8 @@ import MarinaImg from '@/images/MenuImages/marina.jpg'
 import Heading from '@/shared/Heading'
 import axios from 'axios'
 import { TaxonomyType } from '@/data/types'
+import useStore from '@/components/ListingStore'
+import { List } from 'lucide-react'
 function PageHome() {
 	const initialTabs: TaxonomyType[] = [
 		{
@@ -61,12 +63,14 @@ function PageHome() {
 			thumbnail: JLTImg,
 		},
 	]
+	const { Listings, setListingsData } = useStore()
 
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
 	const [listings, setListings] = useState([])
 	const [tabs, setTabs] = useState(initialTabs)
 	const btnRef = useRef(null)
+
 	interface listing {
 		Area: string
 	}
@@ -86,7 +90,7 @@ function PageHome() {
 					? res.data.data
 					: [] // Ensure it's an array
 				setListings(fetchedListings)
-
+				setListingsData(fetchedListings)
 				setStatus('success')
 
 				// Calculate counts for each area
@@ -120,6 +124,10 @@ function PageHome() {
 	useEffect(() => {
 		getListings()
 	}, [])
+
+	useEffect(() => {
+		setListings(listings)
+	}, [listings])
 
 	return (
 		<main className="nc-PageHome relative overflow-hidden">

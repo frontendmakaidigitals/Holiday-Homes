@@ -9,7 +9,7 @@ import ButtonSubmit from './ButtonSubmit'
 import { PathName } from '@/routers/types'
 import { UserPlusIcon } from '@heroicons/react/24/outline'
 import { GuestsObject } from '../type'
-
+import useStore from '@/components/ListingStore'
 export interface GuestsInputProps {
 	fieldClassName?: string
 	className?: string
@@ -26,7 +26,7 @@ const Bed: FC<GuestsInputProps> = ({
 	const [guestAdultsInputValue, setGuestAdultsInputValue] = useState(0)
 	const [guestChildrenInputValue, setGuestChildrenInputValue] = useState(0)
 	const [guestBeds, setguestBeds] = useState(1)
-
+	const { setBeds, Listings } = useStore()
 	const handleChangeData = (value: number, type: keyof GuestsObject) => {
 		let newValue = {
 			guestAdults: guestAdultsInputValue,
@@ -49,6 +49,11 @@ const Bed: FC<GuestsInputProps> = ({
 
 	const totalGuests =
 		guestChildrenInputValue + guestAdultsInputValue + guestBeds
+
+	useEffect(() => {
+		setBeds(guestBeds)
+	}, [guestBeds])
+	console.log(Listings.locationInput)
 
 	return (
 		<Popover className={`relative flex ${className}`}>
@@ -85,7 +90,21 @@ const Bed: FC<GuestsInputProps> = ({
 						{/* BUTTON SUBMIT OF FORM */}
 						{hasButtonSubmit && (
 							<div className="pr-2 xl:pr-4">
-								<ButtonSubmit href={buttonSubmitHref} />
+								<ButtonSubmit
+									href={{
+										pathname: '/listing-stay-map',
+										query: {
+											loc: Listings.locationInput,
+											pri: Listings.inputPrice,
+											Bed: Listings.Beds,
+										},
+									}}
+									disabled={
+										!Listings.locationInput ||
+										!Listings.inputPrice ||
+										!Listings.Beds
+									}
+								/>
 							</div>
 						)}
 					</div>
@@ -107,7 +126,7 @@ const Bed: FC<GuestsInputProps> = ({
 								className="w-full"
 								defaultValue={guestBeds}
 								onChange={(value) => handleChangeData(value, 'guestInfants')}
-								max={4}
+								max={10}
 								min={1}
 								label="Beds"
 								desc="No. of Beds"

@@ -41,6 +41,9 @@ export default function RootLayout({
 		setHouseRule,
 		setImages,
 		setCoverImage,
+		setListingBadge,
+		setOrgPrice,
+		setDiscountedPrice,
 	} = useStore()
 	console.log(path)
 	const sideRef = useRef<HTMLDivElement>(null)
@@ -97,7 +100,6 @@ export default function RootLayout({
 			setPropertyType(listings?.propertyType)
 			setPlaceName(listings?.placeName)
 			setDescription(listings?.Description)
-			setPrice(listings?.Price)
 			setArea(listings?.Area)
 			setCity(listings?.City)
 			setCountry(listings?.Country)
@@ -113,7 +115,11 @@ export default function RootLayout({
 			setGuestNum(Number(listings?.guestNum))
 			setBathroom(Number(listings?.bathroom))
 			setCoverImage(listings?.coverImage)
-
+			setCoverImage(listings?.coverImage)
+			setOrgPrice(listings?.orgPrice)
+			setDiscountedPrice(listings?.discountedPrice)
+			console.log(listings?.discountedPrice, 'discountedPrice')
+			console.log(ListingData.discountedPrice)
 			if (listings?.checkedAmenities) {
 				const TempCheckedAmenties = JSON.parse(listings?.checkedAmenities)
 
@@ -124,6 +130,10 @@ export default function RootLayout({
 				const RuleParser = JSON.parse(listings?.houseRules)
 				const imagesParser = JSON.parse(listings?.images)
 				const tagsParser = JSON.parse(listings?.RentalTags)
+				const badgeParser = JSON.parse(listings?.listingBadge)
+				if (badgeParser) {
+					setListingBadge(badgeParser)
+				}
 				if (tagsParser) {
 					setRentalTags(tagsParser)
 				}

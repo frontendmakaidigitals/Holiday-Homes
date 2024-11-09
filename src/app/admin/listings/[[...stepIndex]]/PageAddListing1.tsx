@@ -35,6 +35,9 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 		setDescription,
 		setPrice,
 		setArea,
+		setDiscountedPrice,
+		setOrgPrice,
+		setListingBadge,
 	} = useStore()
 	const index = Number(params.stepIndex) || 1
 	const router = useRouter()
@@ -111,9 +114,26 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 		'Jumeriah Lake Triangle',
 	]
 
-	const [marker, setMarker] = useState<{ lat: number; lng: number } | null>(
-		null,
-	)
+	const badgesSelecter = [
+		{
+			value: 'Airbnb',
+			image:
+				'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/1024px-Airbnb_Logo_B%C3%A9lo.svg.png',
+		},
+		{
+			value: 'Badge 2',
+			image: 'https://via.placeholder.com/50?text=Apartment',
+		},
+		{ value: 'Badge 3', image: 'https://via.placeholder.com/50?text=Condo' },
+	]
+
+	const handleChange = (value: any) => {
+		const selectedProperty = badgesSelecter.find(
+			(item: any) => item.value === value,
+		)
+
+		setListingBadge(selectedProperty)
+	}
 
 	return (
 		<>
@@ -190,7 +210,7 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 					</div>
 				</FormItem>
 				<FormItem
-					label="Price (AED)"
+					label="Org Price (AED)"
 					desc="A catchy name usually includes: House name + Room name + Featured property + Tourist destination"
 				>
 					<Input
@@ -203,16 +223,42 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 
 							// Update state with the numeric value (removing commas for storage)
 							const numericValue = formattedValue.replace(/,/g, '')
-							setPrice(numericValue)
+							setOrgPrice(numericValue)
 						}}
 						value={
-							ListingData.Price
+							ListingData.orgPrice
 								? new Intl.NumberFormat('en-US').format(
-										Number(ListingData.Price),
+										Number(ListingData.orgPrice),
 									)
 								: ''
 						} // Format with commas
-						placeholder="Price"
+						placeholder="Enter Original price"
+					/>
+				</FormItem>
+				<FormItem
+					label="Discounted Price (AED)"
+					desc="A catchy name usually includes: House name + Room name + Featured property + Tourist destination"
+				>
+					<Input
+						type="text" // Keep as text to allow formatting
+						onChange={(e) => {
+							const inputValue = e.target.value
+
+							// Remove any non-digit characters and keep commas
+							const formattedValue = inputValue.replace(/[^0-9,]/g, '')
+
+							// Update state with the numeric value (removing commas for storage)
+							const numericValue = formattedValue.replace(/,/g, '')
+							setDiscountedPrice(numericValue)
+						}}
+						value={
+							ListingData.discountedPrice
+								? new Intl.NumberFormat('en-US').format(
+										Number(ListingData.discountedPrice),
+									)
+								: ''
+						} // Format with commas
+						placeholder="Enter Discounted Price"
 					/>
 				</FormItem>
 
@@ -251,6 +297,44 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 					rows={14}
 					className="resize-none"
 				/>
+
+				<FormItem
+					label="Choose an Image Badge"
+					desc="Hotel: Professional hospitality businesses that usually have a unique style or theme defining their brand and decor"
+				>
+					<div className="relative">
+						<Select
+							value={ListingData.listingBadge.value}
+							onValueChange={handleChange}
+						>
+							<SelectTrigger className="text-md w-full border bg-white py-2 font-medium">
+								<SelectValue
+									placeholder="Choose a badge image"
+									className="placeholder:text-gray-600"
+								/>
+							</SelectTrigger>
+
+							<SelectContent>
+								<SelectGroup>
+									{badgesSelecter.map((item, index) => (
+										<SelectItem key={index} value={item.value}>
+											<div className="flex items-center gap-3">
+												<div className="h-8 w-20">
+													<img
+														src={item.image}
+														alt={item.value}
+														className="h-full w-full object-contain"
+													/>
+												</div>
+												{item.value}
+											</div>
+										</SelectItem>
+									))}
+								</SelectGroup>
+							</SelectContent>
+						</Select>
+					</div>
+				</FormItem>
 
 				<div className="flex justify-end space-x-5">
 					<button

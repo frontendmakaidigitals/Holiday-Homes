@@ -8,7 +8,8 @@ import SaleOffBadge from '@/components/SaleOffBadge'
 import Badge from '@/shared/Badge'
 import Link from 'next/link'
 import { UrlObject } from 'url'
-
+import { IoStar } from 'react-icons/io5'
+import { parse } from 'path'
 export interface StayCard2Props {
 	className?: string
 	data?: StayDataType
@@ -42,11 +43,31 @@ const StayCard2: FC<StayCard2Props> = ({
 		placeName,
 		Country,
 		beds,
+		orgPrice,
+		discountedPrice,
+		checkedAmenities,
+		listingBadge,
 	} = data
 
+	const renderBadge = () => {
+		const parseBadges = JSON.parse(listingBadge)
+
+		return (
+			parseBadges.image ? (
+				<div className="absolute left-3 top-3 z-[99] h-7 w-auto rounded-full bg-slate-50/90 px-3 py-1">
+					<img
+						src={parseBadges.image}
+						className="h-full w-full object-contain"
+						alt={parseBadges.label}
+					/>
+				</div> 
+			): null
+		)
+	}
 	const renderSliderGallery = () => {
 		return (
 			<div className="relative w-full">
+				{renderBadge()}
 				<GallerySlider
 					uniqueID={`StayCard2_${id}`}
 					ratioClass="aspect-w-12 aspect-h-11"
@@ -59,8 +80,50 @@ const StayCard2: FC<StayCard2Props> = ({
 						} as UrlObject
 					}
 				/>
-				<BtnLikeIcon isLiked={like} className="absolute right-3 top-3 z-[1]" />
-				{saleOff && <SaleOffBadge className="absolute left-3 top-3" />}
+			</div>
+		)
+	}
+	const renderAmenities = () => {
+		// Parse the checked amenities
+		const parseAmenities = JSON.parse(checkedAmenities)
+
+		// Combine the arrays
+		const transformedAmenities = [
+			...parseAmenities.included,
+			...parseAmenities.other,
+			...parseAmenities.safe,
+		]
+
+		// Log the transformedAmenities to ensure the data is correct
+		console.log(transformedAmenities) // This will show the combined array in the console
+
+		// Get the first two amenities and the remaining ones
+		const firstTwoAmenities = transformedAmenities.slice(0, 2)
+		const remainingAmenitiesCount =
+			transformedAmenities.length - firstTwoAmenities.length
+
+		return (
+			<div className="flex flex-wrap items-center gap-2">
+				{/* Render the first two amenities */}
+				{firstTwoAmenities.map((amenity, index) => (
+					<Badge
+						key={index}
+						name={amenity}
+						className="rounded-full !text-[.7rem]"
+					/>
+				))}
+
+				{/* Render the "X more" badge if there are remaining amenities */}
+				{remainingAmenitiesCount > 0 && (
+					<Badge
+						key="more"
+						name={`+ ${remainingAmenitiesCount} `}
+						className="rounded-full"
+					/>
+				)}
+
+				{/* Optionally show a fallback message if no amenities available */}
+				{transformedAmenities.length === 0 && <div>No amenities available</div>}
 			</div>
 		)
 	}
@@ -69,22 +132,28 @@ const StayCard2: FC<StayCard2Props> = ({
 		return (
 			<div className={size === 'default' ? 'mt-3 space-y-3' : 'mt-2 space-y-2'}>
 				<div className="space-y-2">
-					<span className="text-sm text-neutral-500 dark:text-neutral-400">
-						<span className="mr-3 rounded-full bg-green-100 px-3 py-[.2rem]">
+					<div className="flex w-full items-center justify-between">
+						<span className="mr-1 rounded-full bg-[#ffd9c24f] px-3 py-[.1rem] text-[.6rem] text-[#6E2A00]">
 							{propertyType}{' '}
 						</span>{' '}
-						<span className="text-gray-700">{bedRoom} bedroom</span>{' '}
-						<span className="ml-2 text-gray-600">{beds} beds</span>
-					</span>
+						<div className="flex items-center gap-1">
+							<IoStar className="text-yellow-500" />
+							<IoStar className="text-yellow-500" />
+							<IoStar className="text-yellow-500" />
+							<IoStar className="text-yellow-500" />
+							<IoStar className="text-yellow-500" />
+						</div>
+					</div>
 					<div className="flex items-center space-x-2">
 						<h2
-							className={`font-semibold capitalize text-neutral-900 dark:text-white ${
+							className={`text-xl font-semibold capitalize text-neutral-900 dark:text-white ${
 								size === 'default' ? 'text-base' : 'text-base'
 							}`}
 						>
 							<span className="line-clamp-1">{placeName}</span>
 						</h2>
 					</div>
+					<div>{renderAmenities()}</div>
 					<div className="flex items-center space-x-1.5 text-sm text-neutral-500 dark:text-neutral-400">
 						{size === 'default' && (
 							<svg
@@ -113,19 +182,14 @@ const StayCard2: FC<StayCard2Props> = ({
 					</div>
 				</div>
 				<div className="w-14 border-b border-neutral-100 dark:border-neutral-800"></div>
-				<div className="flex items-center justify-between">
-					<span className="text-base font-semibold">
-						{Price}
-						{` `}
-						{size === 'default' && (
-							<span className="text-sm font-normal text-neutral-500 dark:text-neutral-400">
-								/night
-							</span>
-						)}
+				<div className="flex items-center justify-start gap-3">
+					<span className="relative text-xl text-red-500">
+						121
+						<span className="absolute left-0 top-1/2 h-[2px] w-full -translate-y-1/2 rotate-45 bg-red-500"></span>
 					</span>
-					{!!reviewStart && (
-						<StartRating reviewCount={reviewCount} point={reviewStart} />
-					)}
+					<span className="text-xl font-semibold">
+						{discountedPrice} <span className="text-lg font-normal">AED</span>
+					</span>
 				</div>
 			</div>
 		)

@@ -23,11 +23,11 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 	const [status, setStatus] = useState('')
 	const searchParams = useSearchParams()
 	const search = searchParams.get('id')
- const [dates, setDates] = useState<number[]>([
+	const [dates, setDates] = useState<number[]>([
 		new Date('2023/02/06').getTime(),
 		new Date('2023/02/09').getTime(),
 		new Date('2023/02/15').getTime(),
- ])
+	])
 	// Function to check and convert images to Blobs only if they are URLs
 	const convertImagesToBlobs = async (images: any) => {
 		const blobPromises = images.map(async (image: any) => {
@@ -109,13 +109,14 @@ const PageAddListing7: FC<PageAddListing7Props> = ({
 			}
 
 			// Send the FormData to the API
+			console.log(ListingData)
 			await axios.get(
 				`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`,
 				{ withCredentials: true },
 			)
 
-			const response = await axios.put(
-				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing/${search}`,
+			const response = await axios.post(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/update/${search}`,
 				formData,
 				{
 					withCredentials: true,
