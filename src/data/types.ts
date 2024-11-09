@@ -175,4 +175,6 @@ export interface CarDataType {
 	bedRoom: string
 	guestNum: string
 	discountedPrice:string
+	listingBadge: string
+	orgPrice:number
 }

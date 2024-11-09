@@ -65,6 +65,10 @@ const DEMO_STAY_LISTINGS = __stayListing.map((post, index): StayDataType => {
 		beds: '',
 		placeName: '',
 		marker: { lat: 0, lng: 0 },
+		orgPrice: '',
+		discountedPrice: '',
+		checkedAmenities: '',
+		listingBadge: '',
 	}
 })
 
@@ -110,8 +114,10 @@ const DEMO_CAR_LISTINGS = __carsListing.map((post, index): CarDataType => {
 		coverImageUrl: '', // Add a default value for the missing property
 		placeName: '',
 		bedRoom: '',
-		guestNum: '', // Add a default value for the missing property
-		// Add default values for the other missing properties
+		guestNum: '',
+		discountedPrice: '',
+		listingBadge: '',
+		orgPrice: 0,
 	}
 })
 
