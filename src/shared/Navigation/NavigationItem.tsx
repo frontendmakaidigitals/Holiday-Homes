@@ -87,12 +87,13 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 		},
 	]
 	const [navMenu, setNavMenu] = useState(nav)
+	console.log(navMenu)
 	useEffect(() => {
 		// Match Listings with navMenu titles
 		const updatedNavMenu = navMenu.map((menuItem) => {
 			// Filter Listings based on area (match with title)
 			const matchedListings = Listings.data.filter(
-				(listing: any) => listing.Area === menuItem.title,
+				(listing: any) => listing.isChecked == 1 && listing.Area == menuItem.title,
 			)
 
 			// If any listings match the area, store the titles in links

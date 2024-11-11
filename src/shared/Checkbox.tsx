@@ -21,7 +21,7 @@ const Checkbox: FC<CheckboxProps> = ({
 	checked,
 	onChange,
 	disabled = false,
-	defaultChecked,																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															             
+	defaultChecked,
 }) => {
 	return (
 		<div className={`flex text-sm sm:text-base ${className}`}>

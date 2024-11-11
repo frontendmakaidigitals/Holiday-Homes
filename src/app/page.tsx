@@ -77,15 +77,7 @@ function PageHome() {
 	interface listing {
 		Area: string
 	}
-
-	useEffect(() => {
-		// Check if the page is reloaded (first load)
-		if (performance.navigation.type === 1) {
-			setIsPageReload(true)
-		} else {
-			setIsPageReload(false)
-		}
-	}, [])
+	
 	const getListings = () => {
 		setIsLoading(true)
 		axios
@@ -132,13 +124,10 @@ function PageHome() {
 				setIsLoading(false)
 			})
 	}
-	console.log('this is home page')
 
 	useEffect(() => {
-		if (!listings) {
-			getListings()
-		}
-	}, [listings])
+		getListings()
+	}, [])
 
 	useEffect(() => {
 		setListings(listings)

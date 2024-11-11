@@ -16,15 +16,14 @@ import Link from 'next/link'
 import GallerySlider from '@/components/GallerySlider'
 import Badge from '@/shared/Badge'
 import { IoStar } from 'react-icons/io5'
-
- 
-
+import { useToast } from '@/hooks/use-toast'
 const Page = ({}) => {
-	const size ='default'
+	const size = 'default'
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
 	const [showPopUp, setShowPopUp] = useState(false)
 	const [id, setId] = useState<number | null>(null)
+	const { toast } = useToast()
 	const [listings, setListings] = useState<
 		{
 			Area: string
@@ -38,6 +37,8 @@ const Page = ({}) => {
 			checkedAmenities: any
 			discountedPrice: any
 			orgPrice: any
+			isChecked: number
+			propertyTitle: string
 		}[]
 	>([])
 	const router = useRouter()
@@ -91,7 +92,38 @@ const Page = ({}) => {
 				setIsLoading(false)
 			})
 	}
-
+	const updateMenu = (id: number | null, updatedCheckedValue: number) => {
+		setIsLoading(true)
+		if (id) {
+			axios
+				.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
+					withCredentials: true,
+				})
+				.then(() => {
+					return axios.post(
+						`${process.env.NEXT_PUBLIC_SERVER_URL}/api/check-listing/${id}`,
+						{ isChecked: updatedCheckedValue },
+						{
+							withCredentials: true,
+						},
+					)
+				})
+				.then((res) => {
+					setStatus('success')
+					toast({
+						variant: 'success',
+						title: 'Menu has been updated',
+						description: '',
+					})
+				})
+				.catch((error) => {
+					setStatus('failed')
+				})
+				.finally(() => {
+					setIsLoading(false)
+				})
+		}
+	}
 	useEffect(() => {
 		getListings()
 	}, [])
@@ -156,7 +188,6 @@ const Page = ({}) => {
 			</p>
 			<Accordion type="single" collapsible className="w-full">
 				{uniqueAreas.map((area, index) => {
-					// Filter listings based on the correct area property
 					const filteredListings = listings.filter(
 						(listing) => listing.Area === area,
 					)
@@ -173,25 +204,57 @@ const Page = ({}) => {
 											key={idx}
 											className="group relative w-full overflow-hidden"
 										>
-											<div className="absolute right-1 top-1 z-10 hidden items-center gap-2 group-hover:flex">
-												<Link
-													href={{
-														pathname: `/admin/EditListing/1`,
-														query: { id: listing.id },
-													}}
-													className="rounded-full bg-primary-200 p-2 transition-all duration-300 hover:scale-105 hover:bg-white"
-												>
-													<LiaEditSolid />
-												</Link>
-												<button
-													onClick={() => {
-														setId(listing.id)
-														setShowPopUp(true)
-													}}
-													className="rounded-full bg-red-200 p-2 transition-all duration-300 hover:scale-105 hover:bg-red-400"
-												>
-													<MdClose />
-												</button>
+											<div className="absolute left-1/2 top-2 flex h-10 w-[95%] -translate-x-1/2 items-center justify-between rounded-lg bg-slate-100/30 px-2">
+												<div className="text-slate px-3 py-1 text-sm">
+													<input
+														name="Show in menu"
+														className="1rem"
+														checked={listing?.isChecked !== 0} // Simplified logic to check for 0
+														onChange={(e) => {
+															const updatedCheckedValue = e.target.checked
+																? 1
+																: 0 // If checked, set to 1; if unchecked, set to 0
+
+															// Update the specific listing's isChecked field
+															setListings((prevListings) =>
+																prevListings.map((prevListing) =>
+																	prevListing.id === listing.id
+																		? {
+																				...prevListing,
+																				isChecked: updatedCheckedValue,
+																			}
+																		: prevListing,
+																),
+															)
+
+															updateMenu(listing.id, updatedCheckedValue)
+														}}
+														type="checkbox"
+													/>
+													<label className="ml-2 text-white">
+														Show in menu
+													</label>
+												</div>
+												<div className="hidden items-center gap-2 group-hover:flex">
+													<Link
+														href={{
+															pathname: `/admin/EditListing/1`,
+															query: { id: listing.id },
+														}}
+														className="rounded-full bg-primary-200 p-2 transition-all duration-300 hover:scale-105 hover:bg-white"
+													>
+														<LiaEditSolid />
+													</Link>
+													<button
+														onClick={() => {
+															setId(listing.id)
+															setShowPopUp(true)
+														}}
+														className="rounded-full bg-red-200 p-2 transition-all duration-300 hover:scale-105 hover:bg-red-400"
+													>
+														<MdClose />
+													</button>
+												</div>
 											</div>
 											<div className="aspect-1 overflow-hidden rounded-lg bg-slate-300">
 												<img
@@ -226,7 +289,7 @@ const Page = ({}) => {
 															}`}
 														>
 															<span className="line-clamp-1">
-																{listing.placeName}
+																{listing.propertyTitle}
 															</span>
 														</h2>
 													</div>
