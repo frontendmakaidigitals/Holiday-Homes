@@ -5,17 +5,26 @@ import Image from 'next/image'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import HeroSearchForm2MobileFactory from '../(client-components)/(HeroSearchForm2Mobile)/HeroSearchForm2MobileFactory'
 import HeroSearchFormSmall from '../(client-components)/(HeroSearchForm)/HeroSearchForm'
+import Image1 from '@/images/Hero_Slider_Images/Image_1.webp'
+import Image2 from '@/images/Hero_Slider_Images/Image_2.webp'
+import Image3 from '@/images/Hero_Slider_Images/Image_3.webp'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import { Autoplay, Pagination } from 'swiper/modules'
+
 export interface SectionHero3Props {
 	className?: string
 	btnRef?: any
 }
 
-const SectionHero: FC<SectionHero3Props> = ({ className = '',btnRef }) => {
+const SectionHero: FC<SectionHero3Props> = ({ className = '', btnRef }) => {
 	const handleScrollToComponent = () => {
-    if (btnRef.current) {
-      btnRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+		if (btnRef.current) {
+			btnRef.current.scrollIntoView({ behavior: 'smooth' })
+		}
+	}
+	const sliderImage = [{ img: Image1 }, { img: Image2 }, { img: Image3 }]
 	return (
 		<div
 			className={`nc-SectionHero3 relative ${className}`}
@@ -49,13 +58,35 @@ const SectionHero: FC<SectionHero3Props> = ({ className = '',btnRef }) => {
 				</div>
 			</div>
 			<div className="aspect-h-1 aspect-w-1 relative overflow-hidden rounded-xl sm:aspect-h-3 sm:aspect-w-4 lg:aspect-h-9 lg:aspect-w-16 xl:aspect-h-8">
-				<Image
-					className="absolute inset-0 object-cover"
-					src={imagePng}
-					alt="hero"
-					priority
-				/>
-				<div className="absolute left-0 top-0 h-full w-full bg-slate-900/30" />
+				<div className="h-full w-full">
+					<Swiper
+						className="mySwiper absolute left-0 top-0 h-full w-full"
+						allowTouchMove={false} // Disable swiping
+						modules={[Autoplay, Pagination]}
+						loop={true}
+						pagination={{
+							clickable: true,
+						}}
+						autoplay={{
+							delay: 5000,
+							disableOnInteraction: false,
+						}}
+					>
+						{sliderImage.map((slider, index) => (
+							<SwiperSlide key={index}>
+								<div className="h-full w-full">
+									{' '}
+									<Image
+										src={slider.img}
+										className="h-full w-full object-cover"
+										alt={'image'}
+									/>{' '}
+								</div>
+							</SwiperSlide>
+						))}
+					</Swiper>
+				</div>
+				<div className="absolute left-0 top-0 h-full w-full bg-slate-900/40" />
 			</div>
 		</div>
 	)

@@ -18,7 +18,7 @@ export interface PageContactProps {}
 const info = [
 	{
 		title: ' Visit Us',
-		desc: 'Office - 1802 Exchange Tower, Business Bay, Dubai - UAE',
+		desc: 'Office - 3307 Churchill Towers, Business Bay, Dubai - UAE',
 		subtitle: 'Come say Hello at our office HQ.',
 		icon: <SlLocationPin />,
 	},

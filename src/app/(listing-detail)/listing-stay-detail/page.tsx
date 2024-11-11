@@ -8,20 +8,21 @@ import FiveStartIconForRate from '@/components/FiveStartIconForRate'
 import StartRating from '@/components/StartRating'
 import Avatar from '@/shared/Avatar'
 import Badge from '@/shared/Badge'
-import ButtonCircle from '@/shared/ButtonCircle'
+ 
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import ButtonSecondary from '@/shared/ButtonSecondary'
 import ButtonClose from '@/shared/ButtonClose'
-import Input from '@/shared/Input'
-import LikeSaveBtns from '@/components/LikeSaveBtns'
+ 
 import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import StayDatesRangeInput from './StayDatesRangeInput'
 import GuestsInput from './GuestsInput'
 import SectionDateRange from '../SectionDateRange'
-import { Route } from 'next'
+import { Worker, Viewer } from '@react-pdf-viewer/core'
+import '@react-pdf-viewer/core/lib/styles/index.css'  
 import axios from 'axios'
 import dynamic from 'next/dynamic'
+import { IoMdClose } from 'react-icons/io'
 import {
 	FaKey,
 	FaLuggageCart,
@@ -111,6 +112,7 @@ const Amenities_demos = [
 	{ name: 'Anti-theft key', icon: <FaLock /> },
 	{ name: 'Safe vault', icon: <FaLock /> },
 ]
+ 
 export interface ListingStayDetailPageProps {}
 const MapViewContainer = dynamic(
 	() => import('@/components/MapViewContainer'),
@@ -468,11 +470,48 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 			</div>
 		)
 	}
+	const [companyPdf, setCompanyPdf] = useState(false)
+	useEffect(() => {
+		if (companyPdf) {
+			// Disable scrolling
+			document.body.style.overflow = 'hidden'
+		} else {
+			// Enable scrolling
+			document.body.style.overflow = 'auto'
+		}
+
+		// Cleanup to ensure overflow is reset when the component unmounts or the state changes
+		return () => {
+			document.body.style.overflow = 'auto'
+		}
+	}, [companyPdf])
 
 	const renderSection5 = () => {
 		return (
 			<div className="listingSection__wrap">
 				{/* HEADING */}
+				{companyPdf && (
+					<div className="fixed left-1/2 overflow-hidden shadow-2xl top-1/2 z-[999] h-5/6 w-9/12 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-slate-100">
+						<div className="flex w-full justify-end">
+							<button
+								className="rounded-xl p-2 text-4xl hover:bg-red-300"
+								onClick={() => setCompanyPdf(false)}
+							>
+								<IoMdClose />
+							</button>
+						</div>
+						<div style={{ height: '100%', width: '100%' }}>
+							 
+							{/* Embed the PDF from the public folder */}
+							<embed
+								src="/BSHH Company Profile.pdf"
+								width="100%"
+								height="100%"
+								type="application/pdf"
+							/>
+						</div>
+					</div>
+				)}
 				<h2 className="text-2xl font-semibold">Host Information</h2>
 				<div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
 
@@ -527,7 +566,13 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				{/* == */}
 				<div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
 				<div>
-					<ButtonSecondary href="/author">See host profile</ButtonSecondary>
+					<ButtonSecondary
+						onClick={() => {
+							setCompanyPdf(true)
+						}}
+					>
+						See host profile
+					</ButtonSecondary>
 				</div>
 			</div>
 		)

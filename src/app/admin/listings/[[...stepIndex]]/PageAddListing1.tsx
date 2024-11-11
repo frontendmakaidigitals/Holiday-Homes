@@ -31,13 +31,13 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 		ListingData,
 		setPropertyType,
 		setRentalTags,
-		setPlaceName,
 		setDescription,
-		setPrice,
 		setArea,
 		setDiscountedPrice,
 		setOrgPrice,
 		setListingBadge,
+		setPropertyTitle,
+		setTowerName,
 	} = useStore()
 	const index = Number(params.stepIndex) || 1
 	const router = useRouter()
@@ -50,10 +50,17 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 				description: 'Feild is Empty',
 			})
 		}
-		if (ListingData.placeName === '') {
+		if (ListingData.propertyTitle === '') {
 			return toast({
 				variant: 'destructive',
-				title: 'Name of the Place is required',
+				title: 'Property Title is required',
+				description: 'Feild is Empty',
+			})
+		}
+		if (ListingData.towerName === '') {
+			return toast({
+				variant: 'destructive',
+				title: 'Tower Name is required',
 				description: 'Feild is Empty',
 			})
 		}
@@ -135,6 +142,19 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 		setListingBadge(selectedProperty)
 	}
 
+	const handleTowerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const towerName = e.target.value
+
+		if (towerName.length >= 15) {
+			toast({
+				variant: 'destructive',
+				title: 'Tower Name must be less than 15 characters',
+			})
+			return
+		}
+
+		setTowerName(towerName)
+	}
 	return (
 		<>
 			<h2 className="text-2xl font-semibold">Choosing listing categories</h2>
@@ -171,13 +191,23 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 				</FormItem>
 
 				<FormItem
-					label="Place name"
+					label="Property Title"
 					desc="A catchy name usually includes: House name + Room name + Featured property + Tourist destination"
 				>
 					<Input
-						onChange={(e) => setPlaceName(e.target.value)}
-						value={ListingData.placeName || ''} // Ensure value is a string
-						placeholder="Place name"
+						onChange={(e) => setPropertyTitle(e.target.value)}
+						value={ListingData.propertyTitle || ''} // Ensure value is a string
+						placeholder="Property Title"
+					/>
+				</FormItem>
+				<FormItem
+					label="Tower Name"
+					desc="A catchy name usually includes: House name + Room name + Featured property + Tourist destination NOTE: Tower Name must be less then 15 characters"
+				>
+					<Input
+						onChange={handleTowerChange}
+						value={ListingData.towerName || ''} // Ensure value is a string
+						placeholder="Tower name"
 					/>
 				</FormItem>
 				<FormItem

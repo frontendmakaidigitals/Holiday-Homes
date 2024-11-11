@@ -4,7 +4,7 @@ const useStore = create((set) => ({
 	ListingData: {
 		propertyType: '',
 		rentalPlace: '',
-		propertyName: '',
+		propertyTitle: '',
 		RentalTags: ['Hot Property'],
 		placeName: '',
 		Country: '',
@@ -14,6 +14,7 @@ const useStore = create((set) => ({
 		State: '',
 		RoomNum: '',
 		Acreage: '',
+		towerName: '',
 		Description: '',
 		discountedPrice: '',
 		guestNum: 1,
@@ -77,6 +78,20 @@ const useStore = create((set) => ({
 			ListingData: {
 				...state.ListingData,
 				coverImage,
+			},
+		})),
+	setPropertyTitle: (propertyTitle) =>
+		set((state) => ({
+			ListingData: {
+				...state.ListingData,
+				propertyTitle,
+			},
+		})),
+	setTowerName: (towerName) =>
+		set((state) => ({
+			ListingData: {
+				...state.ListingData,
+				towerName,
 			},
 		})),
 	setOrgPrice: (orgPrice) =>

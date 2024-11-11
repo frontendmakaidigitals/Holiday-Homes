@@ -31,13 +31,13 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 		ListingData,
 		setPropertyType,
 		setRentalTags,
-		setPlaceName,
 		setDescription,
-		setPrice,
 		setArea,
 		setDiscountedPrice,
 		setOrgPrice,
 		setListingBadge,
+		setPropertyTitle,
+		setTowerName,
 	} = useStore()
 	const index = Number(params.stepIndex) || 1
 	const router = useRouter()
@@ -55,13 +55,7 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 				description: 'Feild is Empty',
 			})
 		}
-		if (ListingData.placeName === '') {
-			return toast({
-				variant: 'destructive',
-				title: 'Name of the Place is required',
-				description: 'Feild is Empty',
-			})
-		}
+	 
 		if (ListingData.Price === '') {
 			return toast({
 				variant: 'destructive',
@@ -133,18 +127,18 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 			setPropertyType(listings?.propertyType)
 		}
 	}, [listings])
-const badgesSelecter = [
-	{
-		value: 'Airbnb',
-		image:
-			'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/1024px-Airbnb_Logo_B%C3%A9lo.svg.png',
-	},
-	{
-		value: 'Badge 2',
-		image: 'https://via.placeholder.com/50?text=Apartment',
-	},
-	{ value: 'Badge 3', image: 'https://via.placeholder.com/50?text=Condo' },
-]
+	const badgesSelecter = [
+		{
+			value: 'Airbnb',
+			image:
+				'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/1024px-Airbnb_Logo_B%C3%A9lo.svg.png',
+		},
+		{
+			value: 'Badge 2',
+			image: 'https://via.placeholder.com/50?text=Apartment',
+		},
+		{ value: 'Badge 3', image: 'https://via.placeholder.com/50?text=Condo' },
+	]
 	const handleChange = (value: any) => {
 		const selectedProperty = badgesSelecter.find(
 			(item: any) => item.value === value,
@@ -152,7 +146,20 @@ const badgesSelecter = [
 
 		setListingBadge(selectedProperty)
 	}
-	
+
+	const handleTowerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const towerName = e.target.value
+
+		if (towerName.length >= 15) {
+			toast({
+				variant: 'destructive',
+				title: 'Tower Name must be less than 15 characters',
+			})
+			return
+		}
+
+		setTowerName(towerName)
+	}
 
 	return (
 		<>
@@ -189,13 +196,23 @@ const badgesSelecter = [
 					</div>
 				</FormItem>
 				<FormItem
-					label="Place name"
+					label="Property Title"
 					desc="A catchy name usually includes: House name + Room name + Featured property + Tourist destination"
 				>
 					<Input
-						onChange={(e) => setPlaceName(e.target.value)}
-						value={ListingData.placeName || ''} // Ensure value is a string
-						placeholder="Place name"
+						onChange={(e) => setPropertyTitle(e.target.value)}
+						value={ListingData.propertyTitle || ''} // Ensure value is a string
+						placeholder="Property Title"
+					/>
+				</FormItem>
+				<FormItem
+					label="Tower Name"
+					desc="A catchy name usually includes: House name + Room name + Featured property + Tourist destination NOTE: Tower Name must be less then 15 characters"
+				>
+					<Input
+						onChange={handleTowerChange}
+						value={ListingData.towerName || ''} // Ensure value is a string
+						placeholder="Tower name"
 					/>
 				</FormItem>
 				<FormItem

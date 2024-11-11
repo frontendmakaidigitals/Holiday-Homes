@@ -4,7 +4,7 @@ const useStore = create((set) => ({
 	ListingData: {
 		propertyType: '',
 		rentalPlace: '',
-		propertyName: '',
+		propertyTitle: '',
 		RentalTags: [],
 		placeName: '',
 		Country: '',
@@ -20,6 +20,7 @@ const useStore = create((set) => ({
 		bedRoom: 1,
 		beds: 1,
 		bathroom: 1,
+		towerName:'',
 		Address: '',
 		marker: { lat: 23.4241, lng: 53.8478 },
 		coverImage: null,
@@ -180,11 +181,18 @@ const useStore = create((set) => ({
 				rentalPlace,
 			},
 		})),
-	setPlaceName: (placeName) =>
+	setPropertyTitle: (propertyTitle) =>
 		set((state) => ({
 			ListingData: {
 				...state.ListingData,
-				placeName,
+				propertyTitle,
+			},
+		})),
+	setTowerName: (towerName) =>
+		set((state) => ({
+			ListingData: {
+				...state.ListingData,
+				towerName,
 			},
 		})),
 	setRentalTags: (RentalTags) =>

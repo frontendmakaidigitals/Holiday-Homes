@@ -7,7 +7,12 @@ import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { FC, Fragment, useEffect, useState } from 'react'
-
+import businessBayImg from '@/images/MenuImages/businessbay.webp'
+import donwtownImg from '@/images/MenuImages/downtown.webp'
+import JLTImg from '@/images/MenuImages/JLT.webp'
+import JVCImg from '@/images/MenuImages/JVC.jpeg'
+import MarinaImg from '@/images/MenuImages/marina.jpg'
+import useStore from '@/components/ListingStore'
 // <--- NavItemType --->
 export interface MegamenuItem {
 	id: string
@@ -34,7 +39,7 @@ type NavigationItemWithRouterProps = NavigationItemProps
 
 const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 	const [menuCurrentHovers, setMenuCurrentHovers] = useState<string[]>([])
-
+	const { Listings } = useStore()
 	// CLOSE ALL MENU OPENING WHEN CHANGE HISTORY
 	const locationPathName = usePathname()
 	useEffect(() => {
@@ -52,6 +57,36 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 			})
 		})
 	}
+
+	const nav = [
+		{ img: businessBayImg, title: 'Business Bay', links: ['', ''] },
+		{ img: MarinaImg, title: 'Marina', links: ['', ''] },
+		{ img: donwtownImg, title: 'Downtown', links: ['', ''] },
+		{ img: JVCImg, title: 'Jumeriah Village Circle', links: ['', ''] },
+		{ img: JLTImg, title: 'Jumeriah Lake Triangle', links: ['', ''] },
+	]
+	const [navMenu, setNavMenu] = useState(nav)
+	useEffect(() => {
+		// Match Listings with navMenu titles
+		const updatedNavMenu = navMenu.map((menuItem) => {
+			// Filter Listings based on area (match with title)
+			const matchedListings = Listings.data.filter(
+				(listing: any) => listing.Area === menuItem.title,
+			)
+
+			// If any listings match the area, store the titles in links
+			const updatedLinks = matchedListings.map(
+				(listing: any) => listing.towerName,
+			)
+
+			// Update the menu item with the new links
+			return { ...menuItem, links: updatedLinks }
+		})
+
+		// Update the navMenu state with the new links
+		setNavMenu(updatedNavMenu)
+	}, [Listings])
+	console.log(navMenu)
 
 	// ===================== MENU MEGAMENU =====================
 	const renderMegaMenu = (menu: NavItemType) => {
@@ -91,26 +126,30 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 									<div
 										className={`relative grid gap-1 bg-white px-3 py-6 dark:bg-gray-900 grid-cols-${menu.megaMenu?.length}`}
 									>
-										{menu.megaMenu?.map((item) => (
-											<div key={item.id}>
-												<div className="px-2">
-													<div className="relative flex h-32 w-full overflow-hidden rounded-lg">
-														<Image
-															alt=""
-															src={item.image}
-															fill
-															className="w-full"
-														/>
+										{navMenu.map((menu, index) => {
+											return (
+												<div key={index}>
+													<div className="px-2">
+														<div className="relative flex h-32 w-full overflow-hidden rounded-lg">
+															<Image
+																alt=""
+																src={menu.img}
+																fill
+																className="w-full"
+															/>
+														</div>
 													</div>
+													<p className="my-2 px-2 py-1 font-medium text-gray-900 dark:text-gray-200">
+														{menu.title}
+													</p>
+													<ul className="grid space-y-1">
+														{menu.links.slice(0, 5).map((link, index) => {
+															return <li key={index}>{link}</li>
+														})}
+													</ul>
 												</div>
-												<p className="my-2 px-2 py-1 font-medium text-gray-900 dark:text-gray-200">
-													{item.title}
-												</p>
-												<ul className="grid space-y-1">
-													{item.items.map(renderMegaMenuNavlink)}
-												</ul>
-											</div>
-										))}
+											)
+										})}
 									</div>
 								</div>
 							</Popover.Panel>
@@ -126,7 +165,7 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 			<li key={item.id}>
 				<Link
 					rel="noopener noreferrer"
-					className="inline-flex items-center rounded px-2 py-1 font-normal text-gray-800  hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+					className="inline-flex items-center rounded px-2 py-1 font-normal text-gray-800 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200"
 					href={item.href || ''}
 				>
 					{item.name}

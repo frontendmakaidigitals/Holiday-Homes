@@ -19,9 +19,9 @@ export default function RootLayout({
 		setPropertyType,
 		ListingData,
 		setRentalTags,
-		setPlaceName,
+		setTowerName,
 		setDescription,
-		setPrice,
+		setPropertyTitle,
 		setArea,
 		setCity,
 		setCountry,
@@ -98,7 +98,8 @@ export default function RootLayout({
 	useEffect(() => {
 		if (listings && status == 'success') {
 			setPropertyType(listings?.propertyType)
-			setPlaceName(listings?.placeName)
+			setPropertyTitle(listings?.propertyTitle)
+			setTowerName(listings?.towerName)
 			setDescription(listings?.Description)
 			setArea(listings?.Area)
 			setCity(listings?.City)
@@ -118,8 +119,6 @@ export default function RootLayout({
 			setCoverImage(listings?.coverImage)
 			setOrgPrice(listings?.orgPrice)
 			setDiscountedPrice(listings?.discountedPrice)
-			console.log(listings?.discountedPrice, 'discountedPrice')
-			console.log(ListingData.discountedPrice)
 			if (listings?.checkedAmenities) {
 				const TempCheckedAmenties = JSON.parse(listings?.checkedAmenities)
 
