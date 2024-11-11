@@ -8,18 +8,18 @@ import FiveStartIconForRate from '@/components/FiveStartIconForRate'
 import StartRating from '@/components/StartRating'
 import Avatar from '@/shared/Avatar'
 import Badge from '@/shared/Badge'
- 
+
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import ButtonSecondary from '@/shared/ButtonSecondary'
 import ButtonClose from '@/shared/ButtonClose'
- 
+
 import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import StayDatesRangeInput from './StayDatesRangeInput'
 import GuestsInput from './GuestsInput'
 import SectionDateRange from '../SectionDateRange'
 import { Worker, Viewer } from '@react-pdf-viewer/core'
-import '@react-pdf-viewer/core/lib/styles/index.css'  
+import '@react-pdf-viewer/core/lib/styles/index.css'
 import axios from 'axios'
 import dynamic from 'next/dynamic'
 import { IoMdClose } from 'react-icons/io'
@@ -112,7 +112,7 @@ const Amenities_demos = [
 	{ name: 'Anti-theft key', icon: <FaLock /> },
 	{ name: 'Safe vault', icon: <FaLock /> },
 ]
- 
+
 export interface ListingStayDetailPageProps {}
 const MapViewContainer = dynamic(
 	() => import('@/components/MapViewContainer'),
@@ -135,7 +135,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 	const [status, setStatus] = useState('')
 	const [listings, setListing]: any = useState([])
 	const [amenities, setAmenities] = useState<string[]>([])
-	console.log(amenities)
+
 	const getQueries = () => {
 		setIsLoading(true)
 		axios
@@ -491,7 +491,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 			<div className="listingSection__wrap">
 				{/* HEADING */}
 				{companyPdf && (
-					<div className="fixed left-1/2 overflow-hidden shadow-2xl top-1/2 z-[999] h-5/6 w-9/12 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-slate-100">
+					<div className="fixed left-1/2 top-1/2 z-[999] h-5/6 w-9/12 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl bg-slate-100 shadow-2xl">
 						<div className="flex w-full justify-end">
 							<button
 								className="rounded-xl p-2 text-4xl hover:bg-red-300"
@@ -501,7 +501,6 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 							</button>
 						</div>
 						<div style={{ height: '100%', width: '100%' }}>
-							 
 							{/* Embed the PDF from the public folder */}
 							<embed
 								src="/BSHH Company Profile.pdf"

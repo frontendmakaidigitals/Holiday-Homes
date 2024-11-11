@@ -66,9 +66,7 @@ const LocationInput: FC<LocationInputProps> = ({
 	const [filteredResults, setFilteredResults] = useState<any>([])
 
 	useEffect(() => {
-		// Debugging: log the Listings and value
-		console.log('Listings:', Listings)
-		console.log('Search Value:', value)
+	 
 
 		// Check if `Listings.data` is a valid array and `value` is not empty
 		if (value && Array.isArray(Listings?.data)) {

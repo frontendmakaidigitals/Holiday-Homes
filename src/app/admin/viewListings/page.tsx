@@ -17,6 +17,10 @@ import Link from 'next/link'
 import GallerySlider from '@/components/GallerySlider'
 import Badge from '@/shared/Badge'
 import { IoStar } from 'react-icons/io5'
+
+export interface SectionHero3Props {
+	size: string
+}
 const Page = ({ size = 'default' }) => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
@@ -34,7 +38,7 @@ const Page = ({ size = 'default' }) => {
 			propertyType: string
 			checkedAmenities: any
 			discountedPrice: any
-			orgPrice:any
+			orgPrice: any
 		}[]
 	>([])
 	const router = useRouter()

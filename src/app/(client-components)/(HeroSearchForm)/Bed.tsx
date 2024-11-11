@@ -53,7 +53,7 @@ const Bed: FC<GuestsInputProps> = ({
 	useEffect(() => {
 		setBeds(guestBeds)
 	}, [guestBeds])
-	console.log(Listings.locationInput)
+	 
 
 	return (
 		<Popover className={`relative flex ${className}`}>

@@ -4,7 +4,7 @@ import { PathName } from '@/routers/types'
 import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import Image, { StaticImageData } from 'next/image'
-import Link from 'next/link'
+
 import { usePathname } from 'next/navigation'
 import React, { FC, Fragment, useEffect, useState } from 'react'
 import businessBayImg from '@/images/MenuImages/businessbay.webp'
@@ -13,6 +13,7 @@ import JLTImg from '@/images/MenuImages/JLT.webp'
 import JVCImg from '@/images/MenuImages/JVC.jpeg'
 import MarinaImg from '@/images/MenuImages/marina.jpg'
 import useStore from '@/components/ListingStore'
+import Link from 'next/link'
 // <--- NavItemType --->
 export interface MegamenuItem {
 	id: string
@@ -59,11 +60,31 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 	}
 
 	const nav = [
-		{ img: businessBayImg, title: 'Business Bay', links: ['', ''] },
-		{ img: MarinaImg, title: 'Marina', links: ['', ''] },
-		{ img: donwtownImg, title: 'Downtown', links: ['', ''] },
-		{ img: JVCImg, title: 'Jumeriah Village Circle', links: ['', ''] },
-		{ img: JLTImg, title: 'Jumeriah Lake Triangle', links: ['', ''] },
+		{
+			img: businessBayImg,
+			title: 'Business Bay',
+			links: ['', ''],
+		},
+		{
+			img: MarinaImg,
+			title: 'Marina',
+			links: ['', ''],
+		},
+		{
+			img: donwtownImg,
+			title: 'Downtown',
+			links: ['', ''],
+		},
+		{
+			img: JVCImg,
+			title: 'Jumeriah Village Circle',
+			links: ['', ''],
+		},
+		{
+			img: JLTImg,
+			title: 'Jumeriah Lake Triangle',
+			links: ['', ''],
+		},
 	]
 	const [navMenu, setNavMenu] = useState(nav)
 	useEffect(() => {
@@ -86,7 +107,6 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 		// Update the navMenu state with the new links
 		setNavMenu(updatedNavMenu)
 	}, [Listings])
-	console.log(navMenu)
 
 	// ===================== MENU MEGAMENU =====================
 	const renderMegaMenu = (menu: NavItemType) => {
@@ -144,7 +164,18 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 													</p>
 													<ul className="grid space-y-1">
 														{menu.links.slice(0, 5).map((link, index) => {
-															return <li key={index}>{link}</li>
+															return (
+																<li key={index}>
+																	<Link
+																		href={{
+																			pathname: '/listing-stay-map',
+																			query: { town: link },
+																		}}
+																	>
+																		{link}
+																	</Link>
+																</li>
+															)
 														})}
 													</ul>
 												</div>

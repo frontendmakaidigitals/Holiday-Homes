@@ -34,7 +34,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 	const loc = searchParams.get('loc')
 	const bed = searchParams.get('Bed')
 	const pri = searchParams.get('pri')
-
+	const tower = searchParams.get('town')
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
 	const [listings, setListings] = useState([])
@@ -166,9 +166,10 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 		setPrice(50)
 		setBeds(1)
 	}, [])
-
+	console.log(tower, 'this is tower')
 	useEffect(() => {
 		if (bed && pri && loc) {
+			console.warn('location is rendering')
 			setFilteredData(
 				listings.filter(
 					(list: any) =>
@@ -179,8 +180,14 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 			)
 		}
 		if (area) {
+			console.warn('area is rendering')
 			setFilteredData(listings.filter((list: any) => list.Area === area))
+		}
+		if (tower ) {
+			console.warn('tower is rendering', tower)
+			setFilteredData(listings.filter((list: any) => list.towerName === tower))
 		} else {
+			console.warn('all is rendering')
 			setFilteredData(listings)
 		}
 	}, [listings])
@@ -190,12 +197,12 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 			<div className="relative flex min-h-screen">
 				{/* CARDSSSS */}
 				<div className="min-h-screen w-full max-w-[1184px] flex-shrink-0 xl:w-[60%] xl:px-8 2xl:w-[60%]">
-					<Heading2 heading={`Stays in ${area || loc}`} className="!mb-8" />
+					<Heading2 heading={`Stays in ${area || loc || tower}`} className="!mb-8" />
 					<div className="mb-8 lg:mb-11">
 						<TabFilters />
 					</div>
 					<div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 2xl:gap-x-6">
-						{listings.map((item: any) => (
+						{filteredData.map((item: any) => (
 							<div
 								key={item.id}
 								onMouseEnter={() => setCurrentHoverID((_) => item.id)}

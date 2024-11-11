@@ -24,7 +24,7 @@ const AnyReactComponent: FC<AnyReactComponentProps> = ({
 	isSelected,
 }) => {
 	const [isOpen, setIsOpen] = useState(false)
-	console.log(car?.Price)
+	 
 	const handleMouseEnter = () => setIsOpen(true)
 	const handleMouseLeave = () => setIsOpen(false)
 

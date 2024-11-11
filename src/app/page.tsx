@@ -20,6 +20,7 @@ import axios from 'axios'
 import { TaxonomyType } from '@/data/types'
 import useStore from '@/components/ListingStore'
 import { List } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 function PageHome() {
 	const initialTabs: TaxonomyType[] = [
 		{
@@ -63,7 +64,9 @@ function PageHome() {
 			thumbnail: JLTImg,
 		},
 	]
+	const router = useRouter()
 	const { Listings, setListingsData } = useStore()
+	const [isPageReload, setIsPageReload] = useState(false)
 
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
@@ -74,6 +77,15 @@ function PageHome() {
 	interface listing {
 		Area: string
 	}
+
+	useEffect(() => {
+		// Check if the page is reloaded (first load)
+		if (performance.navigation.type === 1) {
+			setIsPageReload(true)
+		} else {
+			setIsPageReload(false)
+		}
+	}, [])
 	const getListings = () => {
 		setIsLoading(true)
 		axios
@@ -120,10 +132,13 @@ function PageHome() {
 				setIsLoading(false)
 			})
 	}
+	console.log('this is home page')
 
 	useEffect(() => {
-		getListings()
-	}, [])
+		if (!listings) {
+			getListings()
+		}
+	}, [listings])
 
 	useEffect(() => {
 		setListings(listings)

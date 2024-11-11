@@ -93,7 +93,7 @@ const StayCard2: FC<StayCard2Props> = ({
 		]
 
 		// Log the transformedAmenities to ensure the data is correct
-		console.log(transformedAmenities) // This will show the combined array in the console
+		 
 
 		// Get the first two amenities and the remaining ones
 		const firstTwoAmenities = transformedAmenities.slice(0, 2)
