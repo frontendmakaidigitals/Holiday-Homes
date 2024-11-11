@@ -10,7 +10,15 @@ import MobileFooterSticky from './(components)/MobileFooterSticky'
 import { imageGallery as listingStayImageGallery } from './listing-stay-detail/constant'
 import { imageGallery as listingCarImageGallery } from './listing-car-detail/constant'
 import { imageGallery as listingExperienceImageGallery } from './listing-experiences-detail/constant'
-
+import businessBayImg from '@/images/MenuImages/businessbay.webp'
+import donwtownImg from '@/images/MenuImages/downtown.webp'
+import JLTImg from '@/images/MenuImages/JLT.webp'
+import JVCImg from '@/images/MenuImages/JVC.jpeg'
+import MarinaImg from '@/images/MenuImages/marina.jpg'
+import Image from 'next/image'
+import { TaxonomyType } from '@/data/types'
+import useStore from '@/components/ListingStore'
+import { useState, useEffect } from 'react'
 const DetailtLayout = ({ children }: { children: ReactNode }) => {
 	const thisPathname = usePathname()
 
@@ -27,6 +35,66 @@ const DetailtLayout = ({ children }: { children: ReactNode }) => {
 
 		return []
 	}
+	const { Listings } = useStore()
+	const initialTabs: TaxonomyType[] = [
+		{
+			id: '1',
+			href: '/listing-stay-map',
+			name: 'Business Bay',
+			taxonomy: 'category',
+			count: 0,
+			thumbnail: businessBayImg,
+		},
+		{
+			id: '2',
+			href: '/listing-stay-map',
+			name: 'Marina',
+			taxonomy: 'category',
+			count: 0,
+			thumbnail: MarinaImg,
+		},
+		{
+			id: '3',
+			href: '/listing-stay-map',
+			name: 'Downtown',
+			taxonomy: 'category',
+			count: 0,
+			thumbnail: donwtownImg,
+		},
+		{
+			id: '4',
+			href: '/listing-stay-map',
+			name: 'Jumeriah Village Circle',
+			taxonomy: 'category',
+			count: 0,
+			thumbnail: JVCImg,
+		},
+		{
+			id: '5',
+			href: '/listing-stay-map',
+			name: 'Jumeriah Lake Triangle',
+			taxonomy: 'category',
+			count: 0,
+			thumbnail: JLTImg,
+		},
+	]
+	const [tabs, setTabs] = useState(initialTabs)
+
+	useEffect(() => {
+		const fetchedListings = Array.isArray(Listings.data) ? Listings.data : []
+		const areaCounts = fetchedListings.reduce((acc: any, listing: any) => {
+			const area = listing.Area || '' // Ensure area is always a string
+			acc[area] = (acc[area] || 0) + 1
+			return acc
+		}, {})
+		setTabs((prevTabs) => {
+			const updatedTabs = prevTabs.map((tab) => ({
+				...tab,
+				count: areaCounts[tab.name] || 0, // Use existing count or default to 0
+			}))
+			return updatedTabs
+		})
+	}, [Listings])
 
 	return (
 		<div className="ListingDetailPage">
@@ -40,13 +108,9 @@ const DetailtLayout = ({ children }: { children: ReactNode }) => {
 			<div className="container py-24 lg:py-32">
 				<div className="relative py-16">
 					<BackgroundSection />
-					<SectionSliderNewCategories
-						heading="Explore by types of stays"
-						subHeading="Explore houses based on 10 types of stays"
-						categoryCardType="card5"
-						itemPerRow={5}
-						sliderStyle="style2"
-					/>
+					<div className="relative py-16">
+						<SectionSliderNewCategories categories={tabs} />
+					</div>
 				</div>
 				<SectionSubscribe2 className="pt-24 lg:pt-32" />
 			</div>

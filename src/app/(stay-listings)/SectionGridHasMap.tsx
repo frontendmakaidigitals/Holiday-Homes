@@ -166,7 +166,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 		setPrice(50)
 		setBeds(1)
 	}, [])
-	console.log(tower, 'this is tower')
+	 
 	useEffect(() => {
 		if (bed && pri && loc) {
 			console.warn('location is rendering')

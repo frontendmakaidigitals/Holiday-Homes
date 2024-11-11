@@ -8,11 +8,10 @@ import FiveStartIconForRate from '@/components/FiveStartIconForRate'
 import StartRating from '@/components/StartRating'
 import Avatar from '@/shared/Avatar'
 import Badge from '@/shared/Badge'
-
+import SectionSliderNewCategories from '@/components/SectionSliderNewCategories'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import ButtonSecondary from '@/shared/ButtonSecondary'
 import ButtonClose from '@/shared/ButtonClose'
-
 import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import StayDatesRangeInput from './StayDatesRangeInput'
@@ -72,6 +71,7 @@ import { PiTowel } from 'react-icons/pi'
 import { MdOutlineRamenDining } from 'react-icons/md'
 import { GiFirstAidKit } from 'react-icons/gi'
 import { PiSirenFill } from 'react-icons/pi'
+
 const Amenities_demos = [
 	{ name: 'Swimming Pool', icon: <FaSwimmingPool /> },
 	{ name: 'Gym', icon: <FaDumbbell /> },
@@ -126,7 +126,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 	const id = searchParams.get('id')
 	const [getDay, setGetDay] = useState({ days: 0, minutes: 0, hours: 0 })
 	const [houseRule, setHouseRule] = useState([])
-
+	
 	function closeModalAmenities() {
 		setIsOpenModalAmenities(false)
 	}
@@ -162,6 +162,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				setIsLoading(false)
 			})
 	}
+	
 
 	useEffect(() => {
 		getQueries()
@@ -169,7 +170,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 	const [marker, setMarker] = useState<{ lat: number; lng: number } | null>(
 		null,
 	)
-
+	useEffect(() => {}, [])
 	useEffect(() => {
 		if (listings?.marker) {
 			// Parse the marker string and set the state
@@ -795,7 +796,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 					{renderSection5()}
 					{renderSection6()}
 					{renderSection7()}
-					{renderSection8()}
+				
 				</div>
 
 				{/* SIDEBAR */}
