@@ -21,21 +21,16 @@ import convertNumbThousand from '@/utils/convertNumbThousand'
 // DEMO DATA
 const typeOfPaces = [
 	{
-		name: 'Entire place',
+		name: 'Apartment',
 		description: 'Have a place to yourself',
 	},
 	{
-		name: 'Private room',
-		description: 'Have your own room and share some common spaces',
+		name: 'Villa',
+		description: 'Have a place to yourself',
 	},
 	{
-		name: 'Hotel room',
-		description:
-			'Have a private or shared room in a boutique hotel, hostel, and more',
-	},
-	{
-		name: 'Shared room',
-		description: 'Stay in a shared space, like a common room',
+		name: 'Townhouse',
+		description: 'Have a place to yourself',
 	},
 ]
 
@@ -116,7 +111,7 @@ const TabFilters = () => {
 								open ? '!border-primary-500' : ''
 							}`}
 						>
-							<span>Type of place</span>
+							<span>Property Types</span>
 							<i className="las la-angle-down ml-2"></i>
 						</PopoverButton>
 						<Transition

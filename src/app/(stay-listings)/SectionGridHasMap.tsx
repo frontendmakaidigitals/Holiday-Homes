@@ -30,7 +30,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 	const [showFullMapFixed, setShowFullMapFixed] = useState(false)
 	const searchParams = useSearchParams()
 	const area = searchParams.get('area')
-	const { Listings } = useStore()
+	const { Listings, setLocationInput, setPrice, setBeds } = useStore()
 	const loc = searchParams.get('loc')
 	const bed = searchParams.get('Bed')
 	const pri = searchParams.get('pri')
@@ -162,6 +162,9 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 
 	useEffect(() => {
 		getListings()
+		setLocationInput('')
+		setPrice(50)
+		setBeds(1)
 	}, [])
 
 	useEffect(() => {
@@ -169,8 +172,8 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 			setFilteredData(
 				listings.filter(
 					(list: any) =>
-						list.beds === Number(bed) ||
-						list.discountedPrice === Number(pri) ||
+						list.beds <= Number(bed) ||
+						list.discountedPrice <= Number(pri) ||
 						list.Country === loc,
 				),
 			)
@@ -187,7 +190,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 			<div className="relative flex min-h-screen">
 				{/* CARDSSSS */}
 				<div className="min-h-screen w-full max-w-[1184px] flex-shrink-0 xl:w-[60%] xl:px-8 2xl:w-[60%]">
-					<Heading2 heading={`Stays in ${area}`} className="!mb-8" />
+					<Heading2 heading={`Stays in ${area || loc}`} className="!mb-8" />
 					<div className="mb-8 lg:mb-11">
 						<TabFilters />
 					</div>

@@ -140,23 +140,16 @@ function PageHome() {
 			</div>
 
 			<div className="container relative mb-24 mt-10 space-y-24 lg:mb-28 lg:space-y-28">
-				{/* If listings are loading or empty, show a loading message */}
-				{isLoading ? (
-					<div>Loading...</div>
-				) : (
-					<>
-						<SectionSliderNewCategories categories={tabs} />
-						<SectionOurFeatures />
-						<SectionGridFeaturePlaces
-							stayListings={listings}
-							cardType="card2"
-							btnRef={btnRef}
-						/>
+				<SectionSliderNewCategories categories={tabs} />
+				<SectionOurFeatures />
+				<SectionGridFeaturePlaces
+					stayListings={listings}
+					cardType="card2"
+					btnRef={btnRef}
+				/>
 
-						<PromotinalOffers />
-						<TestitmonialCarousal />
-					</>
-				)}
+				<PromotinalOffers />
+				<TestitmonialCarousal />
 			</div>
 
 			<AdditionalServices />

@@ -52,17 +52,15 @@ const StayCard2: FC<StayCard2Props> = ({
 	const renderBadge = () => {
 		const parseBadges = JSON.parse(listingBadge)
 
-		return (
-			parseBadges.image ? (
-				<div className="absolute left-3 top-3 z-[99] h-7 w-auto rounded-full bg-slate-50/90 px-3 py-1">
-					<img
-						src={parseBadges.image}
-						className="h-full w-full object-contain"
-						alt={parseBadges.label}
-					/>
-				</div> 
-			): null
-		)
+		return parseBadges.image ? (
+			<div className="absolute left-3 top-3 z-[2] h-7 w-auto rounded-full bg-slate-50/90 px-3 py-1">
+				<img
+					src={parseBadges.image}
+					className="h-full w-full object-contain"
+					alt={parseBadges.label}
+				/>
+			</div>
+		) : null
 	}
 	const renderSliderGallery = () => {
 		return (

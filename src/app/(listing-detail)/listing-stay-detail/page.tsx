@@ -651,7 +651,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				{/* PRICE */}
 				<div className="flex justify-between">
 					<span className="text-3xl font-semibold">
-						{listings?.Price || 100} AED
+						{listings?.discountedPrice} AED
 						<span className="ml-1 text-base font-normal text-neutral-500 dark:text-neutral-400">
 							/night
 						</span>
@@ -673,9 +673,9 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				<div className="flex flex-col space-y-4">
 					<div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
 						<span>
-							AED {listings?.Price} x {getDay?.days} night
+							AED {listings?.discountedPrice} x {getDay?.days} night
 						</span>
-						<span>AED {listings?.Price * getDay?.days}</span>
+						<span>AED {listings?.discountedPrice * getDay?.days}</span>
 					</div>
 					<div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
 						<span>Service charge</span>
@@ -684,7 +684,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 					<div className="border-b border-neutral-200 dark:border-neutral-700"></div>
 					<div className="flex justify-between font-semibold">
 						<span>Total</span>
-						<span>AED {listings?.Price * getDay?.days}</span>
+						<span>AED {listings?.discountedPrice * getDay?.days}</span>
 					</div>
 				</div>
 				<ButtonPrimary
