@@ -18,7 +18,9 @@ import Badge from '@/shared/Badge'
 import { IoStar } from 'react-icons/io5'
 
  
-const Page = ({ size = 'default' }) => {
+
+const Page = ({}) => {
+	const size ='default'
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
 	const [showPopUp, setShowPopUp] = useState(false)
