@@ -46,12 +46,6 @@ const PageAddListing8: FC<PageAddListing10Props> = () => {
 					)}
 				</div>
 				<div className="mt-8 flex items-center space-x-5">
-					<button
-						onClick={EditBTN}
-						className="h-11 rounded-full border border-gray-700 bg-transparent px-5 disabled:!cursor-not-allowed disabled:!bg-slate-300 disabled:!text-slate-500"
-					>
-						Edit
-					</button>
 					<Link
 						href={{
 							pathname: '/listing-stay-detail', // The base path

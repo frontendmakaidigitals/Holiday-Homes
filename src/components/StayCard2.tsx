@@ -184,7 +184,7 @@ const StayCard2: FC<StayCard2Props> = ({
 				<div className="w-14 border-b border-neutral-100 dark:border-neutral-800"></div>
 				<div className="flex items-center justify-start gap-3">
 					<span className="relative text-xl text-red-500">
-						121
+						{orgPrice}
 						<span className="absolute left-0 top-1/2 h-[2px] w-full -translate-y-1/2 rotate-45 bg-red-500"></span>
 					</span>
 					<span className="text-xl font-semibold">

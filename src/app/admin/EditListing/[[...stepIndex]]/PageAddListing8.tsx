@@ -7,7 +7,7 @@ import ButtonPrimary from '@/shared/ButtonPrimary'
 import ButtonSecondary from '@/shared/ButtonSecondary'
 import { EyeIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-
+import GallerySlider from '@/components/GallerySlider'
 export interface PageAddListing10Props {}
 
 const PageAddListing8: FC<PageAddListing10Props> = () => {
