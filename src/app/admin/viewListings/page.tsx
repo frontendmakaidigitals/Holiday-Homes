@@ -8,7 +8,6 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from '@/Shadcncomponents/components/ui/accordion'
-import Heading from '@/shared/Heading'
 import { useRouter } from 'next/navigation'
 import { GrStatusWarning } from 'react-icons/gr'
 import ButtonPrimary from '@/shared/ButtonPrimary'
@@ -18,9 +17,7 @@ import GallerySlider from '@/components/GallerySlider'
 import Badge from '@/shared/Badge'
 import { IoStar } from 'react-icons/io5'
 
-export interface SectionHero3Props {
-	size: string
-}
+ 
 const Page = ({ size = 'default' }) => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [status, setStatus] = useState('')
