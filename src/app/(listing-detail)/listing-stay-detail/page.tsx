@@ -126,7 +126,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 	const id = searchParams.get('id')
 	const [getDay, setGetDay] = useState({ days: 0, minutes: 0, hours: 0 })
 	const [houseRule, setHouseRule] = useState([])
-	
+
 	function closeModalAmenities() {
 		setIsOpenModalAmenities(false)
 	}
@@ -162,8 +162,44 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				setIsLoading(false)
 			})
 	}
-	
 
+	const reviewData = [
+		{
+			name: 'Waddah Kaddour',
+			date: '',
+			comment:
+				'I am really delighted with brown stone holiday Services, the unite i stayed was clean, shiny cozy and all the service available in the building, besides thier staff treatment was very helpful, informative and respectful, I would highly recommend Brown stone holiday home for people looking for nice stay in dubai',
+			starPoint: 5,
+		},
+		{
+			name: 'Chusmanch',
+			date: '',
+			comment:
+				'Mr khubaib is providing superb services, what a beautiful apartment and fantastic view from balcony, i appreciate his honest services,... thank you brown stone holiday homes',
+			starPoint: 5,
+		},
+		{
+			name: 'Анна Айдарова',
+			date: '',
+			comment:
+				'I had a great stay! I’m impressed with the architectures, especially the poolside where I stayed. Waseem treated me really well. I look forward to coming back!',
+			starPoint: 5,
+		},
+		{
+			name: 'Temwekela Mbewe',
+			date: '',
+			comment:
+				'Thank you ,Shehzad, very much for the speed, quality, and professionalism in the work. This is not the first time we have contacted, and we are always satisfied. I recommend with all my heart',
+			starPoint: 5,
+		},
+		{
+			name: 'Kevin Wayne',
+			date: '',
+			comment:
+				'The most amazing stay I’ve ever heard, I recommend Mr. Waseem 💯. He was there all the time I needed him and even gave some extra hours during check out.',
+			starPoint: 5,
+		},
+	]
 	useEffect(() => {
 		getQueries()
 	}, [])
@@ -263,7 +299,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 
 				{/* 2 */}
 				<h2 className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
-					{listings?.placeName}
+					{listings?.propertyTitle}
 				</h2>
 
 				{/* 3 */}
@@ -525,7 +561,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 					/>
 					<div>
 						<a className="block text-xl font-medium" href="##">
-							Kevin Francis
+							Brownstone Holiday Homes
 						</a>
 						<div className="mt-1.5 flex items-center text-sm text-neutral-500 dark:text-neutral-400">
 							<StartRating />
@@ -537,9 +573,8 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 
 				{/* desc */}
 				<span className="block text-neutral-6000 dark:text-neutral-300">
-					Providing lake views, The Symphony 9 Tam Coc in Ninh Binh provides
-					accommodation, an outdoor swimming pool, a bar, a shared lounge, a
-					garden and barbecue facilities...
+					We are one of the top and recognized holiday homes company in Dubai.
+					Providing premium vacation stays with immense knowledge and strength
 				</span>
 
 				{/* info */}
@@ -605,12 +640,14 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				{/* Content */}
 
 				{/* comment */}
-				<div className="divide-y divide-neutral-100 dark:divide-neutral-800">
-					<CommentListing className="py-8" />
-					<CommentListing className="py-8" />
-					<CommentListing className="py-8" />
-					<CommentListing className="py-8" />
-				</div>
+				{reviewData.map((review, index) => (
+					<div
+						key={index}
+						className="divide-y divide-neutral-100 dark:divide-neutral-800"
+					>
+						<CommentListing className="py-8" data={review} />
+					</div>
+				))}
 			</div>
 		)
 	}
@@ -622,7 +659,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				<div>
 					<h2 className="text-2xl font-semibold">Location</h2>
 					<span className="mt-2 block text-neutral-500 dark:text-neutral-400">
-						San Diego, CA, United States of America (SAN-San Diego Intl.)
+						{listings.address}
 					</span>
 				</div>
 				<div className="w-14 border-b border-neutral-200 dark:border-neutral-700" />
@@ -796,7 +833,6 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 					{renderSection5()}
 					{renderSection6()}
 					{renderSection7()}
-				
 				</div>
 
 				{/* SIDEBAR */}

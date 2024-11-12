@@ -47,6 +47,7 @@ const StayCard2: FC<StayCard2Props> = ({
 		discountedPrice,
 		checkedAmenities,
 		listingBadge,
+		propertyTitle,
 	} = data
 
 	const renderBadge = () => {
@@ -148,7 +149,7 @@ const StayCard2: FC<StayCard2Props> = ({
 								size === 'default' ? 'text-base' : 'text-base'
 							}`}
 						>
-							<span className="line-clamp-1">{placeName}</span>
+							<span className="line-clamp-1">{propertyTitle}</span>
 						</h2>
 					</div>
 					<div>{renderAmenities()}</div>

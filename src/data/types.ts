@@ -106,6 +106,7 @@ export interface StayDataType {
 	discountedPrice: string
 	checkedAmenities: string
 	listingBadge: string
+	propertyTitle:string
 }
 
 //
