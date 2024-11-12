@@ -19,10 +19,10 @@ import { useTimeoutFn } from 'react-use'
 import StaySearchForm from './(stay-search-form)/StaySearchForm'
 import CarsSearchForm from './(car-search-form)/CarsSearchForm'
 import FlightSearchForm from './(flight-search-form)/FlightSearchForm'
-
+import useStore from '@/components/ListingStore'
 const HeroSearchForm2Mobile = () => {
 	const [showModal, setShowModal] = useState(false)
-
+	const { Listings } = useStore()
 	// FOR RESET ALL DATA WHEN CLICK CLEAR BUTTON
 	const [showDialog, setShowDialog] = useState(false)
 	let [, , resetIsShowingDialog] = useTimeoutFn(() => setShowDialog(true), 1)
@@ -88,16 +88,16 @@ const HeroSearchForm2Mobile = () => {
 								leaveFrom="opacity-100 translate-y-0"
 								leaveTo="opacity-0 translate-y-52"
 							>
-								<DialogPanel className="relative flex h-full flex-1 flex-col justify-between overflow-hidden">
+								<DialogPanel className="relative flex h-full flex-1 flex-col justify-between overflow-y-scroll">
 									{showDialog && (
 										<TabGroup manual>
-											<div className="absolute left-4 top-4">
+											<div className="absolute  left-4 top-4">
 												<button className="" onClick={closeModal}>
 													<XMarkIcon className="h-5 w-5 text-black dark:text-white" />
 												</button>
 											</div>
 
-											<div className='mt-7'></div>
+											<div className="mt-7"></div>
 											<div className="flex flex-1 overflow-hidden px-1.5 pt-3 sm:px-4">
 												<TabPanels className="hiddenScrollbar flex-1 overflow-y-auto py-4">
 													<TabPanel>
@@ -105,37 +105,25 @@ const HeroSearchForm2Mobile = () => {
 															<StaySearchForm />
 														</div>
 													</TabPanel>
-													<Tab.Panel>
-														<div className="animate-[myblur_0.4s_ease-in-out] transition-opacity">
-															<StaySearchForm />
-														</div>
-													</Tab.Panel>
-													<TabPanel>
-														<div className="animate-[myblur_0.4s_ease-in-out] transition-opacity">
-															<CarsSearchForm />
-														</div>
-													</TabPanel>
-													<TabPanel>
-														<div className="animate-[myblur_0.4s_ease-in-out] transition-opacity">
-															<FlightSearchForm />
-														</div>
-													</TabPanel>
+													 
+													 
+													 
 												</TabPanels>
 											</div>
-											<div className="flex justify-between border-t border-neutral-200 bg-white px-4 py-3 dark:border-neutral-700 dark:bg-neutral-900">
-												<button
-													type="button"
-													className="flex-shrink-0 font-semibold underline"
-													onClick={() => {
-														setShowDialog(false)
-														resetIsShowingDialog()
-													}}
-												>
-													Clear all
-												</button>
+											<div className="flex justify-end border-t border-neutral-200 bg-white px-4 py-3 dark:border-neutral-700 dark:bg-neutral-900">
 												<ButtonSubmit
-													onClick={() => {
-														closeModal()
+													disabled={
+														!Listings.locationInput || !Listings.inputPrice
+													}
+													className="text-gray-50"
+													 
+													href={{
+														pathname: '/listing-stay-map',
+														query: {
+															loc: Listings.locationInput,
+															pri: Listings.inputPrice,
+															Bed: Listings.Beds,
+														},
 													}}
 												/>
 											</div>

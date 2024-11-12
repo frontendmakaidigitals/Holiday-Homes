@@ -197,7 +197,10 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 			<div className="relative flex min-h-screen">
 				{/* CARDSSSS */}
 				<div className="min-h-screen w-full max-w-[1184px] flex-shrink-0 xl:w-[60%] xl:px-8 2xl:w-[60%]">
-					<Heading2 heading={`Stays in ${area || loc || tower}`} className="!mb-8" />
+					<Heading2
+						heading={`Stays in ${area || loc || tower}`}
+						className="!mb-8"
+					/>
 					<div className="mb-8 lg:mb-11">
 						<TabFilters />
 					</div>
@@ -243,7 +246,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 					<div className="fixed left-0 top-0 h-full w-full overflow-hidden rounded-md xl:sticky xl:top-[88px] xl:h-[calc(100vh-88px)]">
 						<MapContainer
 							currentHoverID={currentHoverID}
-							DEMO_DATA={listings}
+							DEMO_DATA={filteredData}
 							listingType="car"
 						/>
 					</div>

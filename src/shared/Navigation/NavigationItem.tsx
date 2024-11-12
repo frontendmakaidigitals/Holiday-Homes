@@ -58,10 +58,8 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 		})
 	}
 
-	const [isLoading, setIsLoading] = useState(false)
-	const [status, setStatus] = useState('')
-	const [listings, setListings] = useState([])
-	const { Listings, setListingsData } = useStore()
+ 
+	const { Listings } = useStore()
 
 	const nav = [
 		{
@@ -92,45 +90,7 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 	]
 	const [navMenu, setNavMenu] = useState(nav)
 
-	const getListings = () => {
-		setIsLoading(true)
-		axios
-			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
-				withCredentials: true,
-			})
-			.then(() => {
-				return axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing`, {
-					withCredentials: true,
-				})
-			})
-			.then((res) => {
-				const fetchedListings = Array.isArray(res.data.data)
-					? res.data.data
-					: [] // Ensure it's an array
-				setListings(fetchedListings)
-				setListingsData(fetchedListings)
-				setStatus('success')
-			})
-			.catch((error) => {
-				console.error(error)
-				setStatus('failed')
-			})
-			.finally(() => {
-				setIsLoading(false)
-			})
-	}
-
-	useEffect(() => {
-		console.log('effect started was called')
-		if (Listings.data.length == 0) {
-			console.log('api was called')
-			getListings()
-		}
-	}, [])
-
-	useEffect(() => {
-		setListings(listings)
-	}, [listings])
+ 
 
 	useEffect(() => {
 		// Match Listings with navMenu titles

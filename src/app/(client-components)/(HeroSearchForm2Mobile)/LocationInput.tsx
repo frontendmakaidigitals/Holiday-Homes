@@ -2,7 +2,7 @@
 
 import { MapPinIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import React, { useState, useEffect, useRef, FC } from 'react'
-
+import useStore from '@/components/ListingStore'
 interface Props {
 	onClick?: () => void
 	onChange?: (value: string) => void
@@ -18,6 +18,7 @@ const LocationInput: FC<Props> = ({
 	headingText = 'Where to?',
 }) => {
 	const [value, setValue] = useState('')
+	const { Listings, setLocationInput } = useStore()
 	const containerRef = useRef(null)
 	const inputRef = useRef(null)
 
@@ -29,10 +30,33 @@ const LocationInput: FC<Props> = ({
 		// DO NOT REMOVE SETTIMEOUT FUNC
 		setTimeout(() => {
 			setValue(item)
+			setLocationInput(item)
 			onChange && onChange(item)
 		}, 0)
 	}
+	const [filteredResults, setFilteredResults] = useState<any>([])
 
+	useEffect(() => {
+		// Check if `Listings.data` is a valid array and `value` is not empty
+		if (value && Array.isArray(Listings?.data)) {
+			// Filter the countries based on the value
+			const filteredCountries = Listings.data
+				.filter(
+					(item: any) =>
+						item.Country.toLowerCase().includes(value.toLowerCase()), // Case insensitive search
+				)
+				.map((item: any) => item.Country) // Extract the Country value
+
+			// Log the filtered countries before deduplication
+			console.log('Filtered Countries before deduplication:', filteredCountries)
+
+			// Use Set to remove duplicates and convert it to an array using Array.from()
+			setFilteredResults(Array.from(new Set(filteredCountries)))
+		} else {
+			// If value is empty or Listings is not valid, clear the results
+			setFilteredResults([])
+		}
+	}, [value, Listings?.data])
 	const renderSearchValues = ({
 		heading,
 		items,
@@ -46,7 +70,7 @@ const LocationInput: FC<Props> = ({
 					{heading || 'Destinations'}
 				</p>
 				<div className="mt-3">
-					{items.map((item) => {
+					{filteredResults.map((item: any) => {
 						return (
 							<div
 								className="mb-1 flex items-center space-x-3 py-2 text-sm"
@@ -82,27 +106,10 @@ const LocationInput: FC<Props> = ({
 					</span>
 				</div>
 				<div className="mt-7">
-					{value
-						? renderSearchValues({
-								heading: 'Locations',
-								items: [
-									'Afghanistan',
-									'Albania',
-									'Algeria',
-									'American Samao',
-									'Andorra',
-								],
-							})
-						: renderSearchValues({
-								heading: 'Popular destinations',
-								items: [
-									'Damac Paramount Towers, Business Bay',
-									'Vida Residence, Marina',
-									'The Residences, Downtown',
-									'Act I Tower, Downtown',
-									'W Residence, Jumeriah',
-								],
-							})}
+					{renderSearchValues({
+						heading: 'Locations',
+						items: [],
+					})}
 				</div>
 			</div>
 		</div>
