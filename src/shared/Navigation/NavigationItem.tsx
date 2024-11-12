@@ -14,6 +14,7 @@ import JVCImg from '@/images/MenuImages/JVC.jpeg'
 import MarinaImg from '@/images/MenuImages/marina.jpg'
 import useStore from '@/components/ListingStore'
 import Link from 'next/link'
+import axios from 'axios'
 // <--- NavItemType --->
 export interface MegamenuItem {
 	id: string
@@ -40,8 +41,6 @@ type NavigationItemWithRouterProps = NavigationItemProps
 
 const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 	const [menuCurrentHovers, setMenuCurrentHovers] = useState<string[]>([])
-	const { Listings } = useStore()
-	// CLOSE ALL MENU OPENING WHEN CHANGE HISTORY
 	const locationPathName = usePathname()
 	useEffect(() => {
 		setMenuCurrentHovers([])
@@ -58,6 +57,11 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 			})
 		})
 	}
+
+	const [isLoading, setIsLoading] = useState(false)
+	const [status, setStatus] = useState('')
+	const [listings, setListings] = useState([])
+	const { Listings, setListingsData } = useStore()
 
 	const nav = [
 		{
@@ -87,13 +91,54 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 		},
 	]
 	const [navMenu, setNavMenu] = useState(nav)
-	console.log(navMenu)
+
+	const getListings = () => {
+		setIsLoading(true)
+		axios
+			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
+				withCredentials: true,
+			})
+			.then(() => {
+				return axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/listing`, {
+					withCredentials: true,
+				})
+			})
+			.then((res) => {
+				const fetchedListings = Array.isArray(res.data.data)
+					? res.data.data
+					: [] // Ensure it's an array
+				setListings(fetchedListings)
+				setListingsData(fetchedListings)
+				setStatus('success')
+			})
+			.catch((error) => {
+				console.error(error)
+				setStatus('failed')
+			})
+			.finally(() => {
+				setIsLoading(false)
+			})
+	}
+
+	useEffect(() => {
+		console.log('effect started was called')
+		if (Listings.data.length == 0) {
+			console.log('api was called')
+			getListings()
+		}
+	}, [])
+
+	useEffect(() => {
+		setListings(listings)
+	}, [listings])
+
 	useEffect(() => {
 		// Match Listings with navMenu titles
 		const updatedNavMenu = navMenu.map((menuItem) => {
 			// Filter Listings based on area (match with title)
 			const matchedListings = Listings.data.filter(
-				(listing: any) => listing.isChecked == 1 && listing.Area == menuItem.title,
+				(listing: any) =>
+					listing.isChecked == 1 && listing.Area == menuItem.title,
 			)
 
 			// If any listings match the area, store the titles in links

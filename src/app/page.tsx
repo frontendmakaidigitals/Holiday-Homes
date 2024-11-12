@@ -77,7 +77,7 @@ function PageHome() {
 	interface listing {
 		Area: string
 	}
-	
+
 	const getListings = () => {
 		setIsLoading(true)
 		axios
