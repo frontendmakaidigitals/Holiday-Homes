@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
+import '../chart.css'
 import { IoIosCheckbox } from 'react-icons/io'
 import { TrendingUp } from 'lucide-react'
 import {
@@ -30,6 +30,7 @@ const data = [
 	{ area: 'Downtown', created_at: '2024-01-15T12:00:00Z' },
 	{ area: 'Marina', created_at: '2024-02-05T12:00:00Z' },
 	{ area: 'Downtown', created_at: '2024-02-10T12:00:00Z' },
+	{ area: 'Business Bay', created_at: '2024-02-10T12:00:00Z' },
 	// More data...
 ]
 
@@ -133,6 +134,15 @@ const AreaGraphs = ({ areaCounts }: any) => {
 		)
 	}
 
+	// Define a color mapping for each area
+	const areaColors: any = {
+		Marina: '#ff96ce', // Example color
+		Downtown: '#96ffc9', // Example color
+		Suburb: '#e0ff96', // Example color
+		Beach: '#ffcd69', // Example color
+		// Add more areas as needed
+	}
+
 	// Format the areaCounts data to create chartData
 	const chartData = Object.keys(areaCounts).map((monthYear) => {
 		const areas = areaCounts[monthYear]
@@ -173,15 +183,16 @@ const AreaGraphs = ({ areaCounts }: any) => {
 								}}
 							/>
 							{Object.keys(chartData[0])
-								.filter((key) => key !== 'month')
+								.filter((key) => key !== 'month') // Exclude the "month" field
 								.map((area) => (
 									<Area
 										key={area}
-										type="monotone"
+										type="natural"
 										dataKey={area}
-										stackId="1"
-										stroke="hsl(var(--primary))"
-										fill="hsl(var(--primary))"
+										stackId="a"
+										stroke={areaColors[area] || 'gray'} // Use the color from areaColors or fallback to gray
+										fillOpacity={0.4}
+										fill={areaColors[area] || 'gray'} // Use the color from areaColors or fallback to gray
 									/>
 								))}
 						</AreaChart>
