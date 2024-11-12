@@ -19,6 +19,7 @@ const StaySearchForm = () => {
 		guestChildren: 0,
 		guestInfants: 0,
 	})
+	const { Listings, setPrice } = useStore()
 	const [startDate, setStartDate] = useState<Date | null>(new Date())
 	const [endDate, setEndDate] = useState<Date | null>(new Date())
 	//
@@ -90,7 +91,7 @@ const StaySearchForm = () => {
 		)
 	}
 	const renderPrices = () => {
-		const { Listings, setPrice } = useStore()
+		
 		const isActive = fieldNameShow === 'price'
 		 
 		const maxRange = 1000
