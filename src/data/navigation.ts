@@ -170,7 +170,7 @@ export const NAVIGATION_DEMO: NavItemType[] = [
 	},
 	{
 		id: ncNanoId(),
-		href: '#',
+		href: '/listing-stay-map',
 		name: 'Popular Area',
 		type: 'megaMenu',
 		megaMenu: megaMenuDemo,
