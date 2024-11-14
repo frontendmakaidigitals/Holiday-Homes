@@ -194,21 +194,10 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 	const [propertyType, setPropertyType] = useState<string[]>([])
 	const [filterBeds, setFitlerBeds] = useState<number | null>(null)
 	const [rangePrices, setRangePrices] = useState<number[]>([0, 1000])
-	const handleBedFilter = () => {
-		setFitlerBeds(0)
-		ApplyFilter()
-	}
-	const handlePriceFilter = () => {
-		setRangePrices([0, 1000])
-		ApplyFilter()
-	}
-	const handlePropertyFilter = () => {
-		setPropertyType([])
-		ApplyFilter()
-	}
+
 	const ApplyFilter = () => {
 		let filteredListings = listings // Assuming 'listings' is the full list of data
-		 
+
 		// Apply propertyType filter if selected
 		if (propertyType.length > 0) {
 			// Keep all items that match the propertyType filter (duplicates allowed)
@@ -218,7 +207,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 		}
 
 		// Apply filterBeds filter if set
-		if (filterBeds != null) {
+		if (filterBeds != null && filterBeds != 0) {
 			filteredListings = filteredListings.filter(
 				(list: any) => list.beds <= filterBeds,
 			)
@@ -233,6 +222,18 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 			)
 		}
 		setFilteredData(filteredListings)
+	}
+	const handleBedFilter = () => {
+		setFitlerBeds(0)
+		ApplyFilter()
+	}
+	const handlePriceFilter = () => {
+		setRangePrices([0, 1000])
+		ApplyFilter()
+	}
+	const handlePropertyFilter = () => {
+		setPropertyType([])
+		ApplyFilter()
 	}
 	return (
 		<div>

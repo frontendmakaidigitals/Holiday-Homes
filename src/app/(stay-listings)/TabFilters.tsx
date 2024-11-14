@@ -146,7 +146,7 @@ const TabFilters: React.FC<TabFiltersProps> = ({
 						>
 							<span>
 								Property Types (
-								{propertyType.length ? propertyType.length : 'All'})
+								{propertyType.length })
 							</span>
 
 							{propertyType.length != 0 ? (
