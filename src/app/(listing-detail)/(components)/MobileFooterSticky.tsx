@@ -4,18 +4,26 @@ import ButtonPrimary from '@/shared/ButtonPrimary'
 import converSelectedDateToString from '@/utils/converSelectedDateToString'
 import ModalReserveMobile from './ModalReserveMobile'
 
-const MobileFooterSticky = () => {
-	const [startDate, setStartDate] = useState<Date | null>(
-		new Date('2023/02/06'),
-	)
-	const [endDate, setEndDate] = useState<Date | null>(new Date('2023/02/23'))
+const MobileFooterSticky = ({
+	handleReserve,
+	price,
+	linkLoading,
+	linkStatus,
+}: {
+	handleReserve: any
+	price: any
+	linkLoading: boolean
+	linkStatus: string
+}) => {
+	const [startDate, setStartDate] = useState<Date | null>(new Date())
+	const [endDate, setEndDate] = useState<Date | null>(new Date())
 
 	return (
 		<div className="fixed inset-x-0 bottom-0 z-40 block border-t border-neutral-200 bg-white py-2 dark:border-neutral-6000 dark:bg-neutral-800 sm:py-3 lg:hidden">
 			<div className="container flex items-center justify-between">
 				<div className="">
 					<span className="block text-xl font-semibold">
-						$311
+						AED {price}
 						<span className="ml-1 text-sm font-normal text-neutral-500 dark:text-neutral-400">
 							/night
 						</span>
@@ -35,9 +43,11 @@ const MobileFooterSticky = () => {
 					renderChildren={({ openModal }) => (
 						<ButtonPrimary
 							sizeClass="px-5 sm:px-7 py-3 !rounded-2xl"
-							onClick={openModal}
+							onClick={handleReserve}
+							loading={linkLoading}
+							className={`${linkStatus == 'error' ? 'bg-red-500 hover:bg-red-400' : ''}`}
 						>
-							Reserve
+							{linkStatus == 'error' ? 'Try Again' : 'Reserve'}
 						</ButtonPrimary>
 					)}
 				/>

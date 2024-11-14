@@ -71,6 +71,7 @@ import { PiTowel } from 'react-icons/pi'
 import { MdOutlineRamenDining } from 'react-icons/md'
 import { GiFirstAidKit } from 'react-icons/gi'
 import { PiSirenFill } from 'react-icons/pi'
+import MobileFooterSticky from '../(components)/MobileFooterSticky'
 
 const Amenities_demos = [
 	{ name: 'Swimming Pool', icon: <FaSwimmingPool /> },
@@ -829,11 +830,16 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 					{renderSection1()}
 					{renderSection2()}
 					{renderSection3()}
-
 					<SectionDateRange />
 					{renderSection5()}
 					{renderSection6()}
 					{renderSection7()}
+					<MobileFooterSticky
+						handleReserve={HandleReserve}
+						linkLoading={linkLoading}
+						price={listings.discountedPrice}
+						linkStatus={linkStatus}
+					/>
 				</div>
 
 				{/* SIDEBAR */}

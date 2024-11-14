@@ -142,13 +142,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 						},
 					}
 				})
-
-				// Filter listings based on the 'area' query parameter
-				const filteredListings = area
-					? parsedListings.filter((listing: any) => listing.Area === area)
-					: parsedListings
-
-				setListings(filteredListings)
+				setListings(parsedListings)
 				setStatus('success')
 			})
 			.catch((error) => {
@@ -166,10 +160,10 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 		setPrice(50)
 		setBeds(1)
 	}, [])
-	 
+
 	useEffect(() => {
 		if (bed && pri && loc) {
-			console.warn('location is rendering')
+			console.log('bed is running')
 			setFilteredData(
 				listings.filter(
 					(list: any) =>
@@ -178,20 +172,68 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 						list.Country === loc,
 				),
 			)
+			return
 		}
 		if (area) {
-			console.warn('area is rendering')
-			setFilteredData(listings.filter((list: any) => list.Area === area))
+			console.log('area is running', area)
+			setFilteredData(
+				listings.filter(
+					(list: any) => list.Area.toLowerCase() === area.toLowerCase(),
+				),
+			)
+			return
 		}
-		if (tower ) {
-			console.warn('tower is rendering', tower)
+		if (tower) {
+			console.log('tower is running')
 			setFilteredData(listings.filter((list: any) => list.towerName === tower))
+			return
 		} else {
-			console.warn('all is rendering')
 			setFilteredData(listings)
 		}
 	}, [listings])
+	const [propertyType, setPropertyType] = useState<string[]>([])
+	const [filterBeds, setFitlerBeds] = useState<number | null>(null)
+	const [rangePrices, setRangePrices] = useState<number[]>([0, 1000])
+	const handleBedFilter = () => {
+		setFitlerBeds(0)
+		ApplyFilter()
+	}
+	const handlePriceFilter = () => {
+		setRangePrices([0, 1000])
+		ApplyFilter()
+	}
+	const handlePropertyFilter = () => {
+		setPropertyType([])
+		ApplyFilter()
+	}
+	const ApplyFilter = () => {
+		let filteredListings = listings // Assuming 'listings' is the full list of data
+		 
+		// Apply propertyType filter if selected
+		if (propertyType.length > 0) {
+			// Keep all items that match the propertyType filter (duplicates allowed)
+			filteredListings = listings.filter((list: any) =>
+				propertyType.includes(list.propertyType),
+			)
+		}
 
+		// Apply filterBeds filter if set
+		if (filterBeds != null) {
+			filteredListings = filteredListings.filter(
+				(list: any) => list.beds <= filterBeds,
+			)
+		}
+
+		// Apply rangePrices filter if range is set
+		if (rangePrices) {
+			filteredListings = filteredListings.filter(
+				(list: any) =>
+					list.discountedPrice >= rangePrices[0] &&
+					list.discountedPrice <= rangePrices[1],
+			)
+		}
+		setFilteredData(filteredListings)
+	}
 	return (
 		<div>
 			<div className="relative flex min-h-screen">
@@ -202,7 +244,18 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 						className="!mb-8"
 					/>
 					<div className="mb-8 lg:mb-11">
-						<TabFilters />
+						<TabFilters
+							setPropertyType={setPropertyType}
+							propertyType={propertyType}
+							setFitlerBeds={setFitlerBeds}
+							filterBeds={filterBeds}
+							setRangePrices={setRangePrices}
+							rangePrices={rangePrices}
+							ApplyFilter={ApplyFilter}
+							handleBedFilter={handleBedFilter}
+							handlePriceFilter={handlePriceFilter}
+							handlePropertyFilter={handlePropertyFilter}
+						/>
 					</div>
 					<div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 2xl:gap-x-6">
 						{filteredData.map((item: any) => (

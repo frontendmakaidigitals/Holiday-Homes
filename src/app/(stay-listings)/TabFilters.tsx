@@ -70,21 +70,44 @@ const moreFilter3 = [
 
 const moreFilter4 = [{ name: ' Pets allowed' }, { name: 'Smoking allowed' }]
 
-const TabFilters = () => {
+const TabFilters = ({
+	propertyType,
+	setPropertyType,
+	filterBeds,
+	setFitlerBeds,
+	rangePrices,
+	setRangePrices,
+	ApplyFilter,
+	handleBedFilter,
+	handlePriceFilter,
+	handlePropertyFilter,
+}: {
+	propertyType: string[]
+	setPropertyType: any
+	setFitlerBeds: any
+	filterBeds: any
+	rangePrices: number[]
+	setRangePrices: any
+	ApplyFilter: any
+	handlePriceFilter: any
+	handlePropertyFilter: any
+	handleBedFilter: any
+}) => {
 	const [isOpenMoreFilter, setisOpenMoreFilter] = useState(false)
 	const [isOpenMoreFilterMobile, setisOpenMoreFilterMobile] = useState(false)
-	const [rangePrices, setRangePrices] = useState([0, 1000])
 
-	//
 	const closeModalMoreFilter = () => setisOpenMoreFilter(false)
 	const openModalMoreFilter = () => setisOpenMoreFilter(true)
 	//
 	const closeModalMoreFilterMobile = () => setisOpenMoreFilterMobile(false)
 	const openModalMoreFilterMobile = () => setisOpenMoreFilterMobile(true)
 
-	const renderXClear = () => {
+	const renderXClear = (onClick: any) => {
 		return (
-			<span className="ml-3 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-primary-500 text-white">
+			<span
+				onClick={onClick}
+				className="ml-3 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-primary-500 text-white"
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					className="h-3 w-3"
@@ -100,6 +123,16 @@ const TabFilters = () => {
 			</span>
 		)
 	}
+	const handleCheckboxChange = (name: string) => {
+		setPropertyType((prevSelected: string[]) => {
+			// If the item is already selected, remove it from the array
+			if (prevSelected.includes(name)) {
+				return prevSelected.filter((item) => item !== name)
+			}
+			// Otherwise, add the item to the array
+			return [...prevSelected, name]
+		})
+	}
 
 	const renderTabsTypeOfPlace = () => {
 		return (
@@ -107,12 +140,20 @@ const TabFilters = () => {
 				{({ open, close }) => (
 					<>
 						<PopoverButton
-							className={`flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm hover:border-neutral-400 focus:outline-none dark:border-neutral-700 dark:hover:border-neutral-6000 ${
+							className={`${propertyType.length != 0 ? 'border-primary-100/80 bg-primary-500/10' : 'border-neutral-300 bg-transparent'} flex items-center justify-center rounded-full border px-4 py-2 text-sm hover:border-neutral-400 focus:outline-none dark:border-neutral-700 dark:hover:border-neutral-6000 ${
 								open ? '!border-primary-500' : ''
 							}`}
 						>
-							<span>Property Types</span>
-							<i className="las la-angle-down ml-2"></i>
+							<span>
+								Property Types (
+								{propertyType.length ? propertyType.length : 'All'})
+							</span>
+
+							{propertyType.length != 0 ? (
+								renderXClear(handlePropertyFilter)
+							) : (
+								<i className="las la-angle-down ml-2"></i>
+							)}
 						</PopoverButton>
 						<Transition
 							as={Fragment}
@@ -132,20 +173,22 @@ const TabFilters = () => {
 													name={item.name}
 													label={item.name}
 													subLabel={item.description}
+													checked={propertyType.includes(item.name)} // Check if the item is selected
+													onChange={() => handleCheckboxChange(item.name)}
 												/>
 											</div>
 										))}
 									</div>
 									<div className="flex items-center justify-between bg-neutral-50 p-5 dark:border-t dark:border-neutral-800 dark:bg-neutral-900">
-										<ButtonThird onClick={close} sizeClass="px-4 py-2 sm:px-5">
-											Clear
-										</ButtonThird>
-										<ButtonPrimary
-											onClick={close}
+										<ButtonThird
+											onClick={() => {
+												handlePropertyFilter()
+												close()
+											}}
 											sizeClass="px-4 py-2 sm:px-5"
 										>
-											Apply
-										</ButtonPrimary>
+											Clear
+										</ButtonThird>
 									</div>
 								</div>
 							</PopoverPanel>
@@ -162,12 +205,17 @@ const TabFilters = () => {
 				{({ open, close }) => (
 					<>
 						<PopoverButton
-							className={`flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm hover:border-neutral-400 focus:outline-none dark:border-neutral-700 dark:hover:border-neutral-6000 ${
+							className={`flex items-center justify-center ${filterBeds ? 'border-primary-300 bg-primary-500/10' : ''} rounded-full border border-neutral-300 px-4 py-2 text-sm hover:border-neutral-400 focus:outline-none dark:border-neutral-700 dark:hover:border-neutral-6000 ${
 								open ? '!border-primary-500' : ''
 							}`}
 						>
-							<span>Rooms of Beds</span>
-							<i className="las la-angle-down ml-2"></i>
+							<span>Beds {filterBeds == 0 ? '' : filterBeds}</span>
+
+							{filterBeds ? (
+								renderXClear(handleBedFilter)
+							) : (
+								<i className="las la-angle-down ml-2"></i>
+							)}
 						</PopoverButton>
 						<Transition
 							as={Fragment}
@@ -181,20 +229,23 @@ const TabFilters = () => {
 							<PopoverPanel className="absolute left-0 z-10 mt-3 w-screen max-w-sm px-4 sm:px-0 lg:max-w-md">
 								<div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-xl dark:border-neutral-700 dark:bg-neutral-900">
 									<div className="relative flex flex-col space-y-5 px-5 py-6">
-										<NcInputNumber label="Beds" max={10} />
-										<NcInputNumber label="Bedrooms" max={10} />
-										<NcInputNumber label="Bathrooms" max={10} />
+										<NcInputNumber
+											label="Beds"
+											max={10}
+											defaultValue={filterBeds || 0}
+											onChange={(value) => setFitlerBeds(value)}
+										/>
 									</div>
 									<div className="flex items-center justify-between bg-neutral-50 p-5 dark:border-t dark:border-neutral-800 dark:bg-neutral-900">
-										<ButtonThird onClick={close} sizeClass="px-4 py-2 sm:px-5">
-											Clear
-										</ButtonThird>
-										<ButtonPrimary
-											onClick={close}
+										<ButtonThird
+											onClick={() => {
+												handleBedFilter()
+												close()
+											}}
 											sizeClass="px-4 py-2 sm:px-5"
 										>
-											Apply
-										</ButtonPrimary>
+											Clear
+										</ButtonThird>
 									</div>
 								</div>
 							</PopoverPanel>
@@ -211,14 +262,13 @@ const TabFilters = () => {
 				{({ open, close }) => (
 					<>
 						<PopoverButton
-							className={`flex items-center justify-center rounded-full border border-primary-500 bg-primary-50 px-4 py-2 text-sm text-primary-700 focus:outline-none`}
+							className={`flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm focus:outline-none`}
 						>
 							<span>
 								{`$${convertNumbThousand(
 									rangePrices[0],
 								)} - $${convertNumbThousand(rangePrices[1])}`}{' '}
 							</span>
-							{renderXClear()}
 						</PopoverButton>
 						<Transition
 							as={Fragment}
@@ -243,67 +293,23 @@ const TabFilters = () => {
 												allowCross={false}
 												onChange={(e) => setRangePrices(e as number[])}
 											/>
-										</div>
-
-										<div className="flex justify-between space-x-5">
-											<div>
-												<label
-													htmlFor="minPrice"
-													className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
-												>
-													Min price
-												</label>
-												<div className="relative mt-1 rounded-md">
-													<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-														<span className="text-neutral-500 sm:text-sm">
-															$
-														</span>
-													</div>
-													<input
-														type="text"
-														name="minPrice"
-														disabled
-														id="minPrice"
-														className="block w-full rounded-full border-neutral-200 pl-7 pr-3 text-neutral-900 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-														value={rangePrices[0]}
-													/>
-												</div>
-											</div>
-											<div>
-												<label
-													htmlFor="maxPrice"
-													className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
-												>
-													Max price
-												</label>
-												<div className="relative mt-1 rounded-md">
-													<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-														<span className="text-neutral-500 sm:text-sm">
-															$
-														</span>
-													</div>
-													<input
-														type="text"
-														disabled
-														name="maxPrice"
-														id="maxPrice"
-														className="block w-full rounded-full border-neutral-200 pl-7 pr-3 text-neutral-900 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-														value={rangePrices[1]}
-													/>
-												</div>
+											<div className="flex w-full items-center justify-between">
+												<p>{rangePrices[0]}</p>
+												<p></p>
+												<p>{rangePrices[1]}</p>
 											</div>
 										</div>
 									</div>
 									<div className="flex items-center justify-between bg-neutral-50 p-5 dark:border-t dark:border-neutral-800 dark:bg-neutral-900">
-										<ButtonThird onClick={close} sizeClass="px-4 py-2 sm:px-5">
-											Clear
-										</ButtonThird>
-										<ButtonPrimary
-											onClick={close}
+										<ButtonThird
+											onClick={() => {
+												handlePriceFilter()
+												close()
+											}}
 											sizeClass="px-4 py-2 sm:px-5"
 										>
-											Apply
-										</ButtonPrimary>
+											Clear
+										</ButtonThird>
 									</div>
 								</div>
 							</PopoverPanel>
@@ -356,7 +362,7 @@ const TabFilters = () => {
 					onClick={openModalMoreFilter}
 				>
 					<span>More filters (3)</span>
-					{renderXClear()}
+					 
 				</div>
 
 				<Transition appear show={isOpenMoreFilter} as={Fragment}>
@@ -468,7 +474,7 @@ const TabFilters = () => {
 					onClick={openModalMoreFilterMobile}
 				>
 					<span>More filters (3)</span>
-					{renderXClear()}
+					 
 				</div>
 
 				<Transition appear show={isOpenMoreFilterMobile} as={Fragment}>
@@ -672,9 +678,11 @@ const TabFilters = () => {
 				{renderTabsTypeOfPlace()}
 				{renderTabsPriceRage()}
 				{renderTabsRoomAndBeds()}
-				{renderTabMoreFilter()}
+				<ButtonPrimary onClick={ApplyFilter} className="!py-2">
+					Apply
+				</ButtonPrimary>
 			</div>
-			{renderTabMoreFilterMobile()}
+			 
 		</div>
 	)
 }
