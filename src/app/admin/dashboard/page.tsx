@@ -36,23 +36,37 @@ const data = [
 
 const Page = () => {
 	const [areaCounts, setAreaCounts] = useState({})
-
+	const [isLoading, setIsLoading] = useState(false)
+	const [status, setStatus] = useState('')
+	const [searchTerm, setSearchTerm] = useState('')
+	const [queries, setQueries] = useState([])
 	// Simulating an API call and processing the data
+	const getQueries = () => {
+		setIsLoading(true)
+		axios
+			.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/sanctum/csrf-cookie`, {
+				withCredentials: true,
+			})
+			.then(() => {
+				return axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/query`, {
+					withCredentials: true,
+				})
+			})
+			.then((res) => {
+				setQueries(res.data)
+				setStatus('success')
+			})
+			.catch((error) => {
+				console.error(error)
+				setStatus('failed')
+			})
+			.finally(() => {
+				setIsLoading(false)
+			})
+	}
+
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				// In real use case, you'd fetch this data
-				// const res = await axios.get('/api/blogs')
-				// const data = res.data;
-
-				const processedData = processData(data) // Use the data from the API or mock data
-				setAreaCounts(processedData)
-			} catch (err) {
-				console.error(err)
-			}
-		}
-
-		fetchData()
+		getQueries()
 	}, [])
 
 	// Function to process the raw data into area counts grouped by month
@@ -84,7 +98,7 @@ const Page = () => {
 					<AreaGraphs areaCounts={areaCounts} />
 				</div>
 				<div className="h-full w-full rounded-xl bg-yellow-50 lg:col-start-3">
-					<TotalQuery />
+					<TotalQuery queries={queries} />
 				</div>
 				<div className="h-full w-full rounded-xl bg-gray-100 lg:col-start-3 lg:row-start-2"></div>
 			</div>
@@ -94,25 +108,37 @@ const Page = () => {
 
 export default Page
 
-const TotalQuery = () => {
-	const totalNum = 421
+const TotalQuery = ({ queries }: { queries: any }) => {
+	const [checked, setChecked] = useState(0)
+
+	const getChecked = () => {
+		// Count the number of items where is_read is true
+		const count = queries.filter((item: any) => item.is_read).length
+		setChecked(count)
+	}
+
+	useEffect(() => {
+		getChecked()
+	}, [queries])
+
 	return (
 		<div className="h-full w-full p-5">
 			<p className="text-2xl font-semibold">Queries</p>
 
 			<div className="flex items-center justify-center">
 				<p className="text-6xl">
-					821<span className="text-lg">Total</span>
+					{queries.length}
+					<span className="text-lg">Total</span>
 				</p>
 			</div>
 			<div className="mt-5 flex w-full items-center justify-end gap-4">
 				<p className="flex items-center">
 					<IoIosCheckbox className="text-lg text-green-300" />{' '}
-					<span className="">412</span>
+					<span className="">{checked}</span>
 				</p>
 				<p className="flex items-center">
 					<IoIosCheckbox className="text-lg text-red-400" />{' '}
-					<span className="">42</span>
+					<span className="">{queries.length - checked}</span>
 				</p>
 			</div>
 		</div>

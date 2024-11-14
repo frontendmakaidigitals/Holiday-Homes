@@ -255,7 +255,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 				city: geoResponse.data.city,
 				country: geoResponse.data.country_name,
 				state: geoResponse.data.state_prov,
-				price: listings?.Price,
+				price: listings?.discountedPrice,
 				area: listings?.Area,
 			}
 
