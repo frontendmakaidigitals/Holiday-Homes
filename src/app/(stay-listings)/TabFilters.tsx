@@ -69,30 +69,30 @@ const moreFilter3 = [
 ]
 
 const moreFilter4 = [{ name: ' Pets allowed' }, { name: 'Smoking allowed' }]
-
-const TabFilters = ({
-	propertyType,
+interface TabFiltersProps {
+	propertyType?: string[] // Optional array of property types
+	setPropertyType?: any // Optional setter function for property type
+	filterBeds?: number | null // Optional filter for beds
+	setFitlerBeds?: any // Optional setter for bed filter
+	rangePrices?: number[] // Optional price range filter
+	setRangePrices?: any // Optional setter for price range
+	ApplyFilter?: any // Optional function to apply the filter
+	handlePriceFilter?: any // Optional function to reset the price filter
+	handlePropertyFilter?: any // Optional function to reset the property type filter
+	handleBedFilter?: any // Optional function to reset the bed filter
+}
+const TabFilters: React.FC<TabFiltersProps> = ({
+	propertyType = [], // Default to an empty array if not provided
 	setPropertyType,
-	filterBeds,
+	filterBeds = null, // Default to null if not provided
 	setFitlerBeds,
-	rangePrices,
+	rangePrices = [0, 1000], // Default to a range of [0, 1000] if not provided
 	setRangePrices,
 	ApplyFilter,
-	handleBedFilter,
 	handlePriceFilter,
 	handlePropertyFilter,
-}: {
-	propertyType: string[]
-	setPropertyType: any
-	setFitlerBeds: any
-	filterBeds: any
-	rangePrices: number[]
-	setRangePrices: any
-	ApplyFilter: any
-	handlePriceFilter: any
-	handlePropertyFilter: any
-	handleBedFilter: any
-}) => {
+	handleBedFilter,
+}: TabFiltersProps) => {
 	const [isOpenMoreFilter, setisOpenMoreFilter] = useState(false)
 	const [isOpenMoreFilterMobile, setisOpenMoreFilterMobile] = useState(false)
 
@@ -362,7 +362,6 @@ const TabFilters = ({
 					onClick={openModalMoreFilter}
 				>
 					<span>More filters (3)</span>
-					 
 				</div>
 
 				<Transition appear show={isOpenMoreFilter} as={Fragment}>
@@ -474,7 +473,6 @@ const TabFilters = ({
 					onClick={openModalMoreFilterMobile}
 				>
 					<span>More filters (3)</span>
-					 
 				</div>
 
 				<Transition appear show={isOpenMoreFilterMobile} as={Fragment}>
@@ -682,7 +680,6 @@ const TabFilters = ({
 					Apply
 				</ButtonPrimary>
 			</div>
-			 
 		</div>
 	)
 }
