@@ -1,17 +1,18 @@
 import React from 'react'
 import { GoChevronRight } from 'react-icons/go'
 import { GoChevronLeft } from 'react-icons/go'
+
 // Pagination component that takes current page, total pages, and the function to change pages
 interface PaginationProps {
-	currentPage: number
-	totalPages: number
-	onPageChange: (page: number) => void
+	currentPage?: number
+	totalPages?: number
+	onPageChange?: (page: number) => void
 }
 
 const Pagination: React.FC<PaginationProps> = ({
-	currentPage,
-	totalPages,
-	onPageChange,
+	currentPage = 1, // Default value for currentPage
+	totalPages = 1, // Default value for totalPages
+	onPageChange = () => {}, // Default empty function for onPageChange
 }) => {
 	const pages = Array.from({ length: totalPages }, (_, index) => index + 1)
 
