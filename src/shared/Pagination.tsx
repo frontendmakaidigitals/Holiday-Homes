@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { GoChevronRight } from 'react-icons/go'
 import { GoChevronLeft } from 'react-icons/go'
