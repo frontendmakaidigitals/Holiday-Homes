@@ -111,7 +111,7 @@ const Page = () => {
 	}, [])
 
 	// Function to process the raw data into area counts grouped by month
-	const processData = (data: { Area: string; created_at: string }[]) => {
+	const processData = (data: { area: string; created_at: string }[]) => {
 		const areaCounts: { [key: string]: { [key: string]: number } } = {}
 
 		data.forEach((item) => {
@@ -122,26 +122,26 @@ const Page = () => {
 				areaCounts[monthYear] = {}
 			}
 
-			if (!areaCounts[monthYear][item.Area]) {
-				areaCounts[monthYear][item.Area] = 0
+			if (!areaCounts[monthYear][item.area]) {
+				areaCounts[monthYear][item.area] = 0
 			}
 
-			areaCounts[monthYear][item.Area]++
+			areaCounts[monthYear][item.area]++
 		})
 
 		return areaCounts
 	}
-	console.log(tracking)
+
 	return (
 		<div className="h-[100vh] w-full xl:mt-5 xl:px-3 xxl:mt-7 xxl:px-7 xxxl:mt-10 xxxl:px-10">
 			<div className="grid w-full grid-cols-1 gap-x-7 gap-y-7 lg:grid-cols-3 lg:grid-rows-2">
 				<div className="h-full w-full rounded-xl bg-slate-200 lg:col-span-2 lg:row-span-2">
 					<AreaGraphs areaCounts={areaCounts} />
 				</div>
-				<div className="h-full w-full rounded-xl bg-yellow-50 lg:col-start-3">
+				<div className="h-full w-full rounded-xl bg-yellow-50 shadow-md lg:col-start-3">
 					<TotalQuery queries={queries} />
 				</div>
-				<div className="h-full w-full rounded-xl bg-slate-100 lg:col-start-3 lg:row-start-2">
+				<div className="h-full w-full rounded-xl bg-slate-100 shadow-md lg:col-start-3 lg:row-start-2">
 					<Listing listings={listings} />
 				</div>
 			</div>
@@ -189,10 +189,9 @@ const TotalQuery = ({ queries }: { queries: any }) => {
 }
 // AreaGraphs component now accepts areaCounts as a prop to show the chart
 const AreaGraphs = ({ areaCounts }: any) => {
-	// If areaCounts is empty, return a loading or fallback message
 	if (Object.keys(areaCounts).length === 0) {
 		return (
-			<Card className="w-full">
+			<Card className="flex h-full w-full flex-col items-center justify-center">
 				<CardHeader>
 					<CardTitle>Loading...</CardTitle>
 				</CardHeader>
@@ -203,16 +202,14 @@ const AreaGraphs = ({ areaCounts }: any) => {
 		)
 	}
 
-	// Define a color mapping for each area
 	const areaColors: any = {
 		Marina: '#ff96ce',
-		Downtown: '#96ffc9',
-		Suburb: '#e0ff96',
-		Beach: '#ffcd69',
-		// Add more areas as needed
+		Downtown: '#5C6BC0',
+		'Business Bay': '#00ACC1',
+		'Jumeriah Village Circle': '#5D4037',
+		'Jumeriah Lake Triangle': '#EF6C00',
 	}
 
-	// Function to get full month name from month number (0-11)
 	const getMonthName = (monthIndex: number) => {
 		const months = [
 			'January',
@@ -231,7 +228,6 @@ const AreaGraphs = ({ areaCounts }: any) => {
 		return months[monthIndex]
 	}
 
-	// Create a list of all months in the year (January to December)
 	const allMonths = [
 		'01',
 		'02',
@@ -247,23 +243,28 @@ const AreaGraphs = ({ areaCounts }: any) => {
 		'12',
 	]
 
-	// Format the areaCounts data to create chartData
+	// Construct chartData
 	const chartData = allMonths.map((monthIndex) => {
-		const monthYear = `${monthIndex}-2024` // You can adjust the year as needed
-		const monthName = getMonthName(parseInt(monthIndex) - 1) // Convert monthIndex to a full month name
+		const monthYear = `${monthIndex}-2024`
+		const monthName = getMonthName(parseInt(monthIndex) - 1)
 
-		// Check if we have data for the current month
-		const areas = areaCounts[monthYear] || {} // Fallback to an empty object if no data exists for that month
+		const areas = areaCounts[monthYear] || {}
 
-		return {
-			month: `${monthName}`, // Format month as "Month"
-			...Object.keys(areaColors).reduce((acc: any, area: any) => {
-				// Ensure each area has a count for each month (default to 0 if no data exists)
-				acc[area] = areas[area] || 0
-				return acc
-			}, {}),
-		}
+		// Ensure all areas have valid values
+		const validData = Object.keys(areaColors).reduce((acc: any, area: any) => {
+			const value = areas[area]
+			acc[area] = isNaN(value) || value == null ? 0 : value // Default to 0 if invalid
+			return acc
+		}, {})
+
+		return { month: monthName, ...validData }
 	})
+
+	console.log('chartData', chartData) // Debugging: Check the generated data
+
+	if (chartData.length === 0) {
+		return <p>No data available for the chart.</p>
+	}
 
 	return (
 		<Card className="h-full w-full">
@@ -283,30 +284,32 @@ const AreaGraphs = ({ areaCounts }: any) => {
 								dataKey="month"
 								tickLine={false}
 								axisLine={false}
-								tickFormatter={(value) => value.slice(0, 3)} // Shorten month names if needed
+								tickFormatter={(value) => value.slice(0, 3)} // Shortened month names
 							/>
-							<YAxis tickLine={false} axisLine={false} />
+							{/* Adjust YAxis domain to ensure it starts from 0 and auto scales */}
+							<YAxis tickLine={false} axisLine={false} domain={[0, 'auto']} />
 							<Tooltip
 								contentStyle={{
-									background: 'white', // Tooltip background color
-									border: '.4px solid #000000', // Custom border color
+									background: 'white',
+									border: '.4px solid #000000',
 									borderRadius: '.6rem',
 									paddingRight: '1rem',
 									paddingLeft: '1rem',
 									paddingTop: '0.5rem',
 									paddingBottom: '0.5rem',
 								}}
-								labelFormatter={(value) => `${value}`} // Display month in tooltip
+								labelFormatter={(value) => `${value}`}
 							/>
+							{/* Render each Area dynamically */}
 							{Object.keys(areaColors).map((area) => (
 								<Area
 									key={area}
-									type="natural"
+									type="monotone"
 									dataKey={area}
-									stackId="a"
-									stroke={areaColors[area] || 'gray'} // Use the color from areaColors or fallback to gray
+									stackId="a" // If you want stacking, keep this; otherwise, remove it
+									stroke={areaColors[area] || 'gray'}
+									fill={areaColors[area] || 'gray'}
 									fillOpacity={0.4}
-									fill={areaColors[area] || 'gray'} // Use the color from areaColors or fallback to gray
 								/>
 							))}
 						</AreaChart>
