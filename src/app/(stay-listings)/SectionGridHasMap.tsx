@@ -20,6 +20,7 @@ import dynamic from 'next/dynamic'
 import SectionSliderNewCategories from '@/components/SectionSliderNewCategories'
 import { TaxonomyType } from '@/data/types'
 import useStore from '@/components/ListingStore'
+import { useMemo } from 'react'
 const DEMO_STAYS = DEMO_STAY_LISTINGS.filter((_, i) => i < 12)
 export interface SectionGridHasMapProps {}
 const MapContainer = dynamic(() => import('@/components/MapContainer'), {
@@ -235,11 +236,35 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 		setPropertyType([])
 		ApplyFilter()
 	}
+	const itemsPerPage = 10 // Number of items to display per page
+	const [currentPage, setCurrentPage] = useState(1)
+
+	// Calculate total number of pages based on filteredData length and itemsPerPage
+	const totalPages = useMemo(
+		() => Math.ceil(filteredData.length / itemsPerPage),
+		[filteredData],
+	)
+
+	// Function to handle page change
+	const handlePageChange = (page: number) => {
+		if (page >= 1 && page <= totalPages) {
+			setCurrentPage(page)
+		}
+	}
+
+	// Slice the filtered data to show only the items for the current page
+	const currentPageData = useMemo(() => {
+		const startIndex = (currentPage - 1) * itemsPerPage
+		const endIndex = startIndex + itemsPerPage
+		return filteredData.slice(startIndex, endIndex)
+	}, [currentPage, filteredData])
 	return (
 		<div>
 			<div className="relative flex min-h-screen">
 				{/* CARDSSSS */}
-				<div className="min-h-screen w-full max-w-[1184px] flex-shrink-0 xl:w-[60%] xl:px-8 2xl:w-[60%]">
+				<div
+					className={`${filteredData.length > 0 ? 'min-h-screen max-w-[1184px] xl:w-[60%] xl:px-8 2xl:w-[60%]' : 'h-auto'} w-full flex-shrink-0`}
+				>
 					<Heading2
 						heading={`Stays in ${area || loc || tower}`}
 						className="!mb-8"
@@ -258,20 +283,24 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 							handlePropertyFilter={handlePropertyFilter}
 						/>
 					</div>
-					<div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 2xl:gap-x-6">
-						{filteredData.map((item: any) => (
-							<div
-								key={item.id}
-								onMouseEnter={() => setCurrentHoverID((_) => item.id)}
-								onMouseLeave={() => setCurrentHoverID((_) => -1)}
-							>
-								<StayCard2 data={item} />
-							</div>
-						))}
-					</div>
-					<div className="mt-16 flex items-center justify-center">
-						<Pagination />
-					</div>
+
+					{filteredData.length > 0 ? (
+						<div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 2xl:gap-x-6">
+							{filteredData.map((item: any) => (
+								<div
+									key={item.id}
+									onMouseEnter={() => setCurrentHoverID((_) => item.id)}
+									onMouseLeave={() => setCurrentHoverID((_) => -1)}
+								>
+									<StayCard2 data={item} />
+								</div>
+							))}
+						</div>
+					) : (
+						<div className="flex h-full items-center justify-center">
+							<p className="text-4xl font-semibold">No Listing was found</p>
+						</div>
+					)}
 				</div>
 
 				{!showFullMapFixed && (
@@ -306,6 +335,15 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 					</div>
 				</div>
 			</div>
+			{filteredData.length > 0 && (
+				<div className="mt-16 flex items-center justify-center">
+					<Pagination
+						currentPage={currentPage}
+						totalPages={totalPages}
+						onPageChange={handlePageChange}
+					/>
+				</div>
+			)}
 
 			<div className="container overflow-hidden">
 				{/* SECTION 1 */}

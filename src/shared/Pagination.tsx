@@ -1,51 +1,48 @@
-import { CustomLink } from '@/data/types'
-import React, { FC } from 'react'
-import twFocusClass from '@/utils/twFocusClass'
-import Link from 'next/link'
-import { Route } from '@/routers/types'
-
-const DEMO_PAGINATION: CustomLink[] = [
-	{
-		label: '1',
-		href: '#',
-	},
-]
-
-export interface PaginationProps {
-	className?: string
+import React from 'react'
+import { GoChevronRight } from 'react-icons/go'
+import { GoChevronLeft } from 'react-icons/go'
+// Pagination component that takes current page, total pages, and the function to change pages
+interface PaginationProps {
+	currentPage: number
+	totalPages: number
+	onPageChange: (page: number) => void
 }
 
-const Pagination: FC<PaginationProps> = ({ className = '' }) => {
-	const renderItem = (pag: CustomLink, index: number) => {
-		if (index === 0) {
-			// RETURN ACTIVE PAGINATION
-			return (
-				<span
-					key={index}
-					className={`inline-flex h-11 w-11 items-center justify-center rounded-full bg-primary-6000 text-white ${twFocusClass()}`}
-				>
-					{pag.label}
-				</span>
-			)
-		}
-		// RETURN UNACTIVE PAGINATION
-		return (
-			<Link
-				key={index}
-				className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-6000 hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 ${twFocusClass()}`}
-				href={pag.href as Route}
-			>
-				{pag.label}
-			</Link>
-		)
-	}
+const Pagination: React.FC<PaginationProps> = ({
+	currentPage,
+	totalPages,
+	onPageChange,
+}) => {
+	const pages = Array.from({ length: totalPages }, (_, index) => index + 1)
 
 	return (
-		<nav
-			className={`nc-Pagination inline-flex space-x-1 text-base font-medium ${className}`}
-		>
-			{DEMO_PAGINATION.map(renderItem)}
-		</nav>
+		<div className="flex items-center space-x-2">
+			<button
+				onClick={() => onPageChange(currentPage - 1)}
+				disabled={currentPage === 1}
+				className="flex size-10 items-center justify-center rounded-full bg-gray-300 text-xl text-gray-700"
+			>
+				<GoChevronLeft />
+			</button>
+
+			{pages.map((page) => (
+				<button
+					key={page}
+					onClick={() => onPageChange(page)}
+					className={`size-10 rounded-full ${currentPage === page ? 'bg-transparent text-black' : 'bg-gray-200'}`}
+				>
+					{page}
+				</button>
+			))}
+
+			<button
+				onClick={() => onPageChange(currentPage + 1)}
+				disabled={currentPage === totalPages}
+				className="flex size-10 items-center justify-center rounded-full bg-gray-300 text-xl text-gray-700"
+			>
+				<GoChevronRight />
+			</button>
+		</div>
 	)
 }
 
