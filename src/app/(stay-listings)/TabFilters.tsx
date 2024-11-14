@@ -144,10 +144,7 @@ const TabFilters: React.FC<TabFiltersProps> = ({
 								open ? '!border-primary-500' : ''
 							}`}
 						>
-							<span>
-								Property Types (
-								{propertyType.length })
-							</span>
+							<span>Property Types ({propertyType.length})</span>
 
 							{propertyType.length != 0 ? (
 								renderXClear(handlePropertyFilter)

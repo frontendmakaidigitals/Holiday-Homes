@@ -6,11 +6,6 @@ import Heading from '@/shared/Heading'
 
 const Teams = [
 	{
-		name: 'Maqbool Ahmad Khan',
-		designation: 'Co-Founder',
-		avatar: '/FounderImages/Maqbool.png',
-	},
-	{
 		name: 'Shoaib Abdallah',
 		designation: 'Co-Founder',
 		avatar: '/FounderImages/Shoaib.jpeg',
@@ -27,7 +22,7 @@ export default function SwiperTeams() {
 		<div className="w-full py-24">
 			<Heading desc={''}>Meet our Founders</Heading>
 
-			<div className="grid w-full grid-cols-1 gap-10 md:grid-cols-3">
+			<div className="grid w-full grid-cols-1 gap-10 md:grid-cols-4">
 				{Teams.map((item, index) => (
 					<div key={index} className="w-full rounded-lg bg-gray-50 shadow-lg">
 						{' '}
