@@ -250,11 +250,12 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 
 			// Step 3: Prepare the data to send in the tracking request
 			const trackingData = {
-				placeName: listings?.placeName,
+				placeName: listings?.propertyTitle,
 				city: geoResponse.data.city,
 				country: geoResponse.data.country_name,
 				state: geoResponse.data.state_prov,
 				price: listings?.Price,
+				area: listings?.Area,
 			}
 
 			// Step 4: Set the data in state
