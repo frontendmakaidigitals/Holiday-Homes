@@ -54,26 +54,26 @@ const TestitmonialCarousal = () => {
 							key={index}
 							className="pl-1 md:basis-1/2 lg:basis-1/3"
 						>
-							<div className="p-1">
-								<Card className="relative">
+							<div className="flex flex-wrap gap-4 p-1">
+								<Card className="relative flex h-full min-h-[350px] lg:min-h-[320px]  xxl:min-h-[300px] xxxl:min-h-[260px] flex-col items-start justify-between">
 									<img
 										className="absolute -top-1 left-0 w-20 opacity-[.3]"
-										src={
-											'https://cdn-icons-png.flaticon.com/512/10276/10276414.png'
-										}
+										src="https://cdn-icons-png.flaticon.com/512/10276/10276414.png"
 										alt="testimonial background"
 									/>
 									<CardContent className="aspect-square relative z-10 flex items-center justify-center p-6">
 										{testimony.testimony}
 									</CardContent>
 
-									<div className="px-6 text-start">{testimony.name}</div>
-									<CardContent className="relative z-10 flex justify-start px-6">
-										{/* Render stars based on rating */}
-										{[...Array(testimony.rating)].map((_, i) => (
-											<IoIosStar key={i} className="text-yellow-500" />
-										))}
-									</CardContent>
+									<div className="flex   flex-col justify-between">
+										<div className="px-6 text-start">{testimony.name}</div>
+										<CardContent className="relative z-10 flex justify-start px-6">
+											{/* Render stars based on rating */}
+											{[...Array(testimony.rating)].map((_, i) => (
+												<IoIosStar key={i} className="text-yellow-500" />
+											))}
+										</CardContent>
+									</div>
 								</Card>
 							</div>
 						</CarouselItem>
