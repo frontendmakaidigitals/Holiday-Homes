@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import rightImgPng from '@/images/choose-us.svg'
+import rightImgPng from '@/images/2.jpg'
 import Image, { StaticImageData } from 'next/image'
 import Badge from '@/shared/Badge'
 
@@ -22,7 +22,7 @@ const SectionOurFeatures: FC<SectionOurFeaturesProps> = ({
 			data-nc-id="SectionOurFeatures"
 		>
 			<div className="flex-grow">
-				<Image src={rightImg} alt="" />
+				<Image src={rightImg} className="rounded-lg" alt="" />
 			</div>
 			<div
 				className={`max-w-2xl flex-shrink-0 lg:mt-0 lg:w-2/5 ${

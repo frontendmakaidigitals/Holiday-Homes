@@ -125,13 +125,13 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 		{
 			value: 'Airbnb',
 			image:
-				'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/1024px-Airbnb_Logo_B%C3%A9lo.svg.png',
+				'https://masterhost.ca/wp-content/uploads/2022/05/what-is-airbnb-superhost-1.png',
 		},
 		{
 			value: 'Badge 2',
 			image: 'https://via.placeholder.com/50?text=Apartment',
 		},
-		{ value: 'Badge 3', image: 'https://via.placeholder.com/50?text=Condo' },
+	 
 	]
 
 	const handleChange = (value: any) => {
