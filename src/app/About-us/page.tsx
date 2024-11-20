@@ -72,9 +72,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 					/>
 				</div>
 			</div>
-			<div className="container w-full rounded-lg bg-primary-50">
-				<SwiperTeams />
-			</div>
+			
 			<div className="container my-20 w-full">
 				<FAQ data={questions} />
 				<Banner />
