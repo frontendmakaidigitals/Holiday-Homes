@@ -34,7 +34,7 @@ const SectionOurFeatures: FC<SectionOurFeaturesProps> = ({
 				</span>
 				<h2 className="mt-5 text-4xl font-semibold">WHY CHOOSE US? </h2>
 				<span className="text-sm text-gray-700">
-					Handpicked collection or properties near{' '}
+					Handpicked collection of properties near{' '}
 					<span className="font-bold text-black">Downtown</span> and{' '}
 					<span className="font-bold text-black">Marina</span>
 				</span>
@@ -51,7 +51,7 @@ const SectionOurFeatures: FC<SectionOurFeaturesProps> = ({
 						</span>
 					</li>
 					<li className="space-y-4">
-						<Badge color="green" name="Competetive " />
+						<Badge color="green" name="Competitive " />
 						<span className="block text-xl font-semibold">
 							Most Flexible Prices
 						</span>
