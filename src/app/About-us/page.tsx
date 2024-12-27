@@ -31,7 +31,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 				'To get started with Brownstone Holiday Homes property management services, simply reach out to our friendly team. You can contact us through our contact page or via WhatsApp, and we will be happy to assist you with any inquiries or concerns you may have.',
 		},
 		{
-			question: 'Do holiday homes appriciate in value?',
+			question: 'Do holiday homes appreciate in value?',
 			answer:
 				'Absolutely! The property appreciates in value according to market trends, and the best part is that you continue to earn income during that time. We’ve noticed that many buyers specifically seek out holiday homes and are willing to pay a premium for properties that are already operating as vacation rentals, allowing them to start generating income immediately after the sale.',
 		},

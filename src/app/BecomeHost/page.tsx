@@ -15,7 +15,7 @@ const Page = () => {
 		{
 			question: 'How do you handle fraudluent bookings?',
 			answer:
-				'We have teams dedicated to creating, maintaining and improving controls to mitigate and prevent fraudulent bookings. There are also measures that you can take to protect your business and ways to report a suspected fake booking. To make sure you receive real bookings from real people, you can set up your property to only accept reservations from bookers with a verified phone number and/or home address. Cancellation policies and fees can also help protect you from a potential loss of income. Learn more about identifying, preventing and reporting fake bookings.',
+				'We have teams dedicated to creating, maintaining and improving controls to mitigate and prevent fraudulent bookings. There are also measures that you can take to protect your business and ways to report a suspected fake booking. To make sure you receive real bookings from real people, you can set up your property to only accept reservations from Broker with a verified phone number and/or home address. Cancellation policies and fees can also help protect you from a potential loss of income. Learn more about identifying, preventing and reporting fake bookings.',
 		},
 		{
 			question: 'How can I change the information shown on my property page?',
