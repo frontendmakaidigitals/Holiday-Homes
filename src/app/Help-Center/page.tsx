@@ -63,8 +63,8 @@ const Page = () => {
 						Help Center
 					</Heading>
 					<p className="mt-3 text-center">
-						Welcome to the Brown Stone Holiday Homes Help Center! We're here to
-						make your experience seamless and enjoyable. Below, you'll find
+						Welcome to the Brown Stone Holiday Homes Help Center! We`re here to
+						make your experience seamless and enjoyable. Below, you`ll find
 						answers to common questions, tips for booking, and details about our
 						services.
 					</p>

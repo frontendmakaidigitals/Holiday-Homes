@@ -135,7 +135,7 @@ const page = () => {
 				</div>
 				<Accordion type="single" collapsible className="my-14 w-full">
 					{faqData.map((faq, index) => (
-						<AccordionItem value={`item-${index}`}>
+						<AccordionItem key={index} value={`item-${index}`}>
 							<AccordionTrigger className='font-[600] text-md'>{faq.question}</AccordionTrigger>
 							<AccordionContent>{faq.answer}</AccordionContent>
 						</AccordionItem>
