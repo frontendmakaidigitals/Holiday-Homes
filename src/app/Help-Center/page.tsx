@@ -113,7 +113,7 @@ const Page = () => {
 					<h2 className="text-lg font-[500]">Booking & Reservations</h2>
 					<Accordion type="single" collapsible className="mt-1 w-full">
 						{booking.map((faq, index) => (
-							<AccordionItem value={`item-${index}`}>
+							<AccordionItem key={index} value={`item-${index}`}>
 								<AccordionTrigger>{faq.question}</AccordionTrigger>
 								<AccordionContent>{faq.answer}</AccordionContent>
 							</AccordionItem>
@@ -124,7 +124,7 @@ const Page = () => {
 					<h2 className="text-lg font-[500]">For Hosts</h2>
 					<Accordion type="single" collapsible className="mt-1 w-full">
 						{hosts.map((faq, index) => (
-							<AccordionItem value={`item-${index}`}>
+							<AccordionItem key={index} value={`item-${index}`}>
 								<AccordionTrigger className=" ">
 									{faq.question}
 								</AccordionTrigger>
@@ -135,9 +135,9 @@ const Page = () => {
 				</div>
 				<div className="my-10">
 					<h2 className="text-lg font-[500]">Troubleshooting</h2>
-					<Accordion type="single" collapsible className="mt-1 w-full">
+					<Accordion  type="single" collapsible className="mt-1 w-full">
 						{troubleShooting.map((faq, index) => (
-							<AccordionItem value={`item-${index}`}>
+							<AccordionItem key={index} value={`item-${index}`}>
 								<AccordionTrigger className=" ">
 									{faq.question}
 								</AccordionTrigger>
