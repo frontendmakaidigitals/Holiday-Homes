@@ -29,10 +29,10 @@ const widgetMenus: WidgetFooterMenu[] = [
 		id: '1',
 		title: 'Explore',
 		menus: [
-			{ href: '#', label: 'Help Center' },
-			{ href: '#', label: 'FAQ' },
-			{ href: '#', label: 'Privacy Policy' },
-			{ href: '#', label: 'Terms & Condition' },
+			{ href: 'Help-Center', label: 'Help Center' },
+			{ href: '/FAQ', label: 'FAQ' },
+			{ href: '/Privacy-Policy', label: 'Privacy Policy' },
+			{ href: '/Terms-and-Conditions', label: 'Terms & Condition' },
 		],
 	},
 ]
