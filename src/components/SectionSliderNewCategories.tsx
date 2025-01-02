@@ -56,7 +56,7 @@ const Tabs: TaxonomyType[] = [
 	{
 		id: '4',
 		href: '/listing-stay-map',
-		name: 'Jumeriah Village Circle',
+		name: 'Jumeirah Village Circle',
 		taxonomy: 'category',
 		count: 188288,
 		thumbnail: JVCImg,
@@ -64,7 +64,7 @@ const Tabs: TaxonomyType[] = [
 	{
 		id: '5',
 		href: '/listing-stay-map',
-		name: 'Jumeriah Lake Triangle',
+		name: 'Jumeirah Lake Triangle',
 		taxonomy: 'category',
 		count: 188288,
 		thumbnail: JLTImg,
@@ -73,7 +73,7 @@ const Tabs: TaxonomyType[] = [
 
 const SectionSliderNewCategories: FC<SectionSliderNewCategoriesProps> = ({
 	heading = 'Suggestions for discovery',
-	subHeading = 'Popular places to recommends for you',
+	subHeading = 'Popular places to recommend to you',
 	className = '',
 	itemClassName = '',
 	categories = Tabs,

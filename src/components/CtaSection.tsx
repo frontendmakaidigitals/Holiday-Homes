@@ -64,7 +64,7 @@ const CtaSection = () => {
 				</div>
 				<div className="w-full">
 					<p className="text-3xl font-semibold">
-						Get more information on the short term rental market
+						Get more information on the short term rental income
 					</p>
 					<p className="text-md mb-4 mt-2">
 						Get our brochure delivered to your inbox to get more information on

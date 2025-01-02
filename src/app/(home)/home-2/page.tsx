@@ -171,7 +171,7 @@ function PageHome2() {
           categoryCardType="card4"
           itemPerRow={4}
           heading="Popular Places"
-          subHeading="Popular places to stay that Chisfis recommends for you"
+          subHeading="Popular places to stay that BSHH recommends for you"
         />
 
         <div className="relative py-16">

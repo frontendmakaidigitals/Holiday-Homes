@@ -27,8 +27,8 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
 		'Business Bay',
 		'Marina',
 		'Downtown',
-		'Jumeriah Village Circle',
-		'Jumeriah Lake Triangle',
+		'Jumeirah Village Circle',
+		'Jumeirah Lake Triangle',
 	],
 	cardType = 'card2',
 	btnRef

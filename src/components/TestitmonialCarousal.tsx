@@ -46,7 +46,7 @@ const TestitmonialCarousal = () => {
 
 	return (
 		<div className="w-full">
-			<Heading desc={'Reviews by our Loyal Customer'}>Google Reviews</Heading>
+			<Heading desc={'Reviews by our Loyal Customers'}>Google Reviews</Heading>
 			<Carousel className="w-full">
 				<CarouselContent className="-ml-1">
 					{testimonial.map((testimony, index) => (

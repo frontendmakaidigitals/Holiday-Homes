@@ -18,7 +18,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 			question:
 				'How can we assist you in maximizing your return on investment?',
 			answer:
-				'Brownstone Holiday Homes provides complete turnkey solutions customized to meet the unique needs of each property owner. We implement effective marketing strategies, manage bookings, optimize rental income through thorough market analysis, and offer comprehensive property maintenance services, all designed to enhance the ROI for every property we oversee.',
+				'Brownstone Holiday Homes provides complete turnkey solutions customized to meet the unique needs of each property owner. We implement effective marketing strategies, manage bookings, optimize rental income through market analysis, and offer comprehensive property maintenance services, all designed to enhance the ROI for every property we oversee.',
 		},
 		{
 			question: 'What sets us apart from other property management services?',

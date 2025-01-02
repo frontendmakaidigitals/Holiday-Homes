@@ -10,7 +10,7 @@ const DEMO_DATA: { name: string; img: string; description: string }[] = [
 			'Tailoring your apartment`s furnishings to align with the preferences and needs of your guests is essential. Brownstone Holiday Homes is a licensed holiday home operator in Dubai, dedicated to preparing your vacation home for holiday rentals',
 	},
 	{
-		name: 'Chauffer Service',
+		name: 'Chauffeur Service',
 		img: 'https://st3.depositphotos.com/1177973/13591/i/450/depositphotos_135912530-stock-photo-chauffeur-opening-car-door.jpg',
 		description:
 			'Experience unparalleled convenience with our Chauffeur Service, designed to enhance your stay. Whether you`re heading to the airport, exploring the city, or attending a special event, our luxury vehicles are at your service. ',

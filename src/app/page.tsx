@@ -50,7 +50,7 @@ function PageHome() {
 		{
 			id: '4',
 			href: '/listing-stay-map',
-			name: 'Jumeriah Village Circle',
+			name: 'Jumeirah Village Circle',
 			taxonomy: 'category',
 			count: 0,
 			thumbnail: JVCImg,
@@ -58,7 +58,7 @@ function PageHome() {
 		{
 			id: '5',
 			href: '/listing-stay-map',
-			name: 'Jumeriah Lake Triangle',
+			name: 'Jumeirah Lake Triangle',
 			taxonomy: 'category',
 			count: 0,
 			thumbnail: JLTImg,

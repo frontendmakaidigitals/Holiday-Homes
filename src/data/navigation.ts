@@ -41,21 +41,21 @@ const megaMenuDemo: MegamenuItem[] = [
 	{
 		id: ncNanoId(),
 		image: JVCImg,
-		title: 'Jumeriah Village Circle',
+		title: 'Jumeirah Village Circle',
 		items: __megamenu.map((i) => ({
 			id: ncNanoId(),
 			href: '/',
-			name: i.Jumeriah_Village_Circle,
+			name: i.Jumeirah_Village_Circle,
 		})),
 	},
 	{
 		id: ncNanoId(),
 		image: JLTImg,
-		title: 'Jumeriah Lake Triangle',
+		title: 'Jumeirah Lake Triangle',
 		items: __megamenu.map((i) => ({
 			id: ncNanoId(),
 			href: '/',
-			name: i.Jumeriah_Lake_Triangle,
+			name: i.Jumeirah_Lake_Triangle,
 		})),
 	},
 ]

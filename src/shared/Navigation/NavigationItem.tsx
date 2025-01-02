@@ -58,7 +58,6 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 		})
 	}
 
- 
 	const { Listings } = useStore()
 
 	const nav = [
@@ -79,18 +78,16 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 		},
 		{
 			img: JVCImg,
-			title: 'Jumeriah Village Circle',
+			title: 'Jumeirah Village Circle',
 			links: ['', ''],
 		},
 		{
 			img: JLTImg,
-			title: 'Jumeriah Lake Triangle',
+			title: 'Jumeirah Lake Triangle',
 			links: ['', ''],
 		},
 	]
 	const [navMenu, setNavMenu] = useState(nav)
-
- 
 
 	useEffect(() => {
 		// Match Listings with navMenu titles

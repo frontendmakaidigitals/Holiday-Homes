@@ -13,7 +13,7 @@ const Page = () => {
 				'We operate on a commission-based model, where you pay a set percentage on each reservation, including non-refundable bookings, which will be charged regardless of guest stay. You`ll receive a monthly invoice via email and payment can be conveniently made in a single monthly instalment, with additional details and payment history accessible in the `Finance` tab of your extranet',
 		},
 		{
-			question: 'How do you handle fraudluent bookings?',
+			question: 'How do you handle fraudulent bookings?',
 			answer:
 				'We have teams dedicated to creating, maintaining and improving controls to mitigate and prevent fraudulent bookings. There are also measures that you can take to protect your business and ways to report a suspected fake booking. To make sure you receive real bookings from real people, you can set up your property to only accept reservations from Broker with a verified phone number and/or home address. Cancellation policies and fees can also help protect you from a potential loss of income. Learn more about identifying, preventing and reporting fake bookings.',
 		},

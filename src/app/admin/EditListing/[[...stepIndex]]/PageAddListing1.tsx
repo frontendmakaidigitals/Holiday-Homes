@@ -109,8 +109,8 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 		'Business Bay',
 		'Marina',
 		'Downtown',
-		'Jumeriah Village Circle',
-		'Jumeriah Lake Triangle',
+		'Jumeirah Village Circle',
+		'Jumeirah Lake Triangle',
 	]
 
 	const [isLoading, setIsLoading] = useState(false)

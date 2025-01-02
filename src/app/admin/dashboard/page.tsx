@@ -206,8 +206,8 @@ const AreaGraphs = ({ areaCounts }: any) => {
 		Marina: '#ff96ce',
 		Downtown: '#5C6BC0',
 		'Business Bay': '#00ACC1',
-		'Jumeriah Village Circle': '#5D4037',
-		'Jumeriah Lake Triangle': '#EF6C00',
+		'jumeirah Village Circle': '#5D4037',
+		'jumeirah Lake Triangle': '#EF6C00',
 	}
 
 	const getMonthName = (monthIndex: number) => {
@@ -335,9 +335,9 @@ const Listing = ({ listings }: { listings: any }) => {
 			// Map 'JVC' to 'Jumeirah Village Circle' and 'JLT' to 'Jumeirah Lake Towers'
 			const searchArea =
 				areaName === 'JVC'
-					? 'Jumeriah Village Circle'
+					? 'Jumeirah Village Circle'
 					: areaName === 'JLT'
-						? 'Jumeriah Lake Triangle'
+						? 'Jumeirah Lake Triangle'
 						: areaName
 
 			// Count how many listings match this area
