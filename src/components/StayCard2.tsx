@@ -48,6 +48,7 @@ const StayCard2: FC<StayCard2Props> = ({
 		checkedAmenities,
 		listingBadge,
 		propertyTitle,
+		City
 	} = data
 
 	const renderBadge = () => {
@@ -94,7 +95,6 @@ const StayCard2: FC<StayCard2Props> = ({
 		]
 
 		// Log the transformedAmenities to ensure the data is correct
-		 
 
 		// Get the first two amenities and the remaining ones
 		const firstTwoAmenities = transformedAmenities.slice(0, 2)
@@ -176,16 +176,13 @@ const StayCard2: FC<StayCard2Props> = ({
 							</svg>
 						)}
 						<span className="">
-							{State}, {Country}
+							{City}, {Country}
 						</span>
 					</div>
 				</div>
 				<div className="w-14 border-b border-neutral-100 dark:border-neutral-800"></div>
 				<div className="flex items-center justify-start gap-3">
-					<del className="relative text-xl text-red-500">
-						{orgPrice}
-						 
-					</del>
+					<del className="relative text-xl text-red-500">{orgPrice}</del>
 					<span className="text-xl font-semibold">
 						{discountedPrice} <span className="text-lg font-normal">AED</span>
 					</span>
@@ -195,9 +192,18 @@ const StayCard2: FC<StayCard2Props> = ({
 	}
 
 	return (
-		<div className={`nc-StayCard2 group bg-orange-50 rounded-lg p-2 relative ${className}`}>
+		<div
+			className={`nc-StayCard2 group relative rounded-lg bg-orange-50 p-2 ${className}`}
+		>
 			{renderSliderGallery()}
-			<Link href={href}>{renderContent()}</Link>
+			<Link
+				href={{
+					pathname: '/listing-stay-detail', // The base path
+					query: { id: id },
+				}}
+			>
+				{renderContent()}
+			</Link>
 		</div>
 	)
 }

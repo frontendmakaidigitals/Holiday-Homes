@@ -107,6 +107,7 @@ export interface StayDataType {
 	checkedAmenities: string
 	listingBadge: string
 	propertyTitle:string
+	City:string
 }
 
 //
