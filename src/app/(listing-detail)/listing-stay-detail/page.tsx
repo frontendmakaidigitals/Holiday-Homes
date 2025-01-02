@@ -312,7 +312,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 						<i className="las la-map-marker-alt"></i>
 						<span className="ml-1">
 							{' '}
-							{listings?.State}, {listings?.Country}
+							{listings?.City}, {listings?.Country}
 						</span>
 					</span>
 				</div>
