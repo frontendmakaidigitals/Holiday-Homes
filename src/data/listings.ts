@@ -69,7 +69,8 @@ const DEMO_STAY_LISTINGS = __stayListing.map((post, index): StayDataType => {
 		discountedPrice: '',
 		checkedAmenities: '',
 		listingBadge: '',
-		propertyTitle:''
+		propertyTitle:'',
+		City:''
 	}
 })
 
