@@ -1,10 +1,7 @@
 'use client'
 import React, { useEffect } from 'react'
 import { FC } from 'react'
-
-import { Route } from '@/routers/types'
-import { useRouter } from 'next/navigation'
-import useStore from '../FormStore'
+ 
 export interface CommonLayoutProps {
 	children: React.ReactNode
 	params: {
