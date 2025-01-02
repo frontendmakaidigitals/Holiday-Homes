@@ -144,9 +144,9 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 					/>
 				</FormItem>
 				<div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-5">
-					<FormItem label="City">
+					<FormItem label="Area">
 						<Input
-							placeholder="City"
+							placeholder="Area"
 							value={ListingData.City || ''}
 							onChange={(e) => setCity(e.target.value)}
 						/>
