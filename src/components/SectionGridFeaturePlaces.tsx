@@ -15,14 +15,14 @@ export interface SectionGridFeaturePlacesProps {
 	headingIsCenter?: boolean
 	tabs?: string[]
 	cardType?: 'card1' | 'card2'
-	btnRef?:any
+	btnRef?: any
 }
 
 const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
 	stayListings = [],
 	gridClass = '',
 	heading = 'Featured places to stay',
-	subHeading = 'Popular places to stay that Chisfis recommends for you',
+	subHeading = 'Popular places to stay that BSHH recommends for you',
 	tabs = [
 		'Business Bay',
 		'Marina',
@@ -31,7 +31,7 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
 		'Jumeirah Lake Triangle',
 	],
 	cardType = 'card2',
-	btnRef
+	btnRef,
 }) => {
 	// State to track the selected tab (area)
 	const [activeTab, setActiveTab] = useState(tabs[0])
@@ -79,7 +79,7 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
 					</div>
 				) : (
 					<div className="mt-5 flex h-10 w-full items-center justify-center lg:h-[300px]">
-						<p className="text-md lg:text-xl font-semibold">
+						<p className="text-md font-semibold lg:text-xl">
 							No listings available for this area.
 						</p>
 					</div>
