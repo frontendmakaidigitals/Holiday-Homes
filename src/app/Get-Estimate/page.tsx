@@ -600,7 +600,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
 						</div>
 						<div className="w-full">
 							<p className="text-3xl font-semibold">
-								Sign up today and start making Rental Money
+								Sign up today and start making Rental Income
 							</p>
 
 							<form onSubmit={submitForm} className="mt-7 w-full">
