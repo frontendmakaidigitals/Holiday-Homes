@@ -41,6 +41,11 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 	} = useStore()
 	const index = Number(params.stepIndex) || 1
 	const router = useRouter()
+
+	useEffect(() => {
+		router.refresh()
+	}, [])
+
 	const { toast } = useToast()
 	const NextBTN = () => {
 		if (ListingData.propertyType === '') {
@@ -131,7 +136,6 @@ const PageAddListing1: FC<PageAddListing1Props> = ({
 			value: 'Badge 2',
 			image: 'https://via.placeholder.com/50?text=Apartment',
 		},
-	 
 	]
 
 	const handleChange = (value: any) => {
