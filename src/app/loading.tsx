@@ -1,28 +1,38 @@
 'use client'
 import React, { useState, useEffect, Suspense } from 'react'
 import '../styles/loader.css'
+import { usePathname, useSearchParams } from 'next/navigation'
 
-export default function Loading() {
-	const [loading, setLoading] = useState(true)
+const Loading = () => {
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<Loader />
+		</Suspense>
+	)
+}
+
+export default Loading
+
+const Loader = () => {
+	const [isLoading, setIsLoading] = useState(true)
+	const pathname = usePathname()
+	const searchParams = useSearchParams()
+	const query = searchParams.get('area')
 	useEffect(() => {
-		// Disable body scroll when loading
+		setIsLoading(true)
 		document.body.style.overflow = 'hidden'
-
-		// Set a timeout for the loading state (2 seconds in this case)
 		const timer = setTimeout(() => {
-			setLoading(false) // Set loading to false after 2 seconds
-			document.body.style.overflow = 'auto' // Re-enable scroll once loading is done
-		}, 2000) // Adjust this time as necessary
-
-		// Cleanup the timer and reset body scroll on unmount
+			setIsLoading(false)
+			document.body.style.overflow = 'auto'
+		}, 2000)
 		return () => {
 			clearTimeout(timer)
-			document.body.style.overflow = 'auto' // Ensure scroll is re-enabled
+			document.body.style.overflow = 'auto'
 		}
-	}, [])
+	}, [pathname, query])
 
 	return (
-		loading && (
+		isLoading && (
 			<div className="fixed left-0 top-0 z-[9999999999999999] flex h-screen w-screen items-center justify-center bg-slate-100">
 				<div className="contain">
 					<div className="dot"></div>

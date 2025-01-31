@@ -8,7 +8,7 @@ import { Metadata } from 'next'
 import ThemeProvider from './theme-provider'
 import HeaderFooter from '@/components/HeaderFooter' // Import the new client component
 import WhatsappContact from '@/components/WhatsappContact'
-import { Suspense } from 'react'
+
 import Loading from './loading' // Import the Loading component
 
 const poppins = Poppins({
