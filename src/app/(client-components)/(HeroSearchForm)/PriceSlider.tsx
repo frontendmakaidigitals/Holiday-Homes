@@ -21,7 +21,7 @@ const PriceSlider: FC<PriceSliderProps> = ({
 	buttonSubmitHref = '/listing-stay-map',
 	hasButtonSubmit = true,
 }) => {
-	const [priceValue, setPriceValue] = useState<number>(50) // Default price value
+	const [priceValue, setPriceValue] = useState<number>(200) // Default price value
 	const { setPrice, Listings } = useStore()
 	const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setPriceValue(Number(e.target.value)) // Update the price from the slider
@@ -89,9 +89,9 @@ const PriceSlider: FC<PriceSliderProps> = ({
 								/>
 								{/* Price Display */}
 								<div className="mt-2 flex justify-between text-sm text-neutral-500 dark:text-neutral-400">
-									<span>$0</span>
-									<span>${priceValue}</span>
-									<span>$1000</span>
+									<span>AED 0</span>
+									<span>AED{' '}{priceValue}</span>
+									<span>AED 1000</span>
 								</div>
 							</div>
 						</Popover.Panel>

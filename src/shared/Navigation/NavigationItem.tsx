@@ -14,7 +14,6 @@ import JVCImg from '@/images/MenuImages/JVC.jpeg'
 import MarinaImg from '@/images/MenuImages/marina.jpg'
 import useStore from '@/components/ListingStore'
 import Link from 'next/link'
-import axios from 'axios'
 // <--- NavItemType --->
 export interface MegamenuItem {
 	id: string
@@ -26,7 +25,7 @@ export interface NavItemType {
 	id: string
 	name: string
 	isNew?: boolean
-	href: PathName
+	href?: PathName
 	targetBlank?: boolean
 	children?: NavItemType[]
 	megaMenu?: MegamenuItem[]
@@ -162,10 +161,10 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 															/>
 														</div>
 													</div>
-													<p className="my-2 px-2 py-1 font-medium text-gray-900 dark:text-gray-200">
+													<p className="my-2 px-2 py-1 font-bold text-gray-900 dark:text-gray-200">
 														{menu.title}
 													</p>
-													<ul className="grid space-y-1">
+													<ul className="grid space-y-1 px-2">
 														{menu.links.slice(0, 5).map((link, index) => {
 															return (
 																<li key={index}>
@@ -195,18 +194,21 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 	}
 
 	const renderMegaMenuNavlink = (item: NavItemType) => {
+		if (!item.href) return null; // Return null if href does not exist
+	  
 		return (
-			<li key={item.id}>
-				<Link
-					rel="noopener noreferrer"
-					className="inline-flex items-center rounded px-2 py-1 font-normal text-gray-800 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-					href={item.href || ''}
-				>
-					{item.name}
-				</Link>
-			</li>
-		)
-	}
+		  <li key={item.id}>
+			<Link
+			  rel="noopener noreferrer"
+			  className="inline-flex items-center rounded px-2 py-1 font-normal text-gray-800 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+			  href={item.href}
+			>
+			  {item.name}
+			</Link>
+		  </li>
+		);
+	  };
+	  
 
 	// ===================== MENU DROPDOW =====================
 	const renderDropdownMenu = (menuDropdown: NavItemType) => {
@@ -310,42 +312,57 @@ const NavigationItem: FC<NavigationItemWithRouterProps> = ({ menuItem }) => {
 	}
 
 	const renderDropdownMenuNavlink = (item: NavItemType) => {
+		if (!item.href) return null; // Return null if href does not exist
+	  
 		return (
-			<Link
-				target={item.targetBlank ? '_blank' : undefined}
-				rel="noopener noreferrer"
-				className="flex items-center rounded-md px-4 py-2 font-normal text-gray-900 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-				href={item.href || ''}
-			>
-				{item.name}
-				{item.type && (
-					<ChevronDownIcon
-						className="ml-2 h-4 w-4 text-gray-500"
-						aria-hidden="true"
-					/>
-				)}
-			</Link>
-		)
-	}
+		  <Link
+			target={item.targetBlank ? '_blank' : undefined}
+			rel="noopener noreferrer"
+			className="flex items-center rounded-md px-4 py-2 font-normal text-gray-900 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+			href={item.href}
+		  >
+			{item.name}
+			{item.type && (
+			  <ChevronDownIcon
+				className="ml-2 h-4 w-4 text-gray-500"
+				aria-hidden="true"
+			  />
+			)}
+		  </Link>
+		);
+	  };
+	  
 
 	// ===================== MENU MAIN MENU =====================
 	const renderMainItem = (item: NavItemType) => {
-		return (
+		const linkContent = (
+		  <div className="inline-flex cursor-pointer items-center rounded-full px-4 py-2 text-sm font-normal text-gray-900 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200 xl:px-5 xl:text-base">
+			{item.name}
+			{item.type && (
+			  <ChevronDownIcon
+				className="-mr-1 ml-1 h-4 w-4 text-gray-400"
+				aria-hidden="true"
+			  />
+			)}
+		  </div>
+		);
+	  
+		if (item.href) {
+		  return (
 			<Link
-				rel="noopener noreferrer"
-				className="inline-flex items-center rounded-full px-4 py-2 text-sm font-normal text-gray-900 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200 xl:px-5 xl:text-base"
-				href={item.href || '/'}
+			  rel="noopener noreferrer"
+			  href={item.href}
+			  className="inline-flex items-center rounded-full px-4 py-2 text-sm font-normal text-gray-900 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-200 xl:px-5 xl:text-base"
 			>
-				{item.name}
-				{item.type && (
-					<ChevronDownIcon
-						className="-mr-1 ml-1 h-4 w-4 text-gray-400"
-						aria-hidden="true"
-					/>
-				)}
+			  {linkContent}
 			</Link>
-		)
-	}
+		  );
+		}
+	  
+		// If href is not present, just return the non-clickable version
+		return linkContent;
+	  };
+	  
 
 	switch (menuItem.type) {
 		case 'megaMenu':
