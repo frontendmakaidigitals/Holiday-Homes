@@ -16,8 +16,7 @@ import {
 	SelectValue,
 	SelectGroup,
 } from '@/Shadcncomponents/components/ui/select'
-import { Route } from '@/routers/types'
-import { Toast } from '@/Shadcncomponents/components/ui/toast'
+
 import { useToast } from '@/hooks/use-toast'
 // Dynamically import the MapComponent to prevent server-side rendering issues
 const DynamicMap = dynamic(() => import('@/components/MapComponent'), {
@@ -43,6 +42,7 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 		setRoomNum,
 		setAddress,
 		setMarker,
+		setEmirates
 	} = useStore()
 
 	const nextBtnText = index > 9 ? 'Publish listing' : 'Continue'
@@ -51,7 +51,6 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 	const searchParams = useSearchParams()
 
 	const search = searchParams.get('id')
-	 
 
 	// State for the marker
 
@@ -97,6 +96,15 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 		}
 	}
 	const country = ['UAE', 'Dubai']
+	const emirates = [
+		'Dubai',
+		'Abu Dhabi',
+		'Sharjah',
+		'Ajman',
+		'Ras Al Khaimah',
+		'Umm Al Quwain',
+		'Fujairah',
+	]
 
 	return (
 		<>
@@ -151,12 +159,29 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 							onChange={(e) => setCity(e.target.value)}
 						/>
 					</FormItem>
-					<FormItem label="State">
-						<Input
-							placeholder="State"
-							value={ListingData.State || ''}
-							onChange={(e) => setState(e.target.value)}
-						/>
+					<FormItem label='Emirates'>
+					<Select
+						value={ListingData.Emirates || ''}
+						onValueChange={(e) => setEmirates(e)}
+					>
+						<SelectTrigger
+							className={`text-md w-full border bg-white py-2 font-medium`}
+						>
+							<SelectValue
+								placeholder="Select a Emirates"
+								className="placeholder:text-gray-600"
+							/>
+						</SelectTrigger>
+						<SelectContent>
+							<SelectGroup>
+								{emirates.map((item, index) => (
+									<SelectItem key={index} value={item}>
+										{item}
+									</SelectItem>
+								))}
+							</SelectGroup>
+						</SelectContent>
+					</Select>
 					</FormItem>
 					<FormItem label="Postal code">
 						<Input

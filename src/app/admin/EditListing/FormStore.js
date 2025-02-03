@@ -26,6 +26,7 @@ const useStore = create((set) => ({
 		coverImage: null,
 		images: [],
 		Area: '',
+		Emirates:'',
 		checkedAmenities: {
 			included: [],
 			other: [],
@@ -265,6 +266,13 @@ const useStore = create((set) => ({
 				Price,
 			},
 		})),
+		setEmirates: (Emirates) =>
+			set((state) => ({
+				ListingData: {
+					...state.ListingData,
+					Emirates,
+				},
+			})),
 }))
 
 export default useStore // Ensure this is the last line
