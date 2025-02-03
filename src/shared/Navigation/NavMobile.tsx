@@ -26,7 +26,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 		return (
 			<ul className="nav-mobile-sub-menu pb-1 pl-6 text-base">
 				{item.children?.map((i, index) => (
-					<Disclosure key={i.href + index} as="li">
+					<Disclosure key={(i.href ?? '') + index} as="li">
 						<Link
 							href={{
 								pathname: i.href || undefined,
