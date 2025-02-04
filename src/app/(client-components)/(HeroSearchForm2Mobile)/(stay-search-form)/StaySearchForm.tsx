@@ -94,7 +94,7 @@ const StaySearchForm = () => {
 		
 		const isActive = fieldNameShow === 'price'
 		 
-		const maxRange = 1000
+		const maxRange = 2500
 		return (
 			<div
 				className={`w-full overflow-hidden bg-white dark:bg-neutral-800 ${

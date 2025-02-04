@@ -23,14 +23,14 @@ const NavMobile: React.FC<NavMobileProps> = ({
 	onClickClose,
 }) => {
 	const _renderMenuChild = (item: NavItemType) => {
-		console.log(item) // Debugging to inspect the data structure
-
+		 
 		return (
 			<ul className="nav-mobile-sub-menu pb-1 pl-6 text-base">
 				{item.megaMenu?.map((menuItem, index) => (
 					<Disclosure key={menuItem.id || index} as="li">
 						{/* Render Parent Title */}
 						<Link
+						onClick={onClickClose}
 							href={{
 								pathname:'/listing-stay-map', // The base path
 								query: { area: menuItem.title }, // The query parameter
