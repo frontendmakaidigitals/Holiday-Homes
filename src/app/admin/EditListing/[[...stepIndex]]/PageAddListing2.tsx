@@ -161,7 +161,7 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 					</FormItem>
 					<FormItem label='Emirates'>
 					<Select
-						value={ListingData.Emirates || ''}
+						value={ListingData.emirates || ''}
 						onValueChange={(e) => setEmirates(e)}
 					>
 						<SelectTrigger
