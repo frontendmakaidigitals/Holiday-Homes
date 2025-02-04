@@ -52,7 +52,7 @@ const StaySearchForm = () => {
 					<LocationInput
 						defaultValue={locationInputTo}
 						onChange={(value) => {
-							setLocationInputTo(value)
+						
 							setFieldNameShow('dates')
 						}}
 					/>

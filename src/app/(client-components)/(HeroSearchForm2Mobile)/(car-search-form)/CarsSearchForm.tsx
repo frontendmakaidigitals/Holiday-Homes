@@ -10,7 +10,7 @@ const CarsSearchForm = () => {
     "locationPickup" | "locationDropoff" | "dates"
   >("locationPickup");
   //
-  const [locationInputPickUp, setLocationInputPickUp] = useState("");
+  const [locationInputPickUp, setLocationInputPickUp] = useState<{ Area: string; emirates: string; Country: string }>({ Area: "", emirates: "", Country: "" });
   const [locationInputDropOff, setLocationInputDropOff] = useState("");
 
   const [startDate, setStartDate] = useState<Date | null>(
@@ -38,12 +38,11 @@ const CarsSearchForm = () => {
             onClick={() => setFieldNameShow("locationPickup")}
           >
             <span className="text-neutral-400">Pick up</span>
-            <span>{locationInputPickUp || "Location"}</span>
+            <span>{locationInputPickUp.Area || "Location"}</span>
           </button>
         ) : (
           <LocationInput
             headingText="Pick up?"
-            defaultValue={locationInputPickUp}
             onChange={(value) => {
               setLocationInputPickUp(value);
               if (dropOffLocationType === "different") {
@@ -81,7 +80,6 @@ const CarsSearchForm = () => {
             headingText="Drop off?"
             defaultValue={locationInputDropOff}
             onChange={(value) => {
-              setLocationInputDropOff(value);
               setFieldNameShow("dates");
             }}
           />

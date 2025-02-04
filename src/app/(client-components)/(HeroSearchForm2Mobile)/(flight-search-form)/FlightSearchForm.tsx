@@ -53,7 +53,7 @@ const FlightSearchForm = () => {
             headingText="Pick up?"
             defaultValue={locationInputPickUp}
             onChange={(value) => {
-              setLocationInputPickUp(value);
+           
               setFieldNameShow("dates");
             }}
           />
@@ -85,7 +85,7 @@ const FlightSearchForm = () => {
             headingText="Drop off?"
             defaultValue={locationInputDropOff}
             onChange={(value) => {
-              setLocationInputDropOff(value);
+         
               setFieldNameShow("dates");
             }}
           />

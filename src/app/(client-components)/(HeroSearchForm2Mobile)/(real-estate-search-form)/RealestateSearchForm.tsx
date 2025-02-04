@@ -62,7 +62,7 @@ const RealestateSearchForm = () => {
 						headingText="Where to find?"
 						defaultValue={locationInputTo}
 						onChange={(value) => {
-							setLocationInputTo(value)
+						
 							setFieldNameShow('propertyType')
 						}}
 					/>
