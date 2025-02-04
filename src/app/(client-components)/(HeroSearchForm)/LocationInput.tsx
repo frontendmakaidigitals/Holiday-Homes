@@ -22,8 +22,11 @@ const LocationInput: FC<LocationInputProps> = ({
 }) => {
 	const containerRef = useRef<HTMLDivElement>(null)
 	const inputRef = useRef<HTMLInputElement>(null)
-	const { Listings, setLocationInput } = useStore()
+	const { Listings, setCountry, setEmirates, setArea } = useStore()
 	const [value, setValue] = useState('')
+
+
+
 	const [showPopover, setShowPopover] = useState(autoFocus)
 
 	useEffect(() => {
@@ -57,34 +60,53 @@ const LocationInput: FC<LocationInputProps> = ({
 		setShowPopover(false)
 	}
 
-	const handleSelectLocation = (item: string) => {
-		setValue(item)
-		setLocationInput(item)
+	const handleSelectLocation = (item: { Area: string; emirates: string; Country: string }) => {
+		setValue(`${item.Area}, ${item.emirates}, ${item.Country}`);
+		setCountry(item.Country)
+		setArea(item.Area)
+		setEmirates(item.emirates)
 		setShowPopover(false)
 	}
+
+
 
 	const [filteredResults, setFilteredResults] = useState<any>([])
 
 	useEffect(() => {
-	 
-
-		// Check if `Listings.data` is a valid array and `value` is not empty
 		if (value && Array.isArray(Listings?.data)) {
-			// Filter the countries based on the value
 			const filteredCountries = Listings.data
 				.filter(
 					(item: any) =>
-						item.Country.toLowerCase().includes(value.toLowerCase()), // Case insensitive search
+						item.Country.toLowerCase().includes(value.toLowerCase()) ||
+						item.State.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
+						item.propertyType.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
+						item.towerName.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
+						item.Area.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
+						item.City.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
+						item.emirates.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
+						item.propertyTitle.toLowerCase().includes(value.toLowerCase()), // Include State filtering
 				)
-				.map((item: any) => item.Country) // Extract the Country value
+				.map((item: any) => item)
 
-			// Log the filtered countries before deduplication
-			console.log('Filtered Countries before deduplication:', filteredCountries)
+				interface ListingItem {
+					id: string;
+					Country: string;
+					State: string;
+					propertyType: string;
+					towerName: string;
+					Area: string;
+					City: string;
+					emirates: string;
+					propertyTitle: string;
+				}
 
-			// Use Set to remove duplicates and convert it to an array using Array.from()
-			setFilteredResults(Array.from(new Set(filteredCountries)))
+				const uniqueResults = filteredCountries.filter(
+					(item: ListingItem, index: number, self: ListingItem[]) =>
+						index === self.findIndex((t) => t.Area === item.Area)
+				);
+			
+				setFilteredResults(uniqueResults);
 		} else {
-			// If value is empty or Listings is not valid, clear the results
 			setFilteredResults([])
 		}
 	}, [value, Listings?.data])
@@ -119,18 +141,24 @@ const LocationInput: FC<LocationInputProps> = ({
 		return (
 			<>
 				{filteredResults?.map((item: any) => (
-					<span
+					<div
 						onClick={() => handleSelectLocation(item)}
-						key={item}
-						className="flex cursor-pointer items-center space-x-3 px-4 py-4 hover:bg-neutral-100 dark:hover:bg-neutral-700 sm:space-x-4 sm:px-8"
+						key={item.Area}
+						className="flex cursor-pointer items-start hover:bg-slate-100 justify-start space-x-3 px-4 py-4 hover:bg-neutral-100 dark:hover:bg-neutral-700 sm:space-x-4 sm:px-8"
 					>
-						<span className="block text-neutral-400">
+						<div className="block text-neutral-400">
 							<MapPinIcon className="h-4 w-4 sm:h-6 sm:w-6" />
-						</span>
-						<span className="block font-medium text-neutral-700 dark:text-neutral-200">
-							{item}
-						</span>
-					</span>
+						</div>
+						<div className='flex flex-col items-start w-full justify-start'>
+							<p className=" text-xl font-bold text-neutral-700 dark:text-neutral-200">
+								{item.Area}
+							</p>
+							<p className=' capitalize'>
+								<span>{item?.emirates || 'emirates'},</span>
+								<span>{item.Country}</span>
+							</p>
+						</div>
+					</div>
 				))}
 			</>
 		)
@@ -181,7 +209,9 @@ const LocationInput: FC<LocationInputProps> = ({
 						Type location to search
 					</h3>
 					{renderSearchValue()}
-					{value.length > 2 && filteredResults?.length === 0 && <p>No results</p>}
+					{value.length > 2 && filteredResults?.length === 0 && (
+						<p>No results</p>
+					)}
 				</div>
 			)}
 		</div>

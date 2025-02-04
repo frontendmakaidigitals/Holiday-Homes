@@ -18,7 +18,7 @@ const widgetMenus: WidgetFooterMenu[] = [
 		title: 'Site Links',
 		menus: [
 			{ href: '/About-us', label: 'About & Services' },
-			{ href: '/Contact', label: 'Contact' },
+			{ href: '/contact', label: 'Contact' },
 			{ href: '/BecomeHost', label: 'Become a Host' },
 			{ href: '/Get-Estimate', label: 'Get Quote' },
 		],
@@ -72,8 +72,7 @@ const Footer: React.FC = () => {
 								className="!h-auto !w-[150px] lg:!w-[100px]"
 							/>
 							<p className="font-regular mt-3 text-sm text-gray-100">
-								We are one of the top and recognized holiday homes company in
-								Dubai. Providing premium vacation stays with immense knowledge
+								We are one of the top and recognized Holiday home companies in Dubai. Providing premium vacation stays with immense knowledge
 								and strength
 							</p>
 						</div>

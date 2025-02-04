@@ -110,7 +110,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 
 				<div className="mt-5 flex flex-col text-sm text-neutral-700 dark:text-neutral-300">
 					<span>
-						We is one of the top and recognized holiday homes company in Dubai.
+						We are one of the top and recognized Holiday home companies in Dubai.
 						Providing premium vacation stays with immense knowledge and strength
 					</span>
 

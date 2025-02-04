@@ -91,7 +91,7 @@ const HeroSearchForm2Mobile = () => {
 								<DialogPanel className="relative flex h-full flex-1 flex-col justify-between overflow-y-scroll">
 									{showDialog && (
 										<TabGroup manual>
-											<div className="absolute  left-4 top-4">
+											<div className="absolute left-4 top-4">
 												<button className="" onClick={closeModal}>
 													<XMarkIcon className="h-5 w-5 text-black dark:text-white" />
 												</button>
@@ -105,24 +105,20 @@ const HeroSearchForm2Mobile = () => {
 															<StaySearchForm />
 														</div>
 													</TabPanel>
-													 
-													 
-													 
 												</TabPanels>
 											</div>
 											<div className="flex justify-end border-t border-neutral-200 bg-white px-4 py-3 dark:border-neutral-700 dark:bg-neutral-900">
 												<ButtonSubmit
-													disabled={
-														!Listings.locationInput || !Listings.inputPrice
-													}
+													disabled={!Listings.arr || !Listings.inputPrice}
 													className="text-gray-50"
-													 
 													href={{
 														pathname: '/listing-stay-map',
 														query: {
-															loc: Listings.locationInput,
+															emir: Listings.emirates,
 															pri: Listings.inputPrice,
 															Bed: Listings.Beds,
+															arr: Listings.arr,
+															count: Listings.Country,
 														},
 													}}
 												/>

@@ -94,13 +94,15 @@ const Bed: FC<GuestsInputProps> = ({
 									href={{
 										pathname: '/listing-stay-map',
 										query: {
-											loc: Listings.locationInput,
+											emir: Listings.emirates,
 											pri: Listings.inputPrice,
 											Bed: Listings.Beds,
+											arr:Listings.arr,
+											count:Listings.Country
 										},
 									}}
 									disabled={
-										!Listings.locationInput ||
+										!Listings.arr ||
 										!Listings.inputPrice ||
 										!Listings.Beds
 									}

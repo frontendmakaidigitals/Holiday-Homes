@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef, FC } from 'react'
 import useStore from '@/components/ListingStore'
 interface Props {
 	onClick?: () => void
-	onChange?: (value: string) => void
+	onChange?: (value: { Area: string; emirates: string; Country: string }) => void
 	className?: string
 	defaultValue?: string
 	headingText?: string
@@ -18,7 +18,7 @@ const LocationInput: FC<Props> = ({
 	headingText = 'Where to?',
 }) => {
 	const [value, setValue] = useState('')
-	const { Listings, setLocationInput } = useStore()
+	const { Listings, setLocationInput, setCountry, setEmirates, setArea } = useStore()
 	const containerRef = useRef(null)
 	const inputRef = useRef(null)
 
@@ -26,34 +26,53 @@ const LocationInput: FC<Props> = ({
 		setValue(defaultValue)
 	}, [defaultValue])
 
-	const handleSelectLocation = (item: string) => {
+	const handleSelectLocation = (item: { Area: string; emirates: string; Country: string }) => {
 		// DO NOT REMOVE SETTIMEOUT FUNC
 		setTimeout(() => {
-			setValue(item)
-			setLocationInput(item)
+			setValue(`${item.Area}, ${item.emirates}, ${item.Country}`);
+			setCountry(item.Country)
+			setArea(item.Area)
+			setEmirates(item.emirates)
 			onChange && onChange(item)
 		}, 0)
 	}
 	const [filteredResults, setFilteredResults] = useState<any>([])
 
 	useEffect(() => {
-		// Check if `Listings.data` is a valid array and `value` is not empty
 		if (value && Array.isArray(Listings?.data)) {
-			// Filter the countries based on the value
 			const filteredCountries = Listings.data
 				.filter(
 					(item: any) =>
-						item.Country.toLowerCase().includes(value.toLowerCase()), // Case insensitive search
+						item.Country.toLowerCase().includes(value.toLowerCase()) ||
+						item.State.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
+						item.propertyType.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
+						item.towerName.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
+						item.Area.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
+						item.City.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
+						item.emirates.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
+						item.propertyTitle.toLowerCase().includes(value.toLowerCase()), // Include State filtering
 				)
-				.map((item: any) => item.Country) // Extract the Country value
+				.map((item: any) => item)
 
-			// Log the filtered countries before deduplication
-			console.log('Filtered Countries before deduplication:', filteredCountries)
+			interface ListingItem {
+				id: string
+				Country: string
+				State: string
+				propertyType: string
+				towerName: string
+				Area: string
+				City: string
+				emirates: string
+				propertyTitle: string
+			}
 
-			// Use Set to remove duplicates and convert it to an array using Array.from()
-			setFilteredResults(Array.from(new Set(filteredCountries)))
+			const uniqueResults = filteredCountries.filter(
+				(item: ListingItem, index: number, self: ListingItem[]) =>
+					index === self.findIndex((t) => t.Area === item.Area),
+			)
+
+			setFilteredResults(uniqueResults)
 		} else {
-			// If value is empty or Listings is not valid, clear the results
 			setFilteredResults([])
 		}
 	}, [value, Listings?.data])
@@ -73,12 +92,22 @@ const LocationInput: FC<Props> = ({
 					{filteredResults.map((item: any) => {
 						return (
 							<div
-								className="mb-1 flex items-center space-x-3 py-2 text-sm"
+								className="mb-1 flex items-start justify-start space-x-3 py-2 text-sm"
 								onClick={() => handleSelectLocation(item)}
 								key={item}
 							>
-								<MapPinIcon className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
-								<span className="">{item}</span>
+								<div className='block'>
+									<MapPinIcon className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
+								</div>
+								<div className="flex w-full flex-col items-start justify-start">
+									<p className="text-xl font-bold text-neutral-700 dark:text-neutral-200">
+										{item.Area}
+									</p>
+									<p className="capitalize">
+										<span>{item?.emirates || 'emirates'},</span>
+										<span>{item.Country}</span>
+									</p>
+								</div>
 							</div>
 						)
 					})}

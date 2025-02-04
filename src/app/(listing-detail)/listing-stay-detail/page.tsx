@@ -575,7 +575,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({}) => {
 
 				{/* desc */}
 				<span className="block text-neutral-6000 dark:text-neutral-300">
-					We are one of the top and recognized holiday homes company in Dubai.
+					We are one of the top and recognized Holiday home companies in Dubai.
 					Providing premium vacation stays with immense knowledge and strength
 				</span>
 

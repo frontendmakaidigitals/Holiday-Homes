@@ -31,8 +31,10 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 	const [showFullMapFixed, setShowFullMapFixed] = useState(false)
 	const searchParams = useSearchParams()
 	const area = searchParams.get('area')
-	const { Listings, setLocationInput, setPrice, setBeds } = useStore()
-	const loc = searchParams.get('loc')
+	const { Listings,  setPrice, setBeds, setCountry, setEmirates, setArea } = useStore()
+	const count = searchParams.get('count')
+	const arr = searchParams.get('arr')
+	const emir = searchParams.get('emir')
 	const bed = searchParams.get('Bed')
 	const pri = searchParams.get('pri')
 	const tower = searchParams.get('town')
@@ -157,20 +159,24 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 
 	useEffect(() => {
 		getListings()
-		setLocationInput('')
+		setCountry('')
+		setArea('')
+		setEmirates('')
 		setPrice(50)
 		setBeds(1)
 	}, [])
 
 	useEffect(() => {
-		if (bed && pri && loc) {
+		if (bed && pri && emir && count && arr) {
 			console.log('bed is running')
 			setFilteredData(
 				listings.filter(
 					(list: any) =>
 						list.beds <= Number(bed) ||
 						list.discountedPrice <= Number(pri) ||
-						list.Country === loc,
+						list.Country === count ||
+						list.Arr === arr ||
+						list.emirates === emir
 				),
 			)
 			return
@@ -266,7 +272,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 					className={`${filteredData.length > 0 ? 'min-h-screen max-w-[1184px] xl:w-[60%] xl:px-8 2xl:w-[60%]' : 'h-auto'} w-full flex-shrink-0`}
 				>
 					<Heading2
-						heading={`Stays in ${area || loc || tower}`}
+						heading={`Stays in ${area || arr || tower}`}
 						className="!mb-8"
 					/>
 					<div className="mb-8 lg:mb-11">

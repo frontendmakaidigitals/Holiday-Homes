@@ -6,6 +6,9 @@ const useStore = create((set) => ({
 		locationInput: '',
 		inputPrice: 50,
 		Beds: 1,
+		Country:'',
+		emirates:'',
+		arr:'',
 	},
 	setListingsData: (data) =>
 		set((state) => ({
@@ -33,6 +36,27 @@ const useStore = create((set) => ({
 			Listings: {
 				...state.Listings,
 				Beds,
+			},
+		})),
+	setEmirates: (emirates) =>
+		set((state) => ({
+			Listings: {
+				...state.Listings,
+				emirates,
+			},
+		})),
+	setArea: (arr) =>
+		set((state) => ({
+			Listings: {
+				...state.Listings,
+				arr,
+			},
+		})),
+	setCountry: (Country) =>
+		set((state) => ({
+			Listings: {
+				...state.Listings,
+				Country,
 			},
 		})),
 }))

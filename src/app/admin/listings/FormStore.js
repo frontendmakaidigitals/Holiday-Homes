@@ -28,6 +28,7 @@ const useStore = create((set) => ({
 		Area: '',
 		orgPrice: '',
 		listingBadge: {},
+		emirates:'',
 		checkedAmenities: {
 			included: [],
 			other: [],
@@ -271,6 +272,13 @@ const useStore = create((set) => ({
 			ListingData: {
 				...state.ListingData,
 				Price,
+			},
+		})),
+	setPrice: (emirates) =>
+		set((state) => ({
+			ListingData: {
+				...state.ListingData,
+				emirates,
 			},
 		})),
 }))

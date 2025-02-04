@@ -26,7 +26,7 @@ const useStore = create((set) => ({
 		coverImage: null,
 		images: [],
 		Area: '',
-		Emirates:'',
+		emirates:'',
 		checkedAmenities: {
 			included: [],
 			other: [],
@@ -266,11 +266,11 @@ const useStore = create((set) => ({
 				Price,
 			},
 		})),
-		setEmirates: (Emirates) =>
+		setEmirates: (emirates) =>
 			set((state) => ({
 				ListingData: {
 					...state.ListingData,
-					Emirates,
+					emirates,
 				},
 			})),
 }))
