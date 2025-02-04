@@ -61,7 +61,7 @@ const LocationInput: FC<LocationInputProps> = ({
 	}
 
 	const handleSelectLocation = (item: { Area: string; emirates: string; Country: string }) => {
-		setValue(`${item.Area}, ${item.emirates}, ${item.Country}`);
+		setValue(`${item.Area}, Dubai, UAE`);
 		setCountry(item.Country)
 		setArea(item.Area)
 		setEmirates(item.emirates)

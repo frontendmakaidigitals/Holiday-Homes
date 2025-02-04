@@ -29,7 +29,7 @@ const LocationInput: FC<Props> = ({
 	const handleSelectLocation = (item: { Area: string; emirates: string; Country: string }) => {
 		// DO NOT REMOVE SETTIMEOUT FUNC
 		setTimeout(() => {
-			setValue(`${item.Area}, ${item.emirates}, ${item.Country}`);
+			setValue(`${item.Area}, 'Dubai', UAE`);
 			setCountry(item.Country)
 			setArea(item.Area)
 			setEmirates(item.emirates)
