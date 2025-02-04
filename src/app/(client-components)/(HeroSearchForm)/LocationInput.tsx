@@ -78,13 +78,9 @@ const LocationInput: FC<LocationInputProps> = ({
 				.filter(
 					(item: any) =>
 						item.Country.toLowerCase().includes(value.toLowerCase()) ||
-						item.State.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
-						item.propertyType.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
-						item.towerName.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
-						item.Area.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
-						item.City.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
-						item.emirates.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
-						item.propertyTitle.toLowerCase().includes(value.toLowerCase()), // Include State filtering
+						item.Area.toLowerCase().includes(value.toLowerCase()) || 
+						item.emirates.toLowerCase().includes(value.toLowerCase()) 
+						 
 				)
 				.map((item: any) => item)
 
@@ -154,8 +150,8 @@ const LocationInput: FC<LocationInputProps> = ({
 								{item.Area}
 							</p>
 							<p className=' capitalize'>
-								<span>{item?.emirates || 'emirates'},</span>
-								<span>{item.Country}</span>
+								<span>UAE,</span>{' '}
+								<span>Dubai</span>
 							</p>
 						</div>
 					</div>

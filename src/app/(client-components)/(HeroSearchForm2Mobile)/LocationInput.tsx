@@ -44,13 +44,8 @@ const LocationInput: FC<Props> = ({
 				.filter(
 					(item: any) =>
 						item.Country.toLowerCase().includes(value.toLowerCase()) ||
-						item.State.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
-						item.propertyType.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
-						item.towerName.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
-						item.Area.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
-						item.City.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
-						item.emirates.toLowerCase().includes(value.toLowerCase()) || // Include State filtering
-						item.propertyTitle.toLowerCase().includes(value.toLowerCase()), // Include State filtering
+						item.Area.toLowerCase().includes(value.toLowerCase()) ||  
+						item.emirates.toLowerCase().includes(value.toLowerCase())  
 				)
 				.map((item: any) => item)
 

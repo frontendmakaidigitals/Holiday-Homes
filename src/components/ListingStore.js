@@ -4,7 +4,7 @@ const useStore = create((set) => ({
 	Listings: {
 		data: [],
 		locationInput: '',
-		inputPrice: 50,
+		inputPrice: 200,
 		Beds: 1,
 		Country:'',
 		emirates:'',

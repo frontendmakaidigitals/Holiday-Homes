@@ -167,22 +167,28 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 	}, [])
 
 	useEffect(() => {
-		if (bed && pri && emir && count && arr) {
-			console.log('bed is running')
-			setFilteredData(
-				listings.filter(
-					(list: any) =>
+		 
+		if (bed && pri && count && arr || emir) {
+		 
+	
+			// Step 1: Filter listings that match 'Arr'
+			const arrMatched = listings.filter((list: any) => list.Area === arr);
+			  
+			const otherFiltered = listings.filter(
+				(list: any) =>
+					list.Arr !== arr && // Exclude already matched 'Arr' items
+					(
 						list.beds <= Number(bed) ||
-						list.discountedPrice <= Number(pri) ||
-						list.Country === count ||
-						list.Arr === arr ||
-						list.emirates === emir
-				),
-			)
-			return
+						list.discountedPrice <= Number(pri)
+					)
+			);
+	
+			// Step 3: Combine both arrays (Arr matches first)
+			setFilteredData([...arrMatched, ...otherFiltered]);
+			return;
 		}
 		if (area) {
-			console.log('area is running', area)
+			 
 			setFilteredData(
 				listings.filter(
 					(list: any) => list.Area.toLowerCase() === area.toLowerCase(),
@@ -191,7 +197,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 			return
 		}
 		if (tower) {
-			console.log('tower is running')
+			 
 			setFilteredData(listings.filter((list: any) => list.towerName === tower))
 			return
 		} else {
@@ -207,13 +213,12 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 
 		// Apply propertyType filter if selected
 		if (propertyType.length > 0) {
-			// Keep all items that match the propertyType filter (duplicates allowed)
+			 
 			filteredListings = listings.filter((list: any) =>
 				propertyType.includes(list.propertyType),
 			)
 		}
-
-		// Apply filterBeds filter if set
+ 
 		if (filterBeds != null && filterBeds != 0) {
 			filteredListings = filteredListings.filter(
 				(list: any) => list.beds <= filterBeds,

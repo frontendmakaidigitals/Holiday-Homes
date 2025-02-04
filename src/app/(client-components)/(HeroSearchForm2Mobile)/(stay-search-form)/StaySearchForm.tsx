@@ -114,7 +114,7 @@ const StaySearchForm = () => {
 				) : (
 					<div className="px-4 py-5">
 						<div className="flex w-full items-center justify-between text-xl font-semibold">
-							<p>Choose a Price range(AED)</p>
+							<p>Choose a price range(AED)</p>
 						</div>
 						<div className="mt-5 w-full">
 							<input
