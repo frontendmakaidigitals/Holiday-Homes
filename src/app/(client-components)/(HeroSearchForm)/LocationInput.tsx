@@ -150,8 +150,8 @@ const LocationInput: FC<LocationInputProps> = ({
 								{item.Area}
 							</p>
 							<p className=' capitalize'>
-								<span>UAE,</span>{' '}
-								<span>Dubai</span>
+								<span>Dubai,</span>{' '}
+								<span>UAE</span>
 							</p>
 						</div>
 					</div>
