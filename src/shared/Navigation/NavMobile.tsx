@@ -23,41 +23,23 @@ const NavMobile: React.FC<NavMobileProps> = ({
 	onClickClose,
 }) => {
 	const _renderMenuChild = (item: NavItemType) => {
+		console.log(item) // Debugging to inspect the data structure
+
 		return (
 			<ul className="nav-mobile-sub-menu pb-1 pl-6 text-base">
-				{item.children?.map((i, index) => (
-					<Disclosure key={(i.href ?? '') + index} as="li">
+				{item.megaMenu?.map((menuItem, index) => (
+					<Disclosure key={menuItem.id || index} as="li">
+						{/* Render Parent Title */}
 						<Link
 							href={{
-								pathname: i.href || undefined,
+								pathname:'/listing-stay-map', // The base path
+								query: { area: menuItem.title }, // The query parameter
 							}}
-							className="mt-0.5 flex rounded-lg px-4 text-sm font-medium text-neutral-900 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
 						>
-							<span
-								className={`py-2.5 pr-3 ${!i.children ? 'block w-full' : ''}`}
-							>
-								{i.name}
+							<span className="block w-full py-2.5 pr-3 text-sm font-[400]">
+								{menuItem.title}
 							</span>
-							{i.children && (
-								<span
-									className="flex flex-1"
-									onClick={(e) => e.preventDefault()}
-								>
-									<Disclosure.Button
-										as="span"
-										className="flex flex-1 justify-end py-2.5"
-									>
-										<ChevronDownIcon
-											className="ml-2 h-4 w-4 text-neutral-500"
-											aria-hidden="true"
-										/>
-									</Disclosure.Button>
-								</span>
-							)}
 						</Link>
-						{i.children && (
-							<Disclosure.Panel>{_renderMenuChild(i)}</Disclosure.Panel>
-						)}
 					</Disclosure>
 				))}
 			</ul>
@@ -82,7 +64,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 					>
 						{item.name}
 					</span>
-					{item.children && (
+					{item.megaMenu && (
 						<span className="flex flex-1" onClick={(e) => e.preventDefault()}>
 							<Disclosure.Button
 								as="span"
@@ -96,7 +78,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 						</span>
 					)}
 				</Link>
-				{item.children && (
+				{item.megaMenu && (
 					<Disclosure.Panel>{_renderMenuChild(item)}</Disclosure.Panel>
 				)}
 			</Disclosure>
@@ -110,8 +92,9 @@ const NavMobile: React.FC<NavMobileProps> = ({
 
 				<div className="mt-5 flex flex-col text-sm text-neutral-700 dark:text-neutral-300">
 					<span>
-						We are one of the top and recognized Holiday home companies in Dubai.
-						Providing premium vacation stays with immense knowledge and strength
+						We are one of the top and recognized Holiday home companies in
+						Dubai. Providing premium vacation stays with immense knowledge and
+						strength
 					</span>
 
 					<div className="mt-4 flex items-center justify-between">
