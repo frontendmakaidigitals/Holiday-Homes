@@ -169,24 +169,32 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 	useEffect(() => {
 		 
 		if (bed && pri && count && arr || emir) {
-		 
-	
-			// Step 1: Filter listings that match 'Arr'
-			const arrMatched = listings.filter((list: any) => list.Area === arr);
-			  
-			const otherFiltered = listings.filter(
-				(list: any) =>
-					list.Arr !== arr && // Exclude already matched 'Arr' items
-					(
-						list.beds <= Number(bed) ||
-						list.discountedPrice <= Number(pri)
-					)
-			);
-	
-			// Step 3: Combine both arrays (Arr matches first)
-			setFilteredData([...arrMatched, ...otherFiltered]);
+
+			// Step 1: Filter listings based on all conditions (bed, pri, count, arr, emir)
+			const filteredData = listings.filter((list: any) => {
+				const matchesArea = list.Area === arr; // Check if 'Area' matches 'arr'
+				const matchesBeds = list.beds <= Number(bed); // Filter by bed count
+				const matchesPrice = list.discountedPrice <= Number(pri); // Filter by price
+				 
+				 
+		
+				// Combine all conditions together
+				return (
+					(matchesArea || !arr) && // If arr is provided, match area
+					matchesBeds &&
+					matchesPrice
+				);
+			});
+		
+			// Step 2: Sort the filtered data (if needed)
+			const sortedData = filteredData.sort((a: any, b: any) => a.discountedPrice - b.discountedPrice);
+		
+			// Step 3: Set the filtered and sorted data
+			setFilteredData(sortedData);
+		
 			return;
 		}
+		
 		if (area) {
 			 
 			setFilteredData(
@@ -271,7 +279,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 	}, [currentPage, filteredData])
 	return (
 		<div>
-			<div className="relative flex min-h-screen">
+			<div className="relative flex min-h-screen mt-10">
 				{/* CARDSSSS */}
 				<div
 					className={`${filteredData.length > 0 ? 'min-h-screen max-w-[1184px] xl:w-[60%] xl:px-8 2xl:w-[60%]' : 'h-auto'} w-full flex-shrink-0`}

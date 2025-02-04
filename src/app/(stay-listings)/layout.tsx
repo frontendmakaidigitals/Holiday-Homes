@@ -11,11 +11,6 @@ const Layout = ({ children }: { children: ReactNode }) => {
 		<div className={`nc-ListingStayPage relative`}>
 			<BgGlassmorphism />
 
-			{/* SECTION HERO */}
-			<div className="mb-24 px-4">
-				<SectionHero className="pt-3 lg:pb-16" />
-			</div>
-
 			{children}
 		</div>
 	)
