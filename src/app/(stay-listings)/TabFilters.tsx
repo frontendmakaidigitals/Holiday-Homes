@@ -262,9 +262,9 @@ const TabFilters: React.FC<TabFiltersProps> = ({
 							className={`flex items-center justify-center rounded-full border border-neutral-300 px-4 py-2 text-sm focus:outline-none`}
 						>
 							<span>
-								{`$${convertNumbThousand(
+								{`AED ${convertNumbThousand(
 									rangePrices[0],
-								)} - $${convertNumbThousand(rangePrices[1])}`}{' '}
+								)} - AED ${convertNumbThousand(rangePrices[1])}`}{' '}
 							</span>
 						</PopoverButton>
 						<Transition
