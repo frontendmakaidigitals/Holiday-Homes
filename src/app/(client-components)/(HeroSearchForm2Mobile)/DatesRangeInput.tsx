@@ -1,27 +1,33 @@
 "use client";
 
 import DatePicker from "react-datepicker";
-import React, { FC, Fragment, useEffect, useState } from "react";
+import React, { FC,  useState } from "react";
 import DatePickerCustomHeaderTwoMonth from "@/components/DatePickerCustomHeaderTwoMonth";
 import DatePickerCustomDay from "@/components/DatePickerCustomDay";
 
 export interface StayDatesRangeInputProps {
   className?: string;
+  startDate?: Date | null;
+  endDate?:Date|null,
+  setStartDate?: (date: Date | null) => void;
+  setEndDate?: (date: Date | null) => void;
 }
 
 const StayDatesRangeInput: FC<StayDatesRangeInputProps> = ({
   className = "",
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate
 }) => {
-  const [startDate, setStartDate] = useState<Date | null>(
-    new Date("2023/02/06")
-  );
-  const [endDate, setEndDate] = useState<Date | null>(new Date("2023/02/23"));
+   
 
   const onChangeDate = (dates: [Date | null, Date | null]) => {
     const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
+    setStartDate && setStartDate(start);
+    setEndDate && setEndDate(end);
   };
+  console.log(startDate, endDate)
 
   return (
     <div>
@@ -39,6 +45,7 @@ const StayDatesRangeInput: FC<StayDatesRangeInputProps> = ({
           startDate={startDate}
           endDate={endDate}
           selectsRange
+          minDate={new Date()}
           monthsShown={2}
           showPopperArrow={false}
           inline

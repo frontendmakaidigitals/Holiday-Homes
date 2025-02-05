@@ -276,6 +276,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 		const endIndex = startIndex + itemsPerPage
 		return filteredData.slice(startIndex, endIndex)
 	}, [currentPage, filteredData])
+	console.log(filteredData)
 	return (
 		<div>
 			<div className="relative flex min-h-screen mt-10">
@@ -286,8 +287,10 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 					<Heading2
 						heading={`Stays in ${area || arr || tower}`}
 						className="!mb-8"
+						listing={filteredData}
 					/>
-					<div className="mb-8 lg:mb-11">
+					{
+						filteredData.length > 0 ? <div className="mb-8 lg:mb-11">
 						<TabFilters
 							setPropertyType={setPropertyType}
 							propertyType={propertyType}
@@ -299,8 +302,10 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 							handleBedFilter={handleBedFilter}
 							handlePriceFilter={handlePriceFilter}
 							handlePropertyFilter={handlePropertyFilter}
+							 
 						/>
-					</div>
+					</div> : null 
+					}
 
 					{filteredData.length > 0 ? (
 						<div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 2xl:gap-x-6">

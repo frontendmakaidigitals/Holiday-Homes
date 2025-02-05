@@ -5,12 +5,14 @@ export interface Heading2Props {
 	heading?: ReactNode
 	subHeading?: ReactNode
 	className?: string
+	listing?: {}[]
 }
 
 const Heading2: React.FC<Heading2Props> = ({
 	className = '',
 	heading = 'Stays in Tokyo',
 	subHeading,
+	listing = [{}]
 }) => {
 	return (
 		<div className={`mb-12 lg:mb-16 ${className}`}>
@@ -19,7 +21,7 @@ const Heading2: React.FC<Heading2Props> = ({
 				subHeading
 			) : (
 				<span className="mt-3 block text-neutral-500 dark:text-neutral-400">
-					300+ stays
+					{listing.length > 0 ? `${listing.length}+ stays`  :null} 
 				</span>
 			)}
 		</div>

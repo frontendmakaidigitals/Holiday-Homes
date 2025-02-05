@@ -85,7 +85,7 @@ const StaySearchForm = () => {
 						</span>
 					</button>
 				) : (
-					<DatesRangeInput />
+					<DatesRangeInput startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
 				)}
 			</div>
 		)
