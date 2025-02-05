@@ -211,7 +211,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 		} else {
 			setFilteredData(listings)
 		}
-	}, [listings])
+	}, [listings, tower, area, bed, pri, count, arr])
 	const [propertyType, setPropertyType] = useState<string[]>([])
 	const [filterBeds, setFitlerBeds] = useState<number | null>(null)
 	const [rangePrices, setRangePrices] = useState<number[]>([0, 1000])
