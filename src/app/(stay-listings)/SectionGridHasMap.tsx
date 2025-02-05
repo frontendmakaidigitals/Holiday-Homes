@@ -168,12 +168,11 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 
 	useEffect(() => {
 		 
-		if (bed && pri && count && arr || emir) {
+		if ( pri && count && arr || emir) {
 
 			// Step 1: Filter listings based on all conditions (bed, pri, count, arr, emir)
 			const filteredData = listings.filter((list: any) => {
-				const matchesArea = list.Area === arr; // Check if 'Area' matches 'arr'
-				const matchesBeds = list.beds <= Number(bed); // Filter by bed count
+				const matchesArea = list.Area === arr;
 				const matchesPrice = list.discountedPrice <= Number(pri); // Filter by price
 				 
 				 
@@ -181,7 +180,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 				// Combine all conditions together
 				return (
 					(matchesArea || !arr) && // If arr is provided, match area
-					matchesBeds &&
+					
 					matchesPrice
 				);
 			});
