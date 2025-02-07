@@ -104,6 +104,7 @@ const PageAddListing2: FC<PageAddListing2Props> = ({
 		'Umm Al Quwain',
 		'Fujairah',
 	]
+ 
 	return (
 		<>
 			<h2 className="text-2xl font-semibold">Your place location</h2>

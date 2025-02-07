@@ -274,7 +274,7 @@ const useStore = create((set) => ({
 				Price,
 			},
 		})),
-	setPrice: (emirates) =>
+	setEmirates: (emirates) =>
 		set((state) => ({
 			ListingData: {
 				...state.ListingData,
